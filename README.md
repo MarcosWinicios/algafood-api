@@ -1,5 +1,5 @@
 # Food delivery API
-Projeto desenvolvido como parte do curso [Especialista Spring REST](https://www.algaworks.com/cursos/especialista-spring-rest/) oferecido pela [AlgaWorks](https://www.algaworks.com).
+Projeto desenvolvido como parte do curso **Especialista Spring REST** oferecido pela [AlgaWorks](https://www.algaworks.com).
 
 ## Tecnologias utilizadas
 
