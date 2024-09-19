@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_kitchen")
-public class kitchen {
+public class Kitchen {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +38,7 @@ public class kitchen {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        kitchen kitchen = (kitchen) o;
+        Kitchen kitchen = (Kitchen) o;
         return Objects.equals(id, kitchen.id);
     }
 
