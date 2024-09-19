@@ -31,7 +31,7 @@ public class KitchenRegister {
     }
 
     @Transactional
-    public Kitchen addKitchen(Kitchen kitchen){
+    public Kitchen save(Kitchen kitchen){
         return manager.merge(kitchen); // cadastra o objeto e retorna a instancia persistida
     }
 }
