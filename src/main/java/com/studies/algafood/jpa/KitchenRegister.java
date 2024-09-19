@@ -4,6 +4,7 @@ import com.studies.algafood.domain.model.Kitchen;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,5 +24,10 @@ public class KitchenRegister {
          * Utilizando JPQL para realizar consultas no banco de dados
          */
         return manager.createQuery("from Kitchen", Kitchen.class).getResultList(); // Busca uma lista de objetos do tipo Kitchen
+    }
+
+    @Transactional
+    public Kitchen addKitchen(Kitchen kitchen){
+        return manager.merge(kitchen); // cadastra o objeto e retorna a instancia persistida
     }
 }
