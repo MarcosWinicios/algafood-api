@@ -26,6 +26,10 @@ public class KitchenRegister {
         return manager.createQuery("from Kitchen", Kitchen.class).getResultList(); // Busca uma lista de objetos do tipo Kitchen
     }
 
+    public Kitchen find(Long id){
+        return manager.find(Kitchen.class, id);
+    }
+
     @Transactional
     public Kitchen addKitchen(Kitchen kitchen){
         return manager.merge(kitchen); // cadastra o objeto e retorna a instancia persistida
