@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationContext;
 
 import java.util.List;
 
-public class GetKitchenMain {
+public class ListKitchenMain {
     public static void main(String[] args) {
         /**
          * Prepara um contexto da aplicação para não executar como uma aplicação Web
