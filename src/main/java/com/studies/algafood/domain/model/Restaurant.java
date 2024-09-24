@@ -4,15 +4,21 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.Objects;
+
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity(name = "tb_restaurant")
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "tb_restaurant")
 public class Restaurant {
 
     @EqualsAndHashCode.Include
@@ -22,4 +28,8 @@ public class Restaurant {
     private String name;
     private BigDecimal shippingFee;
 
+    public Restaurant(String name, BigDecimal shippingFee) {
+        this.name = name;
+        this.shippingFee = shippingFee;
+    }
 }
