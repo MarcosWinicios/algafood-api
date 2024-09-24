@@ -1,4 +1,4 @@
-package com.studies.algafood.jpa;
+package com.studies.algafood.jpa.restaurant;
 
 import com.studies.algafood.AlgafoodApiApplication;
 import com.studies.algafood.domain.model.Restaurant;

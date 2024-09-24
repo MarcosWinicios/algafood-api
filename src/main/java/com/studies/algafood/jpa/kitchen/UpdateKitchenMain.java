@@ -1,4 +1,4 @@
-package com.studies.algafood.jpa;
+package com.studies.algafood.jpa.kitchen;
 
 import com.studies.algafood.AlgafoodApiApplication;
 import com.studies.algafood.domain.model.Kitchen;
@@ -7,9 +7,7 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 
-import java.util.List;
-
-public class GetKitchenMain {
+public class UpdateKitchenMain {
     public static void main(String[] args) {
         /**
          * Prepara um contexto da aplicação para não executar como uma aplicação Web
@@ -20,8 +18,16 @@ public class GetKitchenMain {
 
         KitchenRepository kitchenRepository =  applicationContext.getBean(KitchenRepository.class);
 
-        Kitchen kitchenList =  kitchenRepository.find(1L);
+        Kitchen kitchen = new Kitchen();
+        kitchen.setId(1L);
+        kitchen.setName("Brasileira");
 
-        System.out.println(kitchenList.getName());
+
+        kitchen = kitchenRepository.save(kitchen);
+
+
+        System.out.printf("%d - %s\n", kitchen.getId(), kitchen.getName());
+
+
     }
 }
