@@ -2,6 +2,7 @@ package com.studies.algafood.jpa;
 
 import com.studies.algafood.AlgafoodApiApplication;
 import com.studies.algafood.domain.model.Kitchen;
+import com.studies.algafood.domain.repository.KitchenRepository;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
@@ -15,14 +16,14 @@ public class UpdateKitchenMain {
                 .web(WebApplicationType.NONE)
                 .run(args);
 
-        KitchenRegister kitchenRegister =  applicationContext.getBean(KitchenRegister.class);
+        KitchenRepository kitchenRepository =  applicationContext.getBean(KitchenRepository.class);
 
         Kitchen kitchen = new Kitchen();
         kitchen.setId(1L);
         kitchen.setName("Brasileira");
 
 
-        kitchen = kitchenRegister.save(kitchen);
+        kitchen = kitchenRepository.save(kitchen);
 
 
         System.out.printf("%d - %s\n", kitchen.getId(), kitchen.getName());
