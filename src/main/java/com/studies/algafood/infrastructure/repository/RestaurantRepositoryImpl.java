@@ -29,7 +29,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     @Override
     @Transactional
     public Restaurant save(Restaurant restaurant){
-        return manager.merge(restaurant); // cadastra o objeto e retorna a instancia persistida
+        return manager.merge(restaurant);
     }
 
     @Override

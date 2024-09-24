@@ -14,10 +14,6 @@ public class KitchenRepositoryImpl implements KitchenRepository {
 
     @PersistenceContext
     private EntityManager manager;
-    /**
-     * A interface EntityManager do JPA Gerencia o contexto de persistência. Responsável pela conversão dos comandos em SQL
-     * A anotação @PersistenceContext faz a injeção da classe e fornece mais recursos úteis
-     */
 
     @Override
     public List<Kitchen> list(){
@@ -35,7 +31,7 @@ public class KitchenRepositoryImpl implements KitchenRepository {
     @Override
     @Transactional
     public Kitchen save(Kitchen kitchen){
-        return manager.merge(kitchen); // cadastra o objeto e retorna a instancia persistida
+        return manager.merge(kitchen);
     }
 
     @Override
