@@ -39,8 +39,9 @@ public class Restaurant {
     @JoinColumn(name = "kitchen_id", nullable = false)
     private Kitchen kitchen;
 
-    public Restaurant(String name, BigDecimal shippingFee) {
+    public Restaurant(String name, BigDecimal shippingFee, Kitchen kitchen) {
         this.name = name;
         this.shippingFee = shippingFee;
+        this.kitchen = kitchen;
     }
 }
