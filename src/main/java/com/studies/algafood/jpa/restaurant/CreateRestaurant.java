@@ -1,13 +1,16 @@
 package com.studies.algafood.jpa.restaurant;
 
 import com.studies.algafood.AlgafoodApiApplication;
+import com.studies.algafood.domain.model.Kitchen;
 import com.studies.algafood.domain.model.Restaurant;
+import com.studies.algafood.domain.repository.KitchenRepository;
 import com.studies.algafood.domain.repository.RestaurantRepository;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class CreateRestaurant {
 
@@ -17,10 +20,28 @@ public class CreateRestaurant {
                 .run(args);
 
         RestaurantRepository restaurantRepository = applicationContext.getBean(RestaurantRepository.class);
+        KitchenRepository kitchenRepository = applicationContext.getBean(KitchenRepository.class);
 
-        Restaurant restaurant1 = new Restaurant("Restaurant 1", new BigDecimal("10.5"));
+        Kitchen kitchen = kitchenRepository.find(1L);
+
+        Restaurant restaurant1 = new Restaurant("Restaurant 1", new BigDecimal("10.5"), kitchen);
+        restaurant1 = restaurantRepository.save(restaurant1);
+
+        List<Restaurant> restaurantList = restaurantRepository.list();
+
+        restaurantList.forEach(System.out::println);
+
+        System.out.println(restaurantList.getLast().equals(restaurant1));
+
+        restaurant1.setName(restaurant1.getName() +  " Atualizado");
         restaurantRepository.save(restaurant1);
 
-        restaurantRepository.list().forEach(System.out::println);
+        kitchenRepository.remove(kitchen);
+
+//        restaurantRepository.remove(restaurant1);
+
+//        Restaurant restaurant2 = new Restaurant();
+//        restaurantRepository.save(restaurant2);
+
     }
 }
