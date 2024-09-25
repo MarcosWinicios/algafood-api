@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,7 @@ public class Restaurant {
     private BigDecimal shippingFee;
 
     @ManyToOne
+    @JoinColumn(name = "kitchen_id")
     private Kitchen kitchen;
 
     public Restaurant(String name, BigDecimal shippingFee) {
