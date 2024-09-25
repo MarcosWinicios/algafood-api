@@ -14,6 +14,10 @@ Projeto desenvolvido como parte do curso **Especialista Spring REST** oferecido 
 
 Este projeto segue uma convenção específica para mensagens de commit para garantir clareza e consistência no histórico de commits. Abaixo está uma explicação sucinta do padrão utilizado:
 
+## Diagrama de classes de domínio
+
+<img src="docs/domain-classes-diagram.jpg" alt="Diagrama de classes de domínio" width="980"/>
+
 ### Estrutura da Mensagem de Commit
 
 A estrutura das mensagens de commit segue o formato:
