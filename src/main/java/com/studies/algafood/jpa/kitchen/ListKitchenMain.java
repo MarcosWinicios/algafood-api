@@ -1,7 +1,6 @@
 package com.studies.algafood.jpa.kitchen;
 
 import com.studies.algafood.AlgafoodApiApplication;
-
 import com.studies.algafood.domain.model.Kitchen;
 import com.studies.algafood.domain.repository.KitchenRepository;
 import org.springframework.boot.WebApplicationType;

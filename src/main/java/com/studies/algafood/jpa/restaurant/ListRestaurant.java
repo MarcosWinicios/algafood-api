@@ -1,13 +1,10 @@
 package com.studies.algafood.jpa.restaurant;
 
 import com.studies.algafood.AlgafoodApiApplication;
-import com.studies.algafood.domain.model.Restaurant;
 import com.studies.algafood.domain.repository.RestaurantRepository;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
-
-import java.util.List;
 
 public class ListRestaurant {
 
