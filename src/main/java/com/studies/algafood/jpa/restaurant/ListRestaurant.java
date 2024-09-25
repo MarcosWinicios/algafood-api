@@ -7,7 +7,7 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 public class ListRestaurant {
 
@@ -18,6 +18,7 @@ public class ListRestaurant {
 
         RestaurantRepository restaurantRepository = applicationContext.getBean(RestaurantRepository.class);
 
-        restaurantRepository.list().forEach(System.out::println);
+        restaurantRepository.list().forEach(x -> System.out.printf("%s - %f - %s\n", x.getName(), x.getShippingFee(), x.getKitchen().getName()));
+
     }
 }
