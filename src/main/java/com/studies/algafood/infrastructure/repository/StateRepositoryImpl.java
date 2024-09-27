@@ -4,11 +4,13 @@ import com.studies.algafood.domain.model.State;
 import com.studies.algafood.domain.repository.StateRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
 
+@Component
 public class StateRepositoryImpl implements StateRepository {
 
     @PersistenceContext
