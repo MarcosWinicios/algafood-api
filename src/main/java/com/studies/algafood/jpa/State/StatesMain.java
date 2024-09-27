@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationContext;
 
 import java.util.List;
 
-public class ListStatesMain {
+public class StatesMain {
 
     public static void main(String[] args) {
         ApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApiApplication.class)
@@ -26,8 +26,10 @@ public class ListStatesMain {
 
         State newState = allStates.save(new State("Novo state"));
 
-        allStates.list().forEach(System.out::println);
-
         newState.setName("NOVO NOME");
+
+        allStates.save(newState);
+
+        allStates.list().forEach(System.out::println);
     }
 }
