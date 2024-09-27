@@ -21,7 +21,6 @@ public class ListStatesMain {
         List<State> stateList =  allStates.list();
         stateList.forEach(System.out::println);
 
-
         State state = allStates.find(1L);
         System.out.println(state);
 
@@ -30,10 +29,5 @@ public class ListStatesMain {
         allStates.list().forEach(System.out::println);
 
         newState.setName("NOVO NOME");
-
-
-
     }
-
-
 }
