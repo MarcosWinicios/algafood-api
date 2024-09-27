@@ -1,4 +1,4 @@
-package com.studies.algafood.jpa.State;
+package com.studies.algafood.jpa.state;
 
 import com.studies.algafood.AlgafoodApiApplication;
 import com.studies.algafood.domain.model.State;
