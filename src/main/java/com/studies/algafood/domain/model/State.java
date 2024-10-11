@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
