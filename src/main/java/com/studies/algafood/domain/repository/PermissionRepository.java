@@ -7,7 +7,7 @@ import java.util.List;
 public interface PermissionRepository {
 
     List<Permission> list();
-    Permission find(String id);
+    Permission find(Integer id);
     Permission save(Permission permission);
     void remove(Permission permission);
 }
