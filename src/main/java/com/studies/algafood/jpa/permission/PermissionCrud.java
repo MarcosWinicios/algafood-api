@@ -3,8 +3,6 @@ package com.studies.algafood.jpa.permission;
 import com.studies.algafood.AlgafoodApiApplication;
 import com.studies.algafood.domain.model.Permission;
 import com.studies.algafood.domain.repository.PermissionRepository;
-import com.studies.algafood.infrastructure.repository.PermissionRepositoryImpl;
-import jakarta.persistence.EntityManager;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
@@ -23,6 +21,19 @@ public class PermissionCrud {
         List<Permission> permissionList = permissionRepository.list();
 
         permissionList.forEach(System.out::println);
+
+        Permission permission = permissionRepository.find(1);
+
+        System.out.println(permission);
+
+        Permission newPermission =  permissionRepository.save(new Permission("REMOVE_KITCHEN", "Excluir cozinhas"));
+        System.out.println(newPermission);
+
+        newPermission.setDescription("Remover cozinhas");
+
+        newPermission = permissionRepository.save(newPermission);
+
+        permissionRepository.remove(newPermission);
 
     }
 }

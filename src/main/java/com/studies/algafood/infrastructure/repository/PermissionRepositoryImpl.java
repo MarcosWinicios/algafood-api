@@ -34,6 +34,7 @@ public class PermissionRepositoryImpl implements PermissionRepository {
     @Override
     @Transactional
     public void remove(Permission permission) {
+        permission = find(permission.getId());
         entityManager.remove(permission);
     }
 }
