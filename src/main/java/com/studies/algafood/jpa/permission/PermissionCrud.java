@@ -22,7 +22,7 @@ public class PermissionCrud {
 
         permissionList.forEach(System.out::println);
 
-        Permission permission = permissionRepository.find(1);
+        Permission permission = permissionRepository.find(1L);
 
         System.out.println(permission);
 

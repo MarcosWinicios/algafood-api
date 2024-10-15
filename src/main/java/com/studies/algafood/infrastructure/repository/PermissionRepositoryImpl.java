@@ -21,7 +21,7 @@ public class PermissionRepositoryImpl implements PermissionRepository {
     }
 
     @Override
-    public Permission find(Integer id) {
+    public Permission find(Long id) {
         return entityManager.find(Permission.class, id);
     }
 
