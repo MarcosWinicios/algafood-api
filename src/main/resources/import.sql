@@ -5,8 +5,12 @@ INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id) VALUES (1, 'Thai G
 INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id) VALUES (2, 'Thai Delivery', 9.50, 1);
 INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id) VALUES (3, 'Tuk Tuk Comida Indiana', 15.00, 2);
 
-INSERT INTO tb_permission (id, name, description) values (1, 'GET_KITCHEN', 'Permite consultar cozinhas');
-INSERT INTO tb_permission (id, name, description) values (2, 'UPDATE_KITCHEN', 'Permite editar cozinhas');
+INSERT INTO tb_permission (id, name, description) VALUES (1, 'GET_KITCHEN', 'Permite consultar cozinhas');
+INSERT INTO tb_permission (id, name, description) VALUES (2, 'UPDATE_KITCHEN', 'Permite editar cozinhas');
+
+INSERT INTO tb_payment_method(id, description) VALUES (1, "Cartão de crédito");
+INSERT INTO tb_payment_method(id, description) VALUES (2, "Cartão de débito");
+INSERT INTO tb_payment_method(id, description) VALUES (3, "Dinheiro");
 
 INSERT INTO tb_state(id, name) VALUES (1, "Acre");
 INSERT INTO tb_state(id, name) VALUES (2, "Alagoas");
