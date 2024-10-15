@@ -28,7 +28,9 @@ public class StatesMain {
 
         newState.setName("NOVO NOME");
 
-        allStates.save(newState);
+        newState =  allStates.save(newState);
+
+        allStates.remove(newState);
 
         allStates.list().forEach(System.out::println);
     }
