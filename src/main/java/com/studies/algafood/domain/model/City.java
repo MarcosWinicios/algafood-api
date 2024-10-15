@@ -33,7 +33,8 @@ public class City {
     @JoinColumn(nullable = false)
     private State state;
 
-    public City(String name){
+    public City(String name, State state) {
         this.name = name;
+        this.state = state;
     }
 }
