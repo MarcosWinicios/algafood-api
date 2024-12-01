@@ -1,5 +1,6 @@
 package com.studies.algafood.domain.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,7 +36,14 @@ public class Restaurant {
     @Column(nullable = false)
     private BigDecimal shippingFee;
 
-    @ManyToOne
+    @Column(nullable = false)
+    private Boolean isOpen;
+
+    @Column(nullable = false)
+    private Boolean isActive;
+
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "kitchen_id", nullable = false)
     private Kitchen kitchen;
 
@@ -43,5 +51,7 @@ public class Restaurant {
         this.name = name;
         this.shippingFee = shippingFee;
         this.kitchen = kitchen;
+        this.isActive = true;
+        this.isOpen = true;
     }
 }
