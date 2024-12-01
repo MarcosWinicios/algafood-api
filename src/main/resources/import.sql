@@ -1,9 +1,9 @@
 INSERT INTO tb_kitchen (id, name) VALUES (1, 'Tailandesa');
 INSERT INTO tb_kitchen (id, name) VALUES (2, 'Indiana');
 
-INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id) VALUES (1, 'Thai Gourmet', 10.00, 1);
-INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id) VALUES (2, 'Thai Delivery', 9.50, 1);
-INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id) VALUES (3, 'Tuk Tuk Comida Indiana', 15.00, 2);
+INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active) VALUES (1, 'Thai Gourmet', 10.00, 1, false, true);
+INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active) VALUES (2, 'Thai Delivery', 9.50, 1, true, true);
+INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active) VALUES (3, 'Tuk Tuk Comida Indiana', 15.00, 2, false, true);
 
 INSERT INTO tb_permission (id, name, description) VALUES (1, 'GET_KITCHEN', 'Permite consultar cozinhas');
 INSERT INTO tb_permission (id, name, description) VALUES (2, 'UPDATE_KITCHEN', 'Permite editar cozinhas');
