@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/kitchens"/*, produces = MediaType.APPLICATION_JSON_VALUE*/)
+@RequestMapping("/kitchens")
 public class KitchenController {
 
     @Autowired
