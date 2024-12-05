@@ -4,7 +4,10 @@ import com.studies.algafood.api.model.KitchensXmlWrapper;
 import com.studies.algafood.domain.model.Kitchen;
 import com.studies.algafood.domain.repository.KitchenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,8 +33,16 @@ public class KitchenController {
     }
 
     @GetMapping("/{kitchenId}")
-    public Kitchen find(@PathVariable Long kitchenId){
-        return this.kitchenRepository.find(kitchenId);
+    public ResponseEntity<Kitchen> find(@PathVariable Long kitchenId){
+        Kitchen kitchen = this.kitchenRepository.find(kitchenId);
+
+        if(kitchen != null){
+            return ResponseEntity.ok(kitchen);
+        }
+
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.notFound().build();
     }
+
 
 }
