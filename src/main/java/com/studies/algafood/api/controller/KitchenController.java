@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -51,8 +52,10 @@ public class KitchenController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Kitchen add(@RequestBody Kitchen kitchen){
-        return this.kitchenRepository.save(kitchen);
+    public ResponseEntity<Kitchen> add(@RequestBody Kitchen kitchen){
+        kitchen = this.kitchenRepository.save(kitchen);
+
+        return ResponseEntity.created(URI.create("localhost:8080/kitchens/" + kitchen.getId())).body(kitchen);
     }
 
 
