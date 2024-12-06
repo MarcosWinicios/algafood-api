@@ -21,13 +21,16 @@ public class KitchenController {
     private KitchenRepository kitchenRepository;
 
     @GetMapping
-    public List<Kitchen> list(){
-        return kitchenRepository.list();
+    public ResponseEntity<List<Kitchen>> list(){
+        List<Kitchen> result = this.kitchenRepository.list();
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
-    public KitchensXmlWrapper listXML(){
-        return new KitchensXmlWrapper(kitchenRepository.list());
+    public ResponseEntity<KitchensXmlWrapper> listXML(){
+        List<Kitchen> result = this.kitchenRepository.list();
+        KitchensXmlWrapper resultXml = new KitchensXmlWrapper(result);
+        return ResponseEntity.ok(resultXml);
     }
 
     @GetMapping("/{kitchenId}")
