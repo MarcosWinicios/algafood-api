@@ -3,6 +3,7 @@ package com.studies.algafood.api.controller;
 import com.studies.algafood.api.model.KitchensXmlWrapper;
 import com.studies.algafood.domain.model.Kitchen;
 import com.studies.algafood.domain.repository.KitchenRepository;
+import com.studies.algafood.domain.service.KitchenRegisterService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -28,6 +29,9 @@ public class KitchenController {
 
     @Autowired
     private KitchenRepository kitchenRepository;
+
+    @Autowired
+    private KitchenRegisterService kitchenRegisterService;
 
     @GetMapping
     public ResponseEntity<List<Kitchen>> list() {
@@ -57,7 +61,7 @@ public class KitchenController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Kitchen> add(@RequestBody Kitchen kitchen) {
-        kitchen = this.kitchenRepository.save(kitchen);
+        kitchen = this.kitchenRegisterService.save(kitchen);
 
         return ResponseEntity.created(URI.create("localhost:8080/kitchens/" + kitchen.getId())).body(kitchen);
     }
