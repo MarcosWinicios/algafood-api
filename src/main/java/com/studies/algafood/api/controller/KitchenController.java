@@ -1,6 +1,8 @@
 package com.studies.algafood.api.controller;
 
 import com.studies.algafood.api.model.KitchensXmlWrapper;
+import com.studies.algafood.domain.exception.EntityInUseException;
+import com.studies.algafood.domain.exception.EntityNotFoundException;
 import com.studies.algafood.domain.model.Kitchen;
 import com.studies.algafood.domain.repository.KitchenRepository;
 import com.studies.algafood.domain.service.KitchenRegisterService;
@@ -82,17 +84,14 @@ public class KitchenController {
 
     @DeleteMapping("/{kitchenId}")
     public ResponseEntity<Void> delete(@PathVariable Long kitchenId) {
-
         try {
-            Kitchen kitchen = this.kitchenRepository.find(kitchenId);
+            this.kitchenRegisterService.remove(kitchenId);
+            return ResponseEntity.noContent().build();
 
-            if (kitchen != null) {
-                this.kitchenRepository.remove(kitchen);
-                return ResponseEntity.noContent().build();
-            }
-
+        }catch (EntityNotFoundException e){
             return ResponseEntity.notFound().build();
-        } catch (DataIntegrityViolationException e) {
+
+        } catch (EntityInUseException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }

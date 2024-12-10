@@ -36,7 +36,7 @@ public class CreateRestaurant {
         restaurant1.setName(restaurant1.getName() +  " Atualizado");
         restaurantRepository.save(restaurant1);
 
-        kitchenRepository.remove(kitchen);
+        kitchenRepository.remove(kitchen.getId());
 
 //        restaurantRepository.remove(restaurant1);
 
