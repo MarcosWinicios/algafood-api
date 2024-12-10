@@ -4,6 +4,7 @@ import com.studies.algafood.domain.model.Kitchen;
 import com.studies.algafood.domain.repository.KitchenRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,8 +37,11 @@ public class KitchenRepositoryImpl implements KitchenRepository {
 
     @Override
     @Transactional
-    public void remove(Kitchen kitchen){
-        kitchen = find(kitchen.getId());
+    public void remove(Long id){
+        Kitchen kitchen = find(id);
+        if(kitchen == null){
+            throw  new EmptyResultDataAccessException(1); //No parâmetro, passar a quantidade de itens esperados
+        }
         manager.remove(kitchen);
     }
 
