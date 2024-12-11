@@ -5,6 +5,7 @@ import com.studies.algafood.domain.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,8 +19,19 @@ public class RestaurantController {
     private RestaurantRepository restaurantRepository;
 
     @GetMapping
-    public ResponseEntity<List<Restaurant>> list(){
-         List<Restaurant> restaurants = this.restaurantRepository.list();
-         return ResponseEntity.ok(restaurants);
+    public ResponseEntity<List<Restaurant>> list() {
+        List<Restaurant> restaurants = this.restaurantRepository.list();
+        return ResponseEntity.ok(restaurants);
+    }
+
+    @GetMapping("/{restaurantId}")
+    public ResponseEntity<Restaurant> find(@PathVariable Long restaurantId) {
+        Restaurant restaurant = this.restaurantRepository.find(restaurantId);
+
+        if (restaurant != null) {
+            return ResponseEntity.ok(restaurant);
+        }
+
+        return ResponseEntity.notFound().build();
     }
 }
