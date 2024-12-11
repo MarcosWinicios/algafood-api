@@ -1,6 +1,5 @@
 package com.studies.algafood.api.controller;
 
-import com.studies.algafood.api.model.KitchensXmlWrapper;
 import com.studies.algafood.domain.exception.EntityInUseException;
 import com.studies.algafood.domain.exception.EntityNotFoundException;
 import com.studies.algafood.domain.model.Kitchen;
@@ -8,9 +7,7 @@ import com.studies.algafood.domain.repository.KitchenRepository;
 import com.studies.algafood.domain.service.KitchenRegisterService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,12 +38,6 @@ public class KitchenController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<KitchensXmlWrapper> listXML() {
-        List<Kitchen> result = this.kitchenRepository.list();
-        KitchensXmlWrapper resultXml = new KitchensXmlWrapper(result);
-        return ResponseEntity.ok(resultXml);
-    }
 
     @GetMapping("/{kitchenId}")
     public ResponseEntity<Kitchen> find(@PathVariable Long kitchenId) {
@@ -95,5 +86,4 @@ public class KitchenController {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
-
 }
