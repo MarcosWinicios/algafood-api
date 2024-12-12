@@ -12,8 +12,6 @@ public class RestaurantRegisterService {
     private RestaurantRepository restaurantRepository;
 
     public Restaurant save(Restaurant restaurant){
-        restaurant.setIsOpen(false);
-        restaurant.setIsActive(false);
         return this.restaurantRepository.save(restaurant);
     }
 }
