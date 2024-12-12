@@ -37,11 +37,10 @@ public class Restaurant {
     private BigDecimal shippingFee;
 
     @Column(nullable = false)
-    private Boolean isOpen;
+    private Boolean isOpen = true;
 
     @Column(nullable = false)
-    private Boolean isActive;
-
+    private Boolean isActive = true;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "kitchen_id", nullable = false)
