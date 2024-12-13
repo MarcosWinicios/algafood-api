@@ -3,6 +3,7 @@ package com.studies.algafood.api.controller;
 import com.studies.algafood.domain.model.State;
 import com.studies.algafood.domain.repository.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,8 @@ public class StateController {
     private StateRepository stateRepository;
 
     @GetMapping
-    public List<State> list(){
-        return this.stateRepository.list();
+    public ResponseEntity<List<State>> list(){
+        List<State> result = this.stateRepository.list();
+        return ResponseEntity.ok(result);
     }
 }
