@@ -5,11 +5,13 @@ import com.studies.algafood.domain.model.Restaurant;
 import com.studies.algafood.domain.repository.RestaurantRepository;
 import com.studies.algafood.domain.service.RestaurantRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,4 +56,17 @@ public class RestaurantController {
         }
 
     }
+
+    @PutMapping("/{restaurantId}")
+    public ResponseEntity<?> update(@PathVariable Long restaurantId, @RequestBody Restaurant restaurant){
+
+        try {
+            restaurant.setId(restaurantId);
+            restaurant = this.restaurantRegisterService.update(restaurant);
+            return ResponseEntity.ok(restaurant);
+        }catch (EntityNotFoundException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 }
