@@ -4,6 +4,7 @@ import com.studies.algafood.domain.exception.EntityNotFoundException;
 import com.studies.algafood.domain.model.Restaurant;
 import com.studies.algafood.domain.repository.RestaurantRepository;
 import com.studies.algafood.domain.service.RestaurantRegisterService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -61,9 +62,15 @@ public class RestaurantController {
     public ResponseEntity<?> update(@PathVariable Long restaurantId, @RequestBody Restaurant restaurant){
 
         try {
-            restaurant.setId(restaurantId);
-            restaurant = this.restaurantRegisterService.update(restaurant);
-            return ResponseEntity.ok(restaurant);
+            Restaurant currentRestaurant = this.restaurantRepository.find(restaurantId);
+
+            if(currentRestaurant != null){
+               BeanUtils.copyProperties(restaurant, currentRestaurant, "id");
+               currentRestaurant = this.restaurantRegisterService.save(currentRestaurant);
+               return  ResponseEntity.ok(currentRestaurant);
+            }
+
+            return ResponseEntity.notFound().build();
         }catch (EntityNotFoundException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
