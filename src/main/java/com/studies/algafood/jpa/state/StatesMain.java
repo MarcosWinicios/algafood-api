@@ -30,7 +30,7 @@ public class StatesMain {
 
         newState =  allStates.save(newState);
 
-        allStates.remove(newState);
+        allStates.remove(newState.getId());
 
         allStates.list().forEach(System.out::println);
     }
