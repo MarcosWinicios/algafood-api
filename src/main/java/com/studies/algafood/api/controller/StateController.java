@@ -1,11 +1,14 @@
 package com.studies.algafood.api.controller;
 
+import com.studies.algafood.domain.exception.EntityInUseException;
+import com.studies.algafood.domain.exception.EntityNotFoundException;
 import com.studies.algafood.domain.model.State;
 import com.studies.algafood.domain.repository.StateRepository;
 import com.studies.algafood.domain.service.StateRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,5 +51,17 @@ public class StateController {
         state =  this.stateRegisterService.save(state);
 
         return ResponseEntity.ok(state);
+    }
+
+    @DeleteMapping("/{stateId}")
+    public ResponseEntity<Void> delete(@PathVariable Long stateId){
+        try {
+            this.stateRegisterService.remove(stateId);
+            return ResponseEntity.noContent().build();
+        }catch (EntityNotFoundException e){
+            return ResponseEntity.notFound().build();
+        }catch (EntityInUseException e){
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
     }
 }
