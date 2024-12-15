@@ -34,6 +34,6 @@ public class CityMain {
 
         allCities.save(city);
 
-        allCities.remove(city);
+        allCities.remove(city.getId());
     }
 }
