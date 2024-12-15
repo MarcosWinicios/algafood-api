@@ -40,7 +40,6 @@ public class CityController {
     @GetMapping("/{cityId}")
     public ResponseEntity<City> find(@PathVariable Long cityId) {
         City city = this.cityRepository.find(cityId);
-
         if (city != null) {
             return ResponseEntity.ok(city);
         }
@@ -76,14 +75,14 @@ public class CityController {
     }
 
     @DeleteMapping("/{cityId}")
-    public ResponseEntity<Void> delete(@PathVariable Long cityId) {
+    public ResponseEntity<?> delete(@PathVariable Long cityId) {
         try {
             this.cityRegisterService.remove(cityId);
             return ResponseEntity.noContent().build();
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (EntityInUseException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
     }
 }

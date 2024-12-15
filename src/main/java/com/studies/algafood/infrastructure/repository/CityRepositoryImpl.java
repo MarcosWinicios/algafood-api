@@ -36,7 +36,6 @@ public class CityRepositoryImpl implements CityRepository {
     @Transactional
     public void remove(Long id) {
         City city = find(id);
-
         if (city == null){
             throw new EmptyResultDataAccessException(1);
         }
