@@ -5,6 +5,7 @@ import com.studies.algafood.domain.exception.EntityNotFoundException;
 import com.studies.algafood.domain.model.City;
 import com.studies.algafood.domain.repository.CityRepository;
 import com.studies.algafood.domain.service.CityRegisterService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,17 +31,17 @@ public class CityController {
     private CityRegisterService cityRegisterService;
 
     @GetMapping
-    public ResponseEntity<List<City>> list(){
+    public ResponseEntity<List<City>> list() {
         List<City> result = cityRepository.list();
 
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/{cityId}")
-    public ResponseEntity<City> find(@PathVariable Long cityId){
+    public ResponseEntity<City> find(@PathVariable Long cityId) {
         City city = this.cityRepository.find(cityId);
 
-        if(city != null){
+        if (city != null) {
             return ResponseEntity.ok(city);
         }
 
@@ -47,23 +49,40 @@ public class CityController {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody City city){
+    public ResponseEntity<?> save(@RequestBody City city) {
         try {
-            city =  this.cityRegisterService.save(city);
+            city = this.cityRegisterService.save(city);
             return ResponseEntity.status(HttpStatus.CREATED).body(city);
-        }catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{cityId}")
+    public ResponseEntity<?> update(@PathVariable Long cityId, @RequestBody City city) {
+        try {
+            City currentCity = this.cityRepository.find(cityId);
+
+            if (currentCity != null) {
+                BeanUtils.copyProperties(city, currentCity, "id");
+                currentCity = this.cityRegisterService.save(currentCity);
+                return ResponseEntity.ok(currentCity);
+            }
+
+            return ResponseEntity.notFound().build();
+        } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @DeleteMapping("/{cityId}")
-    public ResponseEntity<Void> delete(@PathVariable Long cityId){
+    public ResponseEntity<Void> delete(@PathVariable Long cityId) {
         try {
             this.cityRegisterService.remove(cityId);
             return ResponseEntity.noContent().build();
-        }catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
-        }catch (EntityInUseException e){
+        } catch (EntityInUseException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
