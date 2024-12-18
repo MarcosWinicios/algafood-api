@@ -22,7 +22,8 @@ public class CreateRestaurant {
         RestaurantRepository restaurantRepository = applicationContext.getBean(RestaurantRepository.class);
         KitchenRepository kitchenRepository = applicationContext.getBean(KitchenRepository.class);
 
-        Kitchen kitchen = kitchenRepository.find(1L);
+        Kitchen kitchen = kitchenRepository.findById(1L)
+                .orElseThrow();
 
         Restaurant restaurant1 = new Restaurant("Restaurant 1", new BigDecimal("10.5"), kitchen);
         restaurant1 = restaurantRepository.save(restaurant1);
@@ -36,7 +37,7 @@ public class CreateRestaurant {
         restaurant1.setName(restaurant1.getName() +  " Atualizado");
         restaurantRepository.save(restaurant1);
 
-        kitchenRepository.remove(kitchen.getId());
+//        kitchenRepository.remove(kitchen.getId());
 
 //        restaurantRepository.remove(restaurant1);
 

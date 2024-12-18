@@ -20,7 +20,7 @@ public class ListKitchenMain {
 
         KitchenRepository kitchenRepository =  applicationContext.getBean(KitchenRepository.class);
 
-        List<Kitchen> kitchenList =  kitchenRepository.list();
+        List<Kitchen> kitchenList =  kitchenRepository.findAll();
 
         for(Kitchen kitchen : kitchenList){
             System.out.println(kitchen.getName());
