@@ -8,6 +8,8 @@ import com.studies.algafood.domain.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class RestaurantRegisterService {
 
@@ -19,13 +21,10 @@ public class RestaurantRegisterService {
 
     public Restaurant save(Restaurant restaurant){
         Long kitchenId = restaurant.getKitchen().getId();
-        Kitchen kitchen = this.kitchenRepository.find(kitchenId);
-
-        if(kitchen == null){
-            throw new EntityNotFoundException(
-                    String.format("There is no kitchen record with code %d", kitchenId)
-            );
-        }
+        Kitchen kitchen = this.kitchenRepository.findById(kitchenId)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format("There is no kitchen record with code %d", kitchenId)
+                ));
 
         restaurant.setKitchen(kitchen);
         return this.restaurantRepository.save(restaurant);

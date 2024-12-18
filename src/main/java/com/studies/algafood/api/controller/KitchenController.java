@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/kitchens")
@@ -34,17 +35,17 @@ public class KitchenController {
 
     @GetMapping
     public ResponseEntity<List<Kitchen>> list() {
-        List<Kitchen> result = this.kitchenRepository.list();
+        List<Kitchen> result = this.kitchenRepository.findAll();
         return ResponseEntity.ok(result);
     }
 
 
     @GetMapping("/{kitchenId}")
     public ResponseEntity<Kitchen> find(@PathVariable Long kitchenId) {
-        Kitchen kitchen = this.kitchenRepository.find(kitchenId);
+        Optional<Kitchen> kitchen = this.kitchenRepository.findById(kitchenId);
 
-        if (kitchen != null) {
-            return ResponseEntity.ok(kitchen);
+        if (kitchen.isPresent()) {
+            return ResponseEntity.ok(kitchen.get());
         }
 
 //        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -61,20 +62,19 @@ public class KitchenController {
 
     @PutMapping("/{kitchenId}")
     public ResponseEntity<Kitchen> update(@PathVariable Long kitchenId, @RequestBody Kitchen kitchen) {
-        Kitchen currentKitchen = this.kitchenRepository.find(kitchenId);
+        Optional<Kitchen> currentKitchen = this.kitchenRepository.findById(kitchenId);
 
-        if (currentKitchen != null) {
-            BeanUtils.copyProperties(kitchen, currentKitchen, "id");
-            currentKitchen = this.kitchenRegisterService.save(currentKitchen);
-
-            return ResponseEntity.ok(currentKitchen);
+        if (currentKitchen.isPresent()) {
+            BeanUtils.copyProperties(kitchen, currentKitchen.get(), "id");
+            Kitchen savedKitchen = this.kitchenRegisterService.save(currentKitchen.get());
+            return ResponseEntity.ok(savedKitchen);
         }
 
         return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{kitchenId}")
-    public ResponseEntity<Void> delete(@PathVariable Long kitchenId) {
+    public ResponseEntity<?> delete(@PathVariable Long kitchenId) {
         try {
             this.kitchenRegisterService.remove(kitchenId);
             return ResponseEntity.noContent().build();
@@ -83,7 +83,7 @@ public class KitchenController {
             return ResponseEntity.notFound().build();
 
         } catch (EntityInUseException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
     }
 }
