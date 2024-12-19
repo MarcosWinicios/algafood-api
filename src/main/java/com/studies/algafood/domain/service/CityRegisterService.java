@@ -20,14 +20,12 @@ public class CityRegisterService {
     @Autowired
     private StateRepository stateRepository;
 
-    public City save(City city){
-        State state = this.stateRepository.find(city.getState().getId());
+    public City save(City city) {
+        State state = this.stateRepository.findById(city.getState().getId())
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format("There is no state record with code %d", city.getState().getId())
+                ));
 
-        if(state == null){
-            throw new EntityNotFoundException(
-                    String.format("There is no state record with code %d", city.getState().getId())
-            );
-        }
         city.setState(state);
         return this.cityRepository.save(city);
     }
@@ -35,11 +33,11 @@ public class CityRegisterService {
     public void remove(Long cityId) {
         try {
             this.cityRepository.remove(cityId);
-        }catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException(
                     String.format("There is no state record with code %d", cityId)
             );
-        }catch (DataIntegrityViolationException e){
+        } catch (DataIntegrityViolationException e) {
             throw new EntityInUseException(
                     String.format("The kitchen at code %d cannot be removed because it is in use", cityId)
             );
