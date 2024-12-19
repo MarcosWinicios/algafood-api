@@ -1,6 +1,7 @@
 package com.studies.algafood.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.studies.algafood.domain.exception.EntityInUseException;
 import com.studies.algafood.domain.exception.EntityNotFoundException;
 import com.studies.algafood.domain.model.Restaurant;
 import com.studies.algafood.domain.repository.RestaurantRepository;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,14 +53,24 @@ public class RestaurantController {
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody Restaurant restaurant) {
-
         try {
             restaurant = this.restaurantRegisterService.save(restaurant);
             return ResponseEntity.status(HttpStatus.CREATED).body(restaurant);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
 
+    @DeleteMapping("/{restaurantId}")
+    public ResponseEntity<?> delete(@PathVariable Long restaurantId){
+        try{
+            this.restaurantRegisterService.remove(restaurantId);
+            return ResponseEntity.noContent().build();
+        }catch (EntityNotFoundException e){
+            return ResponseEntity.notFound().build();
+        }catch (EntityInUseException e){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
     }
 
     @PutMapping("/{restaurantId}")
