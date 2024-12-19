@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/restaurants")
@@ -42,53 +41,53 @@ public class RestaurantController {
 
     @GetMapping("/{restaurantId}")
     public ResponseEntity<Restaurant> find(@PathVariable Long restaurantId) {
-        Optional<Restaurant> restaurant = this.restaurantRepository.findById(restaurantId);
+        Restaurant restaurant = this.restaurantRepository.findById(restaurantId).orElse(null);
 
-        if (restaurant.isPresent()) {
-            return ResponseEntity.ok(restaurant.get());
+        if (restaurant != null) {
+            return ResponseEntity.ok(restaurant);
         }
         return ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody Restaurant restaurant){
+    public ResponseEntity<?> save(@RequestBody Restaurant restaurant) {
 
         try {
             restaurant = this.restaurantRegisterService.save(restaurant);
             return ResponseEntity.status(HttpStatus.CREATED).body(restaurant);
-        }catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
     }
 
     @PutMapping("/{restaurantId}")
-    public ResponseEntity<?> update(@PathVariable Long restaurantId, @RequestBody Restaurant restaurant){
+    public ResponseEntity<?> update(@PathVariable Long restaurantId, @RequestBody Restaurant restaurant) {
 
         try {
-            Optional<Restaurant> currentRestaurant = this.restaurantRepository.findById(restaurantId);
+            Restaurant currentRestaurant = this.restaurantRepository.findById(restaurantId).orElse(null);
 
-            if(currentRestaurant.isPresent()){
-               BeanUtils.copyProperties(restaurant, currentRestaurant.get(), "id");
-               Restaurant savedRestaurant = this.restaurantRegisterService.save(currentRestaurant.get());
-               return  ResponseEntity.ok(savedRestaurant);
+            if (currentRestaurant != null) {
+                BeanUtils.copyProperties(restaurant, currentRestaurant, "id");
+                currentRestaurant = this.restaurantRegisterService.save(currentRestaurant);
+                return ResponseEntity.ok(currentRestaurant);
             }
             return ResponseEntity.notFound().build();
-        }catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @PatchMapping("/{restaurantId}")
-    public ResponseEntity<?> partialUpdate(@PathVariable Long restaurantId, @RequestBody Map<String, Object> fields){
-        Optional<Restaurant> currentRestaurant = this.restaurantRepository.findById(restaurantId);
+    public ResponseEntity<?> partialUpdate(@PathVariable Long restaurantId, @RequestBody Map<String, Object> fields) {
+        Restaurant currentRestaurant = this.restaurantRepository.findById(restaurantId).orElse(null);
 
-        if(currentRestaurant.isEmpty()){
+        if (currentRestaurant == null) {
             return ResponseEntity.notFound().build();
         }
-        merge(fields, currentRestaurant.get());
+        merge(fields, currentRestaurant);
 
-        return update(restaurantId, currentRestaurant.get());
+        return update(restaurantId, currentRestaurant);
     }
 
     private void merge(Map<String, Object> dataSource, Restaurant restaurantTarget) {
@@ -99,7 +98,7 @@ public class RestaurantController {
             Field field = ReflectionUtils.findField(Restaurant.class, fieldName); //findField() Retorna uma instância de uma propriedade
             field.setAccessible(true);
 
-            Object newValue =  ReflectionUtils.getField(field, restaurantSource); //getFiedl() Obtem o valor de uma propriedade
+            Object newValue = ReflectionUtils.getField(field, restaurantSource); //getFiedl() Obtem o valor de uma propriedade
 
 //            System.out.println(fieldName + " = " + fieldValue + " = " + newValue);
 

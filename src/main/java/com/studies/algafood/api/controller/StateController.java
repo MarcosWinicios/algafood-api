@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/states")
@@ -40,10 +39,10 @@ public class StateController {
 
     @GetMapping("/{stateId}")
     public ResponseEntity<State> find(@PathVariable Long stateId) {
-        Optional<State> state = this.stateRepository.findById(stateId);
+        State state = this.stateRepository.findById(stateId).orElse(null);
 
-        if (state.isPresent()) {
-            return ResponseEntity.ok(state.get());
+        if (state != null) {
+            return ResponseEntity.ok(state);
         }
         return ResponseEntity.notFound().build();
     }
@@ -58,12 +57,12 @@ public class StateController {
 
     @PutMapping("/{stateId}")
     public ResponseEntity<?> update(@PathVariable Long stateId, @RequestBody State state) {
-        Optional<State> currentState = this.stateRepository.findById(stateId);
+        State currentState = this.stateRepository.findById(stateId).orElse(null);
 
-        if (currentState.isPresent()) {
-            BeanUtils.copyProperties(state, currentState.get(), "id");
-            State savedState = this.stateRegisterService.save(currentState.get());
-            return ResponseEntity.ok(savedState);
+        if (currentState != null) {
+            BeanUtils.copyProperties(state, currentState, "id");
+            currentState = this.stateRegisterService.save(currentState);
+            return ResponseEntity.ok(currentState);
         }
         return ResponseEntity.notFound().build();
     }

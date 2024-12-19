@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/kitchens")
@@ -42,10 +41,10 @@ public class KitchenController {
 
     @GetMapping("/{kitchenId}")
     public ResponseEntity<Kitchen> find(@PathVariable Long kitchenId) {
-        Optional<Kitchen> kitchen = this.kitchenRepository.findById(kitchenId);
+        Kitchen kitchen = this.kitchenRepository.findById(kitchenId).orElse(null);
 
-        if (kitchen.isPresent()) {
-            return ResponseEntity.ok(kitchen.get());
+        if (kitchen != null) {
+            return ResponseEntity.ok(kitchen);
         }
 
 //        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -62,12 +61,12 @@ public class KitchenController {
 
     @PutMapping("/{kitchenId}")
     public ResponseEntity<Kitchen> update(@PathVariable Long kitchenId, @RequestBody Kitchen kitchen) {
-        Optional<Kitchen> currentKitchen = this.kitchenRepository.findById(kitchenId);
+        Kitchen currentKitchen = this.kitchenRepository.findById(kitchenId).orElse(null);
 
-        if (currentKitchen.isPresent()) {
-            BeanUtils.copyProperties(kitchen, currentKitchen.get(), "id");
-            Kitchen savedKitchen = this.kitchenRegisterService.save(currentKitchen.get());
-            return ResponseEntity.ok(savedKitchen);
+        if (currentKitchen != null) {
+            BeanUtils.copyProperties(kitchen, currentKitchen, "id");
+            currentKitchen= this.kitchenRegisterService.save(currentKitchen);
+            return ResponseEntity.ok(currentKitchen);
         }
 
         return ResponseEntity.notFound().build();
@@ -78,7 +77,6 @@ public class KitchenController {
         try {
             this.kitchenRegisterService.remove(kitchenId);
             return ResponseEntity.noContent().build();
-
         }catch (EntityNotFoundException e){
             return ResponseEntity.notFound().build();
 
