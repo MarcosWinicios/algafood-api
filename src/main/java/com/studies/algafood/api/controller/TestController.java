@@ -1,6 +1,7 @@
 package com.studies.algafood.api.controller;
 
 import com.studies.algafood.domain.model.Kitchen;
+import com.studies.algafood.domain.model.Restaurant;
 import com.studies.algafood.domain.repository.KitchenRepository;
 import com.studies.algafood.domain.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -29,5 +31,10 @@ public class TestController {
     @GetMapping("/kitchens/unico-by-name")
     public Kitchen findUniqueKitchenByName(@RequestParam("name") String name){
         return kitchenRepository.findByName(name).get();
+    }
+
+    @GetMapping("/restaurants/by-shipping-fee")
+    public List<Restaurant> restaurantByShippingFee(@RequestParam BigDecimal initialFee, @RequestParam BigDecimal finalFee) {
+        return restaurantRepository.findByShippingFeeBetween(initialFee, finalFee);
     }
 }
