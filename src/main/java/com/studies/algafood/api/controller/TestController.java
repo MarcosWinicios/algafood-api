@@ -2,6 +2,7 @@ package com.studies.algafood.api.controller;
 
 import com.studies.algafood.domain.model.Kitchen;
 import com.studies.algafood.domain.repository.KitchenRepository;
+import com.studies.algafood.domain.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +18,11 @@ public class TestController {
     @Autowired
     private KitchenRepository kitchenRepository;
 
-//    @GetMapping("/kitchens/by-name")
-//    public List<Kitchen> findKitchenByName(@RequestParam("name") String name){
-//        return kitchenRepository.findByName(name);
-//    }
+    @Autowired
+    private RestaurantRepository restaurantRepository;
+
+    @GetMapping("/kitchens/by-name")
+    public List<Kitchen> findKitchenByName(@RequestParam("name") String name){
+        return kitchenRepository.findTodosByNameContaining(name);
+    }
 }
