@@ -25,4 +25,9 @@ public class TestController {
     public List<Kitchen> findKitchenByName(@RequestParam("name") String name){
         return kitchenRepository.findTodosByNameContaining(name);
     }
+
+    @GetMapping("/kitchens/unico-by-name")
+    public Kitchen findUniqueKitchenByName(@RequestParam("name") String name){
+        return kitchenRepository.findByName(name).get();
+    }
 }
