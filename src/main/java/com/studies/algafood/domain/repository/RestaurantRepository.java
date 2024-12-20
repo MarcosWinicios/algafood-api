@@ -12,6 +12,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
     List<Restaurant> findByShippingFeeBetween(BigDecimal initialFee, BigDecimal finalFee);
 
+    List<Restaurant> findByNameContainingAndKitchenId(String name, Long kitchen);
 
 
 }

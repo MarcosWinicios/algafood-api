@@ -37,4 +37,9 @@ public class TestController {
     public List<Restaurant> restaurantByShippingFee(@RequestParam BigDecimal initialFee, @RequestParam BigDecimal finalFee) {
         return restaurantRepository.findByShippingFeeBetween(initialFee, finalFee);
     }
+
+    @GetMapping("/restaurants/by-name")
+    public List<Restaurant> restaurantByName(@RequestParam String name, @RequestParam Long kitchenId) {
+        return restaurantRepository.findByNameContainingAndKitchenId(name, kitchenId);
+    }
 }
