@@ -35,11 +35,16 @@ public class TestController {
 
     @GetMapping("/restaurants/by-shipping-fee")
     public List<Restaurant> restaurantByShippingFee(@RequestParam BigDecimal initialFee, @RequestParam BigDecimal finalFee) {
-        return restaurantRepository.findByShippingFeeBetween(initialFee, finalFee);
+        return restaurantRepository.queryByShippingFeeBetween(initialFee, finalFee);
     }
 
     @GetMapping("/restaurants/by-name")
     public List<Restaurant> restaurantByName(@RequestParam String name, @RequestParam Long kitchenId) {
         return restaurantRepository.findByNameContainingAndKitchenId(name, kitchenId);
+    }
+
+    @GetMapping("/restaurants/first-by-name")
+    public Restaurant firstRestaurantByName(@RequestParam String name){
+        return restaurantRepository.findFirstRestaurantByNameContaining(name).get();
     }
 }
