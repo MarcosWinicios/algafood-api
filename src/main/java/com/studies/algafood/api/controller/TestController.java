@@ -44,7 +44,12 @@ public class TestController {
     }
 
     @GetMapping("/restaurants/first-by-name")
-    public Restaurant firstRestaurantByName(@RequestParam String name){
+    public Restaurant restaurantFirstByName(@RequestParam String name){
         return restaurantRepository.findFirstRestaurantByNameContaining(name).get();
+    }
+
+    @GetMapping("/restaurants/top-2-by-name")
+    public List<Restaurant> restaurantTop2ByName(@RequestParam String name) {
+        return restaurantRepository.findTop2ByNameContaining(name);
     }
 }
