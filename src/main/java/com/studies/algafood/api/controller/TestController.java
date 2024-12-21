@@ -33,6 +33,11 @@ public class TestController {
         return kitchenRepository.findByName(name).get();
     }
 
+    @GetMapping("/kitchens/exists")
+    public boolean kitchenCheckExists(@RequestParam("name") String name){
+        return kitchenRepository.existsByName(name);
+    }
+
     @GetMapping("/restaurants/by-shipping-fee")
     public List<Restaurant> restaurantByShippingFee(@RequestParam BigDecimal initialFee, @RequestParam BigDecimal finalFee) {
         return restaurantRepository.queryByShippingFeeBetween(initialFee, finalFee);
