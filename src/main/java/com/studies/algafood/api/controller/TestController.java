@@ -57,4 +57,9 @@ public class TestController {
     public List<Restaurant> restaurantTop2ByName(@RequestParam String name) {
         return restaurantRepository.findTop2ByNameContaining(name);
     }
+
+    @GetMapping("/restaurants/count-by-kitchen")
+    public int restaurantsCountByKitchen(@RequestParam Long kitchenId) {
+        return restaurantRepository.countByKitchenId(kitchenId);
+    }
 }

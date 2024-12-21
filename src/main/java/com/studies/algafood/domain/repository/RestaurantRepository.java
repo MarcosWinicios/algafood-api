@@ -18,4 +18,6 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     Optional<Restaurant> findFirstRestaurantByNameContaining(String name);
 
     List<Restaurant> findTop2ByNameContaining(String name);
+
+    int countByKitchenId(Long kitchenId);
 }
