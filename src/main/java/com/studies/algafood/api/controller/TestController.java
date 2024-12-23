@@ -58,16 +58,10 @@ public class TestController {
         return restaurantRepository.findTop2ByNameContaining(name);
     }
 
-//    @GetMapping("/restaurants/by-name-and-shipping-fee")
-//    public List<Restaurant> restaurantByNameAndShippingFee(
-//            @RequestParam String name, @RequestParam BigDecimal initialFee, @RequestParam BigDecimal finalFee) {
-//        return restaurantRepository.find(name, initialFee, finalFee);
-//    }
-
     @GetMapping("/restaurants/by-name-and-shipping-fee")
     public List<Restaurant> restaurantByNameAndShippingFee(
             @RequestParam(required = false) String name, @RequestParam(required = false) BigDecimal initialFee, @RequestParam(required = false) BigDecimal finalFee) {
-        return restaurantRepository.find(name, initialFee, finalFee);
+        return restaurantRepository.findWithOptionalParams(name, initialFee, finalFee);
     }
 
     @GetMapping("/restaurants/count-by-kitchen")

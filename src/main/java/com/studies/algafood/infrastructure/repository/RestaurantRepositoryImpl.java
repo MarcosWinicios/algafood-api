@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Repository
 public class RestaurantRepositoryImpl implements RestaurantRepositoryQueries {
@@ -21,8 +20,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepositoryQueries {
     private EntityManager manager;
 
     @Override
-    public List<Restaurant> find(String name, BigDecimal initialShippingFee, BigDecimal finalShippingFee){
-//        String jpql = "from Restaurant WHERE name LIKE :name and shippingFee BETWEEN :initialShippingFee AND :finalShippingFee";
+    public List<Restaurant> findWithOptionalParams(String name, BigDecimal initialShippingFee, BigDecimal finalShippingFee){
 
         StringBuilder jpql = new StringBuilder();
 
@@ -47,7 +45,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepositoryQueries {
 
         TypedQuery<Restaurant> query =  manager.createQuery(jpql.toString(), Restaurant.class);
 
-        parameters.forEach((key, value) -> query.setParameter(key, value));
+        parameters.forEach(query::setParameter);
 
         return query.getResultList();
     }
