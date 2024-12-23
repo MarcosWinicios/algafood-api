@@ -61,7 +61,8 @@ public class TestController {
     @GetMapping("/restaurants/by-name-and-shipping-fee")
     public List<Restaurant> restaurantByNameAndShippingFee(
             @RequestParam(required = false) String name, @RequestParam(required = false) BigDecimal initialFee, @RequestParam(required = false) BigDecimal finalFee) {
-        return restaurantRepository.findWithOptionalParams(name, initialFee, finalFee);
+        return restaurantRepository.findWithParamsCriteriaAPI(name, initialFee, finalFee);
+//        return restaurantRepository.findWithParamsJpql(name, initialFee, finalFee);
     }
 
     @GetMapping("/restaurants/count-by-kitchen")
