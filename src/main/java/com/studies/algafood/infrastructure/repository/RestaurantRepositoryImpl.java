@@ -7,6 +7,8 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -58,7 +60,15 @@ public class RestaurantRepositoryImpl implements RestaurantRepositoryQueries {
         CriteriaBuilder builder = manager.getCriteriaBuilder();
 
         CriteriaQuery<Restaurant> criteria = builder.createQuery(Restaurant.class);
-        criteria.from(Restaurant.class);
+        Root<Restaurant> root = criteria.from(Restaurant.class);
+
+        Predicate namePredicate = builder.like(root.get("name"), "%" + name + "%");
+        Predicate initialShippingFeePredicate = builder
+                .greaterThanOrEqualTo(root.get("shippingFee"), initialShippingFee);
+        Predicate finalShippingFeePredicate = builder
+                .lessThanOrEqualTo(root.get("shippingFee"), finalShippingFee);
+
+        criteria.where(namePredicate, initialShippingFeePredicate, finalShippingFeePredicate);
 
         TypedQuery<Restaurant> query=  manager.createQuery(criteria);
         return query.getResultList();
