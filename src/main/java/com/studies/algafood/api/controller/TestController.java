@@ -4,6 +4,8 @@ import com.studies.algafood.domain.model.Kitchen;
 import com.studies.algafood.domain.model.Restaurant;
 import com.studies.algafood.domain.repository.KitchenRepository;
 import com.studies.algafood.domain.repository.RestaurantRepository;
+import com.studies.algafood.infrastructure.repository.spec.RestaurantWithFreeShippingSpec;
+import com.studies.algafood.infrastructure.repository.spec.RestaurantWithSimilarNameSpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,4 +71,13 @@ public class TestController {
     public int restaurantsCountByKitchen(@RequestParam Long kitchenId) {
         return restaurantRepository.countByKitchenId(kitchenId);
     }
+
+    @GetMapping("/restaurants/with-free-shipping")
+    public List<Restaurant> restaurantsWithFreeShipping(String name){
+        var withFreeShipping = new RestaurantWithFreeShippingSpec();
+        var withSimilarName = new RestaurantWithSimilarNameSpec(name);
+
+        return restaurantRepository.findAll(withFreeShipping.and(withSimilarName));
+    }
+
 }
