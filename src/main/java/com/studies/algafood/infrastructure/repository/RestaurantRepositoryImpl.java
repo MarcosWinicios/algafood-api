@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,14 +62,24 @@ public class RestaurantRepositoryImpl implements RestaurantRepositoryQueries {
 
         CriteriaQuery<Restaurant> criteria = builder.createQuery(Restaurant.class);
         Root<Restaurant> root = criteria.from(Restaurant.class);
+        
+        List<Predicate> predicates = new ArrayList<>();
 
-        Predicate namePredicate = builder.like(root.get("name"), "%" + name + "%");
-        Predicate initialShippingFeePredicate = builder
-                .greaterThanOrEqualTo(root.get("shippingFee"), initialShippingFee);
-        Predicate finalShippingFeePredicate = builder
-                .lessThanOrEqualTo(root.get("shippingFee"), finalShippingFee);
+        if(StringUtils.hasLength(name)){
+            predicates.add(builder.like(root.get("name"), "%" + name + "%"));
+        }
 
-        criteria.where(namePredicate, initialShippingFeePredicate, finalShippingFeePredicate);
+        if(initialShippingFee != null){
+            predicates.add( builder
+                    .greaterThanOrEqualTo(root.get("shippingFee"), initialShippingFee));
+        }
+
+        if(finalShippingFee != null){
+            predicates.add(builder
+                    .lessThanOrEqualTo(root.get("shippingFee"), finalShippingFee));
+        }
+
+        criteria.where(predicates.toArray(new Predicate[0]));
 
         TypedQuery<Restaurant> query=  manager.createQuery(criteria);
         return query.getResultList();
