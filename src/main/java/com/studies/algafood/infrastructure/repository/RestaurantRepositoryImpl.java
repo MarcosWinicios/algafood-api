@@ -84,4 +84,28 @@ public class RestaurantRepositoryImpl implements RestaurantRepositoryQueries {
         TypedQuery<Restaurant> query=  manager.createQuery(criteria);
         return query.getResultList();
     }
+
+    @Override
+    public List<Restaurant> findWithFreeShippingCriteria(String name) {
+
+        CriteriaBuilder builder =  manager.getCriteriaBuilder();
+        CriteriaQuery<Restaurant> criteria = builder.createQuery(Restaurant.class);
+        Root<Restaurant> root = criteria.from(Restaurant.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        predicates.add(builder.equal(root.get("shippingFee"), BigDecimal.ZERO));
+
+        if(StringUtils.hasLength(name)){
+            predicates.add(builder.like(root.get("name"), "%" + name + "%"));
+        }
+
+        criteria.where(predicates.toArray(new Predicate[0]));
+
+        TypedQuery<Restaurant> query = manager.createQuery(criteria);
+
+        return query.getResultList();
+    }
+
+
 }

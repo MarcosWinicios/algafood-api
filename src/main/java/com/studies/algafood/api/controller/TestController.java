@@ -74,10 +74,12 @@ public class TestController {
 
     @GetMapping("/restaurants/with-free-shipping")
     public List<Restaurant> restaurantsWithFreeShipping(String name){
-        var withFreeShipping = new RestaurantWithFreeShippingSpec();
-        var withSimilarName = new RestaurantWithSimilarNameSpec(name);
+//        var withFreeShipping = new RestaurantWithFreeShippingSpec();
+//        var withSimilarName = new RestaurantWithSimilarNameSpec(name);
+//
+//        return restaurantRepository.findAll(withFreeShipping.and(withSimilarName));
 
-        return restaurantRepository.findAll(withFreeShipping.and(withSimilarName));
+        return restaurantRepository.findWithFreeShippingCriteria(name);
     }
 
 }

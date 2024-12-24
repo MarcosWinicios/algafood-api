@@ -9,4 +9,6 @@ public interface RestaurantRepositoryQueries {
     List<Restaurant> findWithParamsJpql(String name, BigDecimal initialShippingFee, BigDecimal finalShippingFee);
 
     List<Restaurant> findWithParamsCriteriaAPI(String name, BigDecimal initialShippingFee, BigDecimal finalShippingFee);
+
+    List<Restaurant> findWithFreeShippingCriteria(String name);
 }
