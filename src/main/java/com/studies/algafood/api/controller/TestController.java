@@ -4,8 +4,6 @@ import com.studies.algafood.domain.model.Kitchen;
 import com.studies.algafood.domain.model.Restaurant;
 import com.studies.algafood.domain.repository.KitchenRepository;
 import com.studies.algafood.domain.repository.RestaurantRepository;
-import com.studies.algafood.infrastructure.repository.spec.RestaurantWithFreeShippingSpec;
-import com.studies.algafood.infrastructure.repository.spec.RestaurantWithSimilarNameSpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.List;
+
+import static com.studies.algafood.infrastructure.repository.spec.RestaurantSpecs.withFreeShipping;
+import static com.studies.algafood.infrastructure.repository.spec.RestaurantSpecs.withSimilarName;
 
 @RestController
 @RequestMapping("/test")
@@ -79,12 +80,10 @@ public class TestController {
 
     @GetMapping("/restaurants/with-free-shipping")
     public List<Restaurant> restaurantsWithFreeShipping(String name){
-//        var withFreeShipping = new RestaurantWithFreeShippingSpec();
-//        var withSimilarName = new RestaurantWithSimilarNameSpec(name);
-//
-//        return restaurantRepository.findAll(withFreeShipping.and(withSimilarName));
 
-        return restaurantRepository.findWithFreeShippingCriteria(name);
+        return restaurantRepository.findAll(withFreeShipping().and(withSimilarName(name)));
+
+//        return restaurantRepository.findWithFreeShippingCriteria(name);
     }
 
 }
