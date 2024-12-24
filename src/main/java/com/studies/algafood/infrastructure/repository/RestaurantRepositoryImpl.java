@@ -107,5 +107,21 @@ public class RestaurantRepositoryImpl implements RestaurantRepositoryQueries {
         return query.getResultList();
     }
 
+    @Override
+    public List<Restaurant> findByKitchenName(String kitchenName){
+
+        if(!StringUtils.hasLength(kitchenName)){
+            throw new IllegalArgumentException("kitchenName param can't null");
+        }
+
+        CriteriaBuilder builder = manager.getCriteriaBuilder();
+        CriteriaQuery<Restaurant> criteria = builder.createQuery(Restaurant.class);
+        Root<Restaurant> root = criteria.from(Restaurant.class);
+
+        criteria.where(builder.like(root.get("kitchen").get("name"), "%" + kitchenName + "%"));
+        TypedQuery<Restaurant> query = manager.createQuery(criteria);
+
+        return query.getResultList();
+    }
 
 }

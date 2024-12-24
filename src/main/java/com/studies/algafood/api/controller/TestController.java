@@ -72,6 +72,11 @@ public class TestController {
         return restaurantRepository.countByKitchenId(kitchenId);
     }
 
+    @GetMapping("/restaurants/count-by-kitchen-name")
+    public List<Restaurant> restaurantsCountByKitchenName(@RequestParam String kitchenName) {
+        return restaurantRepository.findByKitchenName(kitchenName);
+    }
+
     @GetMapping("/restaurants/with-free-shipping")
     public List<Restaurant> restaurantsWithFreeShipping(String name){
 //        var withFreeShipping = new RestaurantWithFreeShippingSpec();

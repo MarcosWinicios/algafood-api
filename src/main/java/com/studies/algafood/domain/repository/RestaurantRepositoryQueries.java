@@ -11,4 +11,6 @@ public interface RestaurantRepositoryQueries {
     List<Restaurant> findWithParamsCriteriaAPI(String name, BigDecimal initialShippingFee, BigDecimal finalShippingFee);
 
     List<Restaurant> findWithFreeShippingCriteria(String name);
+
+    List<Restaurant> findByKitchenName(String kitchenName);
 }
