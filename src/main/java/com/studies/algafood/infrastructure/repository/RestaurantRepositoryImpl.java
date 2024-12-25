@@ -1,6 +1,7 @@
 package com.studies.algafood.infrastructure.repository;
 
 import com.studies.algafood.domain.model.Restaurant;
+import com.studies.algafood.domain.repository.RestaurantRepository;
 import com.studies.algafood.domain.repository.RestaurantRepositoryQueries;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -9,6 +10,8 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -18,11 +21,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.studies.algafood.infrastructure.repository.spec.RestaurantSpecs.withFreeShipping;
+import static com.studies.algafood.infrastructure.repository.spec.RestaurantSpecs.withSimilarName;
+
 @Repository
 public class RestaurantRepositoryImpl implements RestaurantRepositoryQueries {
 
     @PersistenceContext
     private EntityManager manager;
+
+    @Lazy
+    @Autowired
+    private RestaurantRepository restaurantRepository;
 
     @Override
     public List<Restaurant> findWithParamsJpql(String name, BigDecimal initialShippingFee, BigDecimal finalShippingFee){
@@ -105,6 +115,11 @@ public class RestaurantRepositoryImpl implements RestaurantRepositoryQueries {
         TypedQuery<Restaurant> query = manager.createQuery(criteria);
 
         return query.getResultList();
+    }
+
+    @Override
+    public List<Restaurant> findWithFreeShipping(String name) {
+        return restaurantRepository.findAll(withFreeShipping().and(withSimilarName(name)));
     }
 
     @Override

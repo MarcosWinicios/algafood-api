@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static com.studies.algafood.infrastructure.repository.spec.RestaurantSpecs.withFreeShipping;
-import static com.studies.algafood.infrastructure.repository.spec.RestaurantSpecs.withSimilarName;
-
 @RestController
 @RequestMapping("/test")
 public class TestController {
@@ -80,10 +77,8 @@ public class TestController {
 
     @GetMapping("/restaurants/with-free-shipping")
     public List<Restaurant> restaurantsWithFreeShipping(String name){
-
-        return restaurantRepository.findAll(withFreeShipping().and(withSimilarName(name)));
-
 //        return restaurantRepository.findWithFreeShippingCriteria(name);
+        return restaurantRepository.findWithFreeShipping(name);
     }
 
 }

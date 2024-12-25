@@ -12,5 +12,8 @@ public interface RestaurantRepositoryQueries {
 
     List<Restaurant> findWithFreeShippingCriteria(String name);
 
+    List<Restaurant> findWithFreeShipping(String name);
+
     List<Restaurant> findByKitchenName(String kitchenName);
+
 }
