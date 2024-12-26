@@ -25,23 +25,23 @@ public class TestController {
     private RestaurantRepository restaurantRepository;
 
     @GetMapping("/kitchens/by-name")
-    public List<Kitchen> findKitchenByName(@RequestParam("name") String name){
+    public List<Kitchen> kitchensFindByName(@RequestParam("name") String name){
         return kitchenRepository.findTodosByNameContaining(name);
     }
 
-    @GetMapping("/kitchens/unico-by-name")
-    public Kitchen findUniqueKitchenByName(@RequestParam("name") String name){
+    @GetMapping("/kitchens/unique-by-name")
+    public Kitchen kitchensFindUniqueByName(@RequestParam("name") String name){
         return kitchenRepository.findByName(name).get();
     }
 
     @GetMapping("/kitchens/first")
-    public Optional<Kitchen> kitchenFindFirst(){
+    public Optional<Kitchen> kitchensFindFirst(){
         return kitchenRepository.findFirst();
     }
 
 
     @GetMapping("/kitchens/exists")
-    public boolean kitchenCheckExists(@RequestParam("name") String name){
+    public boolean kitchensCheckExists(@RequestParam("name") String name){
         return kitchenRepository.existsByName(name);
     }
 
@@ -73,7 +73,7 @@ public class TestController {
     }
 
     @GetMapping("/restaurants/count-by-kitchen")
-    public int restaurantsCountByKitchen(@RequestParam Long kitchenId) {
+    public int restaurantsCountByKitchenId(@RequestParam Long kitchenId) {
         return restaurantRepository.countByKitchenId(kitchenId);
     }
 
