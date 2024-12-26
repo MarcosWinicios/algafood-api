@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/test")
@@ -32,6 +33,12 @@ public class TestController {
     public Kitchen findUniqueKitchenByName(@RequestParam("name") String name){
         return kitchenRepository.findByName(name).get();
     }
+
+    @GetMapping("/kitchens/first")
+    public Optional<Kitchen> kitchenFindFirst(){
+        return kitchenRepository.findFirst();
+    }
+
 
     @GetMapping("/kitchens/exists")
     public boolean kitchenCheckExists(@RequestParam("name") String name){
@@ -79,6 +86,11 @@ public class TestController {
     public List<Restaurant> restaurantsWithFreeShipping(String name){
 //        return restaurantRepository.findWithFreeShippingCriteria(name);
         return restaurantRepository.findWithFreeShipping(name);
+    }
+
+    @GetMapping("/restaurants/first")
+    public Optional<Restaurant> restaurantFirst(){
+        return restaurantRepository.findFirst();
     }
 
 }
