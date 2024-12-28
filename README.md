@@ -18,6 +18,17 @@ Este projeto segue uma convenção específica para mensagens de commit para gar
 
 <img src="docs/images/domain-classes-diagram.jpg" alt="Diagrama de classes de domínio" width="980"/>
 
+
+## Documentação de Conceitos
+
+Este projeto inclui uma documentação detalhada sobre os conceitos e tecnologias utilizados. Você pode acessar os tópicos específicos abaixo:
+
+- [Persistência e acesso aos dados](docs/persistence-and-database-access.md)
+
+
+
+
+
 ### Estrutura da Mensagem de Commit
 
 A estrutura das mensagens de commit segue o formato:
