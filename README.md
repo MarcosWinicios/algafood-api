@@ -16,12 +16,12 @@ Este projeto segue uma convenção específica para mensagens de commit para gar
 
 ## Diagrama de classes de domínio
 
-<img src="docs/domain-classes-diagram.jpg" alt="Diagrama de classes de domínio" width="980"/>
+<img src="docs/images/domain-classes-diagram.jpg" alt="Diagrama de classes de domínio" width="980"/>
 
 ## Persistencia de dados com JPA
 
 #### Diagrama dos relacionamentos entre as classes
-<img src="docs/data-persistence-diagram.png" alt="Diagrama de relacionamentos entre as classes de acesso ao banco de dados=980"/>
+<img src="docs/images/data-persistence-diagram.png" alt="Diagrama de relacionamentos entre as classes de acesso ao banco de dados=980"/>
 
 #### Maneiras de criar consultas ao banco de dados utilizando JPA
 - Query methods
