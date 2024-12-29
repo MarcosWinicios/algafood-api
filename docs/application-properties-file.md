@@ -1,7 +1,8 @@
+[**Voltar ao README**](../README.md#documentação-de-conceitos)
+
 # Arquivo ``application.properties``
 
 **Este documento descreve os conceitos das propriedades utilizadas nas configurações no arquivo ``application.properties``.**
-
 
 ## Spring JPA e Hibernate
 
@@ -76,4 +77,4 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
 - Cada banco de dados tem sintaxes e recursos próprios (como funções ou tipos de dados específicos). O dialeto é a classe que informa ao Hibernate como gerar consultas SQL otimizadas para o banco configurado.
 - O MySQLDialect ajusta as consultas para o MySQL.
 
-[**Voltar ao README**](../README.md)
+[**Voltar ao README**](../README.md#documentação-de-conceitos)

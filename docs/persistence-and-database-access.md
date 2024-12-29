@@ -1,3 +1,5 @@
+[**Voltar ao README**](../README.md#documentação-de-conceitos)
+
 # Persitência e acesso aos dados do banco de dados
 
 Este documento descreve os conceitos e tecnologias estudados e aplicados no contexto de persistência e acesso a bancos de dados no projeto.
@@ -56,41 +58,10 @@ pelo Spring Data JPA quanto métodos criados manualmente, sejam acessíveis a pa
 - **Spring Data JPA:** Extensão do Spring Framework que facilita o uso da JPA ao fornecer abstrações para criar repositórios e realizar consultas com menos código.
 
 ### Recursos
-#### Mapeamento objeto relacional(ORM) 
+#### Mapeamento objeto relacional - ORM
 Uso de anotações do JPA para mapear entidades e seus atributos podendo definir até mesmo os relacionamentos entre as tabelas do banco de dados.
 
-Algumas anotações são:
-
-
-``@Entity``: Marca uma classe Java como uma entidade que será mapeada para uma tabela no banco de dados
-
-``@Table``: Especifica detalhes sobre a tabela do banco de dados correspondente à entidade.
-  - ``name``: Nome da tabela.
-  - ``schema``: Esquema onde a tabela reside.
-
-``@Id``: Define o atributo como a chave primária da entidade. Uso obrigatório em cada entidfade.
-
-``@GeneratedValue``: Especifica como o valor da chave primária será gerado automaticamente.
-  - ``strategy``: Estratégia de geração
-    - ``AUTO``: Segue a estratégia já definida no banco de dados ou no provedor de persitencia(hibernate)
-    - ``IDENTITY``: O banco de dados é responsável por gerar a PK, geralmente em colunas auto-incrementadas. Ideal para bancos que têm suporte nativo para auto-incremento.
-    - ``SEQUENCE``: Usa sequências de banco de dados para gerar valores exclusivos para a chave primária. Ideal para bancos que suportam sequências e requer a definição de uma sequência no banco. 
-    - ``TABLE``: Usa uma tabela específica no banco para gerar valores exclusivos para a chave primária.
-
-``@Column``: Mapeia um atributo da classe a uma coluna da tabela no banco de dados, permitindo configurar detalhes como nome, tamanho, e se é nula.
-  - ``name:`` Nome da coluna.
-  - ``nullable:`` Define se a coluna pode conter valores nulos.
-  - ``length:`` Define o tamanho máximo da coluna.
-
-``@JoinColumn``: Especifica a coluna que será usada para o relacionamento entre entidades.
-  - ``name``: Nome da coluna da junção
-  - ``referenceColumnName``: Nome da coluna na tabela referenciada
-
-``@ManyToOne``: Indica que muitos registros desta entidade estão relacionados a um único registro de outra entidade. Relacionamento muitos-para-um. 
-
-``@OneToMany``: Indica que um registro desta entidade está relacionado a muitos registros de outra entidade. Relacionamento um-para-muitos.
-  - ``mappedBy``: Indica o atributo na outra entidade que mapeia esse relacionamento.
-
+Exemplo:
 ```
   @Entity
   @Table(name = "tb_restaurant")
@@ -118,6 +89,8 @@ Algumas anotações são:
       private Kitchen kitchen;
   }
 ```
+
+[**Significados de cada anotação ORM**](annotations.md#mapeamento-objeto-relacional---orm)
 
 #### Query Methods 
 Métodos de consulta derivados automaticamente com base nos nomes dos métodos em repositórios.
@@ -256,4 +229,4 @@ Veja como fica no diagrama abaixo.
 - [**Documentação Spring Data JPA**](https://spring.io/projects/spring-data-jpa)
 - [**Documentação Query Methods**](https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html)
 
-[**Voltar ao README**](../README.md)
+[**Voltar ao README**](../README.md#documentação-de-conceitos)
