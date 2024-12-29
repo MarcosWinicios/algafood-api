@@ -33,8 +33,8 @@ Este documento descreve os conceitos e tecnologias estudados e aplicados no cont
 - **Seta contínua:** Herança
 
 Este diagrama é uma representação gráfica do relacionamento entre classes e interfaces a ser utilizado para possibilitar o uso de
-ambas as opções para criar Queries de acesso ao banco de dados, de maneira abstraída.
-<br>
+ambas as opções de criação de consultas banco de dados de maneira abstraída.
+<br><br>
 Com essa modelagem é possível utilizar:
 
 - Query Methods
@@ -46,8 +46,8 @@ Com essa modelagem é possível utilizar:
 - Repositórios customizados de entidades específicas.
 
 
-**A arquitetura apresentada pode parecer exagerada, mas possibilita que todos os métodos disponíveis tanto
-pelo Spring Data JPA quanto métodos criados manualmente, sejam acessíveis a partir de um único ponto, a interface repository de cada entidade(cor azul escuro).**
+A arquitetura apresentada pode parecer exagerada, mas possibilita que todos os métodos disponíveis tanto
+pelo Spring Data JPA quanto métodos criados manualmente, sejam acessíveis a partir de um único ponto, a **interface repository de cada entidade**(cor azul escuro).
 
 ## Conceitos
 
@@ -56,8 +56,32 @@ pelo Spring Data JPA quanto métodos criados manualmente, sejam acessíveis a pa
 - **Spring Data JPA:** Extensão do Spring Framework que facilita o uso da JPA ao fornecer abstrações para criar repositórios e realizar consultas com menos código.
 
 ### Recursos
-- **Mapeamento objeto relacional(ORM):** Uso de anotações do JPA para mapear entidades e seus atributos podendo definir até mesmo os relacionamentos entre as tabelas do banco de dados
+#### Mapeamento objeto relacional(ORM) 
+Uso de anotações do JPA para mapear entidades e seus atributos podendo definir até mesmo os relacionamentos entre as tabelas do banco de dados
+  - ``@Entity``: Marca uma classe Java como uma entidade que será mapeada para uma tabela no banco de dados
+  - ``@Table``: Especifica detalhes sobre a tabela do banco de dados correspondente à entidade.
+    - ``name``: Nome da tabela.
+    - ``schema``: Esquema onde a tabela reside.
+  - ``@Id``: Define o atributo como a chave primária da entidade. Uso obrigatório em cada entidfade.
+  - ``@GeneratedValue``: Especifica como o valor da chave primária será gerado automaticamente.
+    - ``strategy``: Estratégia de geração
+      - ``AUTO``: Segue a estratégia já definida no banco de dados ou no provedor de persitencia(hibernate)
+      - ``IDENTITY``:
+      - ``SEQUENCE``:
+      - ``TABLE``:
+    - ``@Column``: Mapeia um atributo da classe a uma coluna da tabela no banco de dados, permitindo configurar detalhes como nome, tamanho, e se é nula.
+      - ``name:`` Nome da coluna.
+      - ``nullable:`` Define se a coluna pode conter valores nulos.
+      - ``length:`` Define o tamanho máximo da coluna.
+  - ``@JoinColumn``: Especifica a coluna que será usada para o relacionamento entre entidades.
+    - ``name``: Nome da coluna da junção
+    - ``referenceColumnName``: Nome da coluna na tabela referenciada
+  - ``@ManyToOne``: Indica que muitos registros desta entidade estão relacionados a um único registro de outra entidade. Relacionamento muitos-para-um. 
+  - ``@OneToMany``: Indica que um registro desta entidade está relacionado a muitos registros de outra entidade. Relacionamento um-para-muitos.
+    - ``mappedBy``: Indica o atributo na outra entidade que mapeia esse relacionamento.
+
 ```
+  @Entity
   @Table(name = "tb_restaurant")
   public class Restaurant {
   
@@ -84,7 +108,8 @@ pelo Spring Data JPA quanto métodos criados manualmente, sejam acessíveis a pa
   }
 ```
 
-- **Query Methods:** Métodos de consulta derivados automaticamente com base nos nomes dos métodos em repositórios.
+#### Query Methods 
+Métodos de consulta derivados automaticamente com base nos nomes dos métodos em repositórios.
 
 ```
   List<Restaurant> findByName(String name);
@@ -92,7 +117,9 @@ pelo Spring Data JPA quanto métodos criados manualmente, sejam acessíveis a pa
   List<Restaurant> findByNameContainingAndKitchenId(String name, Long kitchen);
 ```
 
-- **Native Queries:** Consultas escritas diretamente em SQL, permitindo uso total dos recursos específicos do banco de dados. O SDJPA faciltia o seu uso
+#### Native Queries 
+
+Consultas escritas diretamente em SQL, permitindo uso total dos recursos específicos do banco de dados. O SDJPA faciltia o seu uso
 apenas declarando a instrução **SQL** dentro da anotação ``@Query`` com a propriedade ``nativeQuery=true``.
 
 ```
@@ -100,7 +127,9 @@ apenas declarando a instrução **SQL** dentro da anotação ``@Query`` com a pr
    List<Restaurant> findByName(String name);
 ```
 
-- **JPQL:** Linguagem de consulta baseada em objetos, similar ao SQL, mas operando sobre entidades JPA. O SDJPA facilita o seu uso apenas declarando
+#### JPQL 
+
+Linguagem de consulta baseada em objetos, similar ao SQL, mas operando sobre entidades JPA. O SDJPA facilita o seu uso apenas declarando
 a instrução **JPQL** dentro na anotação ``@Query``.
 
 ```
@@ -120,7 +149,9 @@ a instrução **JPQL** dentro na anotação ``@Query``.
   }
 ```
 
-- **Criteria API:** API programática para construir consultas dinâmicas em JPQL com segurança em tempo de compilação.
+#### Criteria API 
+
+API programática para construir consultas dinâmicas em JPQL com segurança em tempo de compilação.
 
 ```
   public List<Restaurant> findByKitchenName(String kitchenName){
@@ -138,7 +169,9 @@ a instrução **JPQL** dentro na anotação ``@Query``.
       return query.getResultList();
   }
 ```
-- **Specifications:** Abstração do Spring Data JPA para criar consultas reutilizáveis e dinâmicas com critérios combináveis.
+#### Specifications 
+
+Abstração do Spring Data JPA para criar consultas reutilizáveis e dinâmicas com critérios combináveis.
   - Repositório principal
     ```
       @Repository
@@ -186,12 +219,12 @@ a instrução **JPQL** dentro na anotação ``@Query``.
 
 
 
-## Outros
-- **Estados de uma entidade**: Uma entidade pode assumir alguns estados com relação ao EntityManager. Os estados podem ser:
-  - Novo (new ou transient)
-  - Gerenciado (managed)
-  - Removido (removed)
-  - Desanexado (detached)
+## Estados de uma entidade
+Uma entidade pode assumir alguns estados com relação ao EntityManager. Os estados podem ser:
+- Novo (new ou transient)
+- Gerenciado (managed)
+- Removido (removed)
+- Desanexado (detached)
 
 O estado “novo” é o mais natural. É simplesmente quando construímos um objeto qualquer usando o operador ```new```.
 
