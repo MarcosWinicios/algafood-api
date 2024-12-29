@@ -10,10 +10,6 @@ Projeto desenvolvido como parte do curso **Especialista Spring REST** oferecido 
 - **Maven** 
 - **MySQL**
 
-## Convenção de Mensagem de Confirmação
-
-Este projeto segue uma convenção específica para mensagens de commit para garantir clareza e consistência no histórico de commits. Abaixo está uma explicação sucinta do padrão utilizado:
-
 ## Diagrama de classes de domínio
 
 <img src="docs/images/domain-classes-diagram.jpg" alt="Diagrama de classes de domínio" width="980"/>
@@ -24,9 +20,12 @@ Este projeto segue uma convenção específica para mensagens de commit para gar
 Este projeto inclui uma documentação detalhada sobre os conceitos e tecnologias utilizados. Você pode acessar os tópicos específicos abaixo:
 
 - [Persistência e acesso aos dados](docs/persistence-and-database-access.md)
+- [Configurações no arquivo application.properties](docs/application-properties-file.md)
 
 
+## Convenção de Mensagem de Confirmação
 
+Este projeto segue uma convenção específica para mensagens de commit para garantir clareza e consistência no histórico de commits. Abaixo está uma explicação sucinta do padrão utilizado:
 
 
 ### Estrutura da Mensagem de Commit
