@@ -57,28 +57,39 @@ pelo Spring Data JPA quanto métodos criados manualmente, sejam acessíveis a pa
 
 ### Recursos
 #### Mapeamento objeto relacional(ORM) 
-Uso de anotações do JPA para mapear entidades e seus atributos podendo definir até mesmo os relacionamentos entre as tabelas do banco de dados
-  - ``@Entity``: Marca uma classe Java como uma entidade que será mapeada para uma tabela no banco de dados
-  - ``@Table``: Especifica detalhes sobre a tabela do banco de dados correspondente à entidade.
-    - ``name``: Nome da tabela.
-    - ``schema``: Esquema onde a tabela reside.
-  - ``@Id``: Define o atributo como a chave primária da entidade. Uso obrigatório em cada entidfade.
-  - ``@GeneratedValue``: Especifica como o valor da chave primária será gerado automaticamente.
-    - ``strategy``: Estratégia de geração
-      - ``AUTO``: Segue a estratégia já definida no banco de dados ou no provedor de persitencia(hibernate)
-      - ``IDENTITY``:
-      - ``SEQUENCE``:
-      - ``TABLE``:
-    - ``@Column``: Mapeia um atributo da classe a uma coluna da tabela no banco de dados, permitindo configurar detalhes como nome, tamanho, e se é nula.
-      - ``name:`` Nome da coluna.
-      - ``nullable:`` Define se a coluna pode conter valores nulos.
-      - ``length:`` Define o tamanho máximo da coluna.
-  - ``@JoinColumn``: Especifica a coluna que será usada para o relacionamento entre entidades.
-    - ``name``: Nome da coluna da junção
-    - ``referenceColumnName``: Nome da coluna na tabela referenciada
-  - ``@ManyToOne``: Indica que muitos registros desta entidade estão relacionados a um único registro de outra entidade. Relacionamento muitos-para-um. 
-  - ``@OneToMany``: Indica que um registro desta entidade está relacionado a muitos registros de outra entidade. Relacionamento um-para-muitos.
-    - ``mappedBy``: Indica o atributo na outra entidade que mapeia esse relacionamento.
+Uso de anotações do JPA para mapear entidades e seus atributos podendo definir até mesmo os relacionamentos entre as tabelas do banco de dados.
+
+Algumas anotações são:
+
+
+``@Entity``: Marca uma classe Java como uma entidade que será mapeada para uma tabela no banco de dados
+
+``@Table``: Especifica detalhes sobre a tabela do banco de dados correspondente à entidade.
+  - ``name``: Nome da tabela.
+  - ``schema``: Esquema onde a tabela reside.
+
+``@Id``: Define o atributo como a chave primária da entidade. Uso obrigatório em cada entidfade.
+
+``@GeneratedValue``: Especifica como o valor da chave primária será gerado automaticamente.
+  - ``strategy``: Estratégia de geração
+    - ``AUTO``: Segue a estratégia já definida no banco de dados ou no provedor de persitencia(hibernate)
+    - ``IDENTITY``: O banco de dados é responsável por gerar a PK, geralmente em colunas auto-incrementadas. Ideal para bancos que têm suporte nativo para auto-incremento.
+    - ``SEQUENCE``: Usa sequências de banco de dados para gerar valores exclusivos para a chave primária. Ideal para bancos que suportam sequências e requer a definição de uma sequência no banco. 
+    - ``TABLE``: Usa uma tabela específica no banco para gerar valores exclusivos para a chave primária.
+
+``@Column``: Mapeia um atributo da classe a uma coluna da tabela no banco de dados, permitindo configurar detalhes como nome, tamanho, e se é nula.
+  - ``name:`` Nome da coluna.
+  - ``nullable:`` Define se a coluna pode conter valores nulos.
+  - ``length:`` Define o tamanho máximo da coluna.
+
+``@JoinColumn``: Especifica a coluna que será usada para o relacionamento entre entidades.
+  - ``name``: Nome da coluna da junção
+  - ``referenceColumnName``: Nome da coluna na tabela referenciada
+
+``@ManyToOne``: Indica que muitos registros desta entidade estão relacionados a um único registro de outra entidade. Relacionamento muitos-para-um. 
+
+``@OneToMany``: Indica que um registro desta entidade está relacionado a muitos registros de outra entidade. Relacionamento um-para-muitos.
+  - ``mappedBy``: Indica o atributo na outra entidade que mapeia esse relacionamento.
 
 ```
   @Entity
