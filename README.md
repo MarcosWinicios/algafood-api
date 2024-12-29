@@ -20,6 +20,7 @@ Projeto desenvolvido como parte do curso **Especialista Spring REST** oferecido 
 Este projeto inclui uma documentação detalhada sobre os conceitos e tecnologias utilizados. Você pode acessar os tópicos específicos abaixo:
 
 - [Persistência e acesso aos dados](docs/persistence-and-database-access.md)
+- [Anotações](docs/annotations.md)
 - [Configurações no arquivo application.properties](docs/application-properties-file.md)
 
 
