@@ -2,7 +2,7 @@
 
 Este documento descreve os conceitos e tecnologias estudados e aplicados no contexto de persistência e acesso a bancos de dados no projeto.
 
-### Tecnologias utilizadas: 
+## Tecnologias utilizadas: 
 
 - JPA
     - JPQL
@@ -13,7 +13,7 @@ Este documento descreve os conceitos e tecnologias estudados e aplicados no cont
     - Facilitando o uso de JQPL
     - Specifications
   
-### Técnicas abordadas:
+## Técnicas abordadas:
 - Mapeamento Objeto Relacional (ORM)
 - Uso dos recursos do SDJPA criando repositórios abstraídos
 - Criação de reposítórios customizados com métodos genéricos para todas as entidades
@@ -21,8 +21,16 @@ Este documento descreve os conceitos e tecnologias estudados e aplicados no cont
 - Consultas com filtros dinâmicos usando JPQL
 - Criando filtros reutilizáveis usando Specifications do SDJPA
 
-### Diagrama de classes da persistencia de dados
+## Diagrama de classes da persistencia de dados
 <img src="images/data-persistence-diagram.png" alt="Diagrama de relacionamentos entre as classes de acesso ao banco de dados=980"/>
+
+###### legenda
+- **Azul:** Interfaces
+  - **Azul escuro:** Ponto de partida para o uso de todos os métodos
+- **Verde:** Classes
+- **Seta trastejada:** Implementação
+  - **Seta trastejada vermelha:** Implementação oculta realizada apartir do sufixo **Impl**
+- **Seta contínua:** Herança
 
 Este diagrama é uma representação gráfica do relacionamento entre classes e interfaces a ser utilizado para possibilitar o uso de
 ambas as opções para criar Queries de acesso ao banco de dados, de maneira abstraída.
@@ -37,25 +45,17 @@ Com essa modelagem é possível utilizar:
 - Repositórios customizados genéricos
 - Repositórios customizados de entidades específicas.
 
-##### legenda
-  - **Azul:** Interfaces
-    - **Azul escuro:** Ponto de partida para o uso de todos os métodos
-  - **Verde:** Classes
-  - **Seta trastejada:** Implementação
-    - **Seta trastejada vermelha:** Implementação oculta realizada apartir do sufixo **Impl**
-  - **Seta contínua:** Herança
-
 
 **A arquitetura apresentada pode parecer exagerada, mas possibilita que todos os métodos disponíveis tanto
 pelo Spring Data JPA quanto métodos criados manualmente, sejam acessíveis a partir de um único ponto, a interface repository de cada entidade(cor azul escuro).**
 
-### Conceitos
+## Conceitos
 
-#### Tecnologias
+### Tecnologias
 - **JPA:** Framework padrão para mapeamento objeto-relacional (ORM) em Java, usado para persistência de dados em bancos de dados relacionais.
 - **Spring Data JPA:** Extensão do Spring Framework que facilita o uso da JPA ao fornecer abstrações para criar repositórios e realizar consultas com menos código.
 
-#### Recursos
+### Recursos
 - **Mapeamento objeto relacional(ORM):** Uso de anotações do JPA para mapear entidades e seus atributos podendo definir até mesmo os relacionamentos entre as tabelas do banco de dados
 ```
   @Table(name = "tb_restaurant")
@@ -166,7 +166,7 @@ a instrução **JPQL** dentro na anotação ``@Query``.
           return restaurantRepository.findAll(withFreeShipping().and(withSimilarName(name)));
       }
     ```
-#### Técnicas
+### Técnicas
 - **Repositórios customizados:** Implementações específicas para adicionar funcionalidades adicionais a repositórios padrão, tanto genéricos quanto focados em entidades específicas.
 - **Configurações no arquivo application.properties:**
 ```
@@ -182,8 +182,11 @@ a instrução **JPQL** dentro na anotação ``@Query``.
   spring.jpa.show-sql=true
   spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
 ```
+**[Conferir o significado de cada propriedade](application-properties-file.md)**
 
-#### Outros
+
+
+## Outros
 - **Estados de uma entidade**: Uma entidade pode assumir alguns estados com relação ao EntityManager. Os estados podem ser:
   - Novo (new ou transient)
   - Gerenciado (managed)
