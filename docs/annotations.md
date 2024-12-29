@@ -1,10 +1,11 @@
-[**Voltar ao README**](../README.md#documentação-de-conceitos)
+[**<< Voltar ao README**](../README.md#documentação-de-conceitos)
 
 # Anotações
 
 **Este documento descreve os conceitos das anotações estudadas e utializadas ao decorrer deste projeto.**
 
-## Mapeamento objeto relacional - ORM
+## Sptring Data JPA / JPA / Hibernate
+### Mapeamento objeto relacional - ORM
 São anotações do **JPA** e do **Hibernate** utilizadas para controlar o mapeamento entre objetos Java e tabelas do banco de dados.
 
 ``@Entity``: Marca uma classe Java como uma entidade que será mapeada para uma tabela no banco de dados
@@ -37,13 +38,37 @@ São anotações do **JPA** e do **Hibernate** utilizadas para controlar o mapea
 
 ``@OneToMany``: Indica que um registro desta entidade está relacionado a muitos registros de outra entidade. Relacionamento um-para-muitos.
 - ``mappedBy``: Indica o atributo na outra entidade que mapeia esse relacionamento.
+### Anotações de ciclo de vida do JPA
+São anotações usadas para adicionar lógica personalizada durante eventos do ciclo de vida de uma entidade.
+Basta adicionar um método na classe que representa a entidade a ser manipulada e anotá-lo com um das seguintes anotações
 
+``@PrePersist:`` Antes de salvar.
+
+``@PostPersist:`` Após salvar.
+
+``@PreUpdate:`` Antes de atualizar.
+
+``@PostUpdate:`` Após atualizar.
+
+``@PreRemove:`` Antes de excluir.
+
+``@PostRemove:`` Após excluir.
 ## Jackson
 Jackson é um framework e controla como os objetos Java são serializados em JSON e vice-versa.
 
 ``@JsonIgnore``: Ignora a serialização de um atributo específico.
 ``@JsonIgnoreProperties``:  Ignora múltiplos atributos ou propriedades durante a serialização.
 
+## Spring Framework
+
+``@Transactional``:  Configura o comportamento transacional, como:
+- Abrir e fechar transações.
+- Realizar commit ou rollback.
+- Definir escopo de transações (exemplo: leitura apenas com ``readOnly = true``).
+- Definir quais exceções devem causar rollback usando a propriedade ``rollbackFor = CustomException.class``.
+
+É frequentemente usada em métodos que realizam alterações no banco de dados.
 
 
-[**Voltar ao README**](../README.md#documentação-de-conceitos)
+
+[**<< Voltar ao README**](../README.md#documentação-de-conceitos)

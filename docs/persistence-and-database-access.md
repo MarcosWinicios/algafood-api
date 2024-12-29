@@ -1,4 +1,4 @@
-[**Voltar ao README**](../README.md#documentação-de-conceitos)
+[**<< Voltar ao README**](../README.md#documentação-de-conceitos)
 
 # Persitência e acesso aos dados do banco de dados
 
@@ -185,6 +185,9 @@ Abstração do Spring Data JPA para criar consultas reutilizáveis e dinâmicas 
     ```
 ### Técnicas
 - **Repositórios customizados:** Implementações específicas para adicionar funcionalidades adicionais a repositórios padrão, tanto genéricos quanto focados em entidades específicas.
+- **Adicionar lógica durante eventos do ciclo de vida de uma entidade:** Usar anotações JPA para definir lógicas a serem executadas antes das operações de 
+registro, atualização e remoção de entidades do banco do banco de dados. [Conferir anotações](annotations.md#anotações-de-ciclo-de-vida-do-jpa).
+- **Realizar commit ou rollback:** Usar a anotação ``@Transactional`` para realizar rollbacks em caso de erro na persistencia de dados. [Conferir anotação](annotations.md#spring-framework)
 - **Configurações no arquivo application.properties:**
 ```
   spring.datasource.url=jdbc:mysql://localhost:3306/algafood?createDatabaseIfNotExist=true
@@ -229,4 +232,4 @@ Veja como fica no diagrama abaixo.
 - [**Documentação Spring Data JPA**](https://spring.io/projects/spring-data-jpa)
 - [**Documentação Query Methods**](https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html)
 
-[**Voltar ao README**](../README.md#documentação-de-conceitos)
+[**<< Voltar ao README**](../README.md#documentação-de-conceitos)
