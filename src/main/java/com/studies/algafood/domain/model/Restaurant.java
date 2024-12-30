@@ -7,6 +7,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -15,6 +17,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
@@ -45,6 +49,13 @@ public class Restaurant {
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "kitchen_id", nullable = false)
     private Kitchen kitchen;
+
+    @ManyToMany
+    @JoinTable(name = "tb_restaurant_payment_method",
+        joinColumns = @JoinColumn(name = "restaurant_id"),
+        inverseJoinColumns = @JoinColumn(name = "payment_method_id")
+    )
+    private List<PaymentMethod> paymentMethods = new ArrayList<>();
 
     public Restaurant(String name, BigDecimal shippingFee, Kitchen kitchen) {
         this.name = name;
