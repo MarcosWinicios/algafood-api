@@ -29,8 +29,11 @@ São anotações do **JPA** e do **Hibernate** utilizadas para controlar o mapea
 - ``length:`` Define o tamanho máximo da coluna.
 
 ``@JoinColumn``: Especifica a coluna que será usada para o relacionamento entre entidades.
-- ``name``: Nome da coluna da junção
-- ``referenceColumnName``: Nome da coluna na tabela referenciada
+- ``name``: Define o nome da coluna da junção
+- ``referenceColumnName``: Define o nome da coluna na tabela referenciada
+- ``foireignKey``: Define o nome de uma KF. Recebe o valor da anotação `@FoireignKey`
+
+``@ForeignKey``: Definir o nome de uma FK a partir da propriedade `name`
 
 ``@Transient``: Indicar que um atributo de uma classe não deve ser mapeado para uma coluna no banco de dados. Será ignorado pelo provedor de persitência (Hibernate).
 
@@ -38,6 +41,16 @@ São anotações do **JPA** e do **Hibernate** utilizadas para controlar o mapea
 
 ``@OneToMany``: Indica que um registro desta entidade está relacionado a muitos registros de outra entidade. Relacionamento um-para-muitos.
 - ``mappedBy``: Indica o atributo na outra entidade que mapeia esse relacionamento.
+
+``@ManyToMany``: Indica que muitos registros desta entidade estão realcionado a muitos registros da outra entidade. Relacionamento muitos-para-muitos.
+Também cria automaticamente uma tabela de relacionamento que pode ser costomizada a partir da anotação ``@JoinTable``
+
+``@JoinTable``: Permite fazer customizações especificas de uma tabela de relacionamento. É usada em conjunto com a anotação ``@ManyToMany``
+- ``name``: Define o nome da tabela
+- ``joinColumns``: Define o nome da coluna que será a FK da entidade atual na tabela de relacionamento. Necessário receber da anotação ``@JoinColumn``.
+- ``inverseJoinColumns``: Define o nome da coluna que será a FK da tabela relacionada dentro da tabela de relacionamento.  Necessário receber da anotação ``@JoinColumn``.
+
+
 ### Anotações de ciclo de vida do JPA
 São anotações usadas para adicionar lógica personalizada durante eventos do ciclo de vida de uma entidade.
 Basta adicionar um método na classe que representa a entidade a ser manipulada e anotá-lo com um das seguintes anotações
