@@ -82,6 +82,14 @@ Jackson é um framework e controla como os objetos Java são serializados em JSO
 
 É frequentemente usada em métodos que realizam alterações no banco de dados.
 
+### Controller
+``@RestController``:
+
+``RequestMapping``:
+
+``@GetMapping``, ``@PostMapping``, ``@PutMapping``, ``@PatchMapping``, ``@DeleteMapping``:
+
+
 
 
 [**<< Voltar ao README**](../README.md#documentação-de-conceitos)
