@@ -83,9 +83,9 @@ Jackson é um framework e controla como os objetos Java são serializados em JSO
 É frequentemente usada em métodos que realizam alterações no banco de dados.
 
 ### Controller
-``@RestController``:
+``@RestController``: Define o comportamento da classe como um controlador REST
 
-``RequestMapping``:
+``RequestMapping``: Mapeia rotas e métodos HTTP para uma classe ou método específico
 
 ``@GetMapping``, ``@PostMapping``, ``@PutMapping``, ``@PatchMapping``, ``@DeleteMapping``: São usadas no Spring Framework para mapear requisições HTTP a métodos específicos de um controlador.
 Cada uma representa um tipo de operação HTTP (**GET**, **POST**, **PUT**, **PACH** e **DELETE**).
