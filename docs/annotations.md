@@ -87,7 +87,8 @@ Jackson é um framework e controla como os objetos Java são serializados em JSO
 
 ``RequestMapping``:
 
-``@GetMapping``, ``@PostMapping``, ``@PutMapping``, ``@PatchMapping``, ``@DeleteMapping``:
+``@GetMapping``, ``@PostMapping``, ``@PutMapping``, ``@PatchMapping``, ``@DeleteMapping``: São usadas no Spring Framework para mapear requisições HTTP a métodos específicos de um controlador.
+Cada uma representa um tipo de operação HTTP (**GET**, **POST**, **PUT**, **PACH** e **DELETE**).
 
 
 
