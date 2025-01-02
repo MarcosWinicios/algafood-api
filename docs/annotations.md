@@ -96,7 +96,7 @@ partes dinâmicas de URL. É usada em conjunto com as anotações de mapeamento 
 ``@RequestParam``: Liga parâmetros de consulta (query parameters) ou dados de formulário a um parâmetro do método. Usado para capturar valores enviados em URLs (ex.: ?key=value).
 É útil para valores simples ou filtros enviados na URL.
 
-
+``@RequestBody``: Liga o corpo da requisição HTTP ao parâmetro de um método. É usada para deserializar o corpo da requisição (JSON, XML, etc.) em um objeto Java.
 
 
 [**<< Voltar ao README**](../README.md#documentação-de-conceitos)
