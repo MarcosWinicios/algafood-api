@@ -90,7 +90,8 @@ Jackson é um framework e controla como os objetos Java são serializados em JSO
 ``@GetMapping``, ``@PostMapping``, ``@PutMapping``, ``@PatchMapping``, ``@DeleteMapping``: São usadas no Spring Framework para mapear requisições HTTP a métodos específicos de um controlador.
 Cada uma representa um tipo de operação HTTP (**GET**, **POST**, **PUT**, **PACH** e **DELETE**).
 
-
+``@PathVariable``: Liga variáveis de caminho da URL de um endpoint a uma parâmetro do método. Usada para para capturar
+partes dinâmicas de URL. É usada em conjunto com as anotações de mapeamento de requisições HTTP.
 
 
 [**<< Voltar ao README**](../README.md#documentação-de-conceitos)
