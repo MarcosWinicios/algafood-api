@@ -82,7 +82,6 @@ Jackson é um framework e controla como os objetos Java são serializados em JSO
 
 É frequentemente usada em métodos que realizam alterações no banco de dados.
 
-### Controller
 ``@RestController``: Define o comportamento da classe como um controlador REST
 
 ``RequestMapping``: Mapeia rotas e métodos HTTP para uma classe ou método específico
@@ -97,6 +96,8 @@ partes dinâmicas de URL. É usada em conjunto com as anotações de mapeamento 
 É útil para valores simples ou filtros enviados na URL.
 
 ``@RequestBody``: Liga o corpo da requisição HTTP ao parâmetro de um método. É usada para deserializar o corpo da requisição (JSON, XML, etc.) em um objeto Java.
+
+``@Service``: É usada no Spring Framework para marcar uma classe como um componente de serviço. Ela indica que a classe contém a lógica de negócios da aplicação.
 
 
 [**<< Voltar ao README**](../README.md#documentação-de-conceitos)
