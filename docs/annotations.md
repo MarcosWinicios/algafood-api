@@ -51,6 +51,13 @@ Também cria automaticamente uma tabela de relacionamento que pode ser costomiza
 - ``inverseJoinColumns``: Define o nome da coluna que será a FK da tabela relacionada dentro da tabela de relacionamento.  Necessário receber da anotação ``@JoinColumn``.
 
 
+``@Embedded``: Usada para mapear uma classe que não tem identidade própria (sem chave primária) e que será incorporada como parte da tabela da entidade "pai". 
+Essa classe é decorada com a anotação ``@Embeddable``.
+
+``@Embeddable``: Usada para marcar uma classe como incorporável em uma entidade. É usada em conjunto com a anotação ``@Embedded``.
+
+
+
 ### Anotações de ciclo de vida do JPA
 São anotações usadas para adicionar lógica personalizada durante eventos do ciclo de vida de uma entidade.
 Basta adicionar um método na classe que representa a entidade a ser manipulada e anotá-lo com um das seguintes anotações
