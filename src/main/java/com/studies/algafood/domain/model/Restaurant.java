@@ -3,6 +3,7 @@ package com.studies.algafood.domain.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -50,6 +51,9 @@ public class Restaurant {
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "kitchen_id", nullable = false)
     private Kitchen kitchen;
+
+    @Embedded
+    private Address address;
 
     @JsonIgnore
     @ManyToMany
