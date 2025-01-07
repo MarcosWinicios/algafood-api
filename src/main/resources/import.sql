@@ -1,24 +1,3 @@
-INSERT INTO tb_kitchen (id, name) VALUES (1, 'Tailandesa');
-INSERT INTO tb_kitchen (id, name) VALUES (2, 'Indiana');
-
-INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active) VALUES (1, 'Thai Gourmet', 10.00, 1, false, true);
-INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active) VALUES (2, 'Thai Delivery', 9.50, 1, true, true);
-INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active) VALUES (3, 'Tuk Tuk Comida Indiana', 15.00, 2, false, true);
-
-INSERT INTO tb_payment_method(id, description) VALUES (1, "Cartão de crédito");
-INSERT INTO tb_payment_method(id, description) VALUES (2, "Cartão de débito");
-INSERT INTO tb_payment_method(id, description) VALUES (3, "Dinheiro");
-
-INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUE (1, 1);
-INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUE (1, 2);
-INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUE (1, 3);
-INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUE (2, 3);
-INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUE (3, 2);
-INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUE (3, 3);
-
-INSERT INTO tb_permission (id, name, description) VALUES (1, 'GET_KITCHEN', 'Permite consultar cozinhas');
-INSERT INTO tb_permission (id, name, description) VALUES (2, 'UPDATE_KITCHEN', 'Permite editar cozinhas');
-
 INSERT INTO tb_state(id, name) VALUES (1, "Acre");
 INSERT INTO tb_state(id, name) VALUES (2, "Alagoas");
 INSERT INTO tb_state(id, name) VALUES (3, "Amapá");
@@ -161,5 +140,29 @@ INSERT INTO tb_city(id, name, state_id) VALUES (81, "Campina Grande", 15);
 INSERT INTO tb_city(id, name, state_id) VALUES (82, "Patos", 15);
 INSERT INTO tb_city(id, name, state_id) VALUES (83, "Santa Rita", 15);
 INSERT INTO tb_city(id, name, state_id) VALUES (84, "Bayeux", 15);
+
+
+INSERT INTO tb_kitchen (id, name) VALUES (1, 'Tailandesa');
+INSERT INTO tb_kitchen (id, name) VALUES (2, 'Indiana');
+
+--INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active) VALUES (1, 'Thai Gourmet', 10.00, 1, false, true);
+INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active, address_city_id, address_postal_code, address_public_place, address_number, address_neighborhood) VALUES (1, 'Thai Gourmet', 10.00, 1, false, true, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
+INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active) VALUES (2, 'Thai Delivery', 9.50, 1, true, true);
+INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active) VALUES (3, 'Tuk Tuk Comida Indiana', 15.00, 2, false, true);
+
+
+INSERT INTO tb_payment_method(id, description) VALUES (1, "Cartão de crédito");
+INSERT INTO tb_payment_method(id, description) VALUES (2, "Cartão de débito");
+INSERT INTO tb_payment_method(id, description) VALUES (3, "Dinheiro");
+
+INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUE (1, 1);
+INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUE (1, 2);
+INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUE (1, 3);
+INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUE (2, 3);
+INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUE (3, 2);
+INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUE (3, 3);
+
+INSERT INTO tb_permission (id, name, description) VALUES (1, 'GET_KITCHEN', 'Permite consultar cozinhas');
+INSERT INTO tb_permission (id, name, description) VALUES (2, 'UPDATE_KITCHEN', 'Permite editar cozinhas');
 
 
