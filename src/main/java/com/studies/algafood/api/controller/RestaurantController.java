@@ -38,6 +38,11 @@ public class RestaurantController {
     @GetMapping
     public ResponseEntity<List<Restaurant>> list() {
         List<Restaurant> restaurants = this.restaurantRepository.findAll();
+//        restaurants.stream()
+//                .map(x -> x.getPaymentMethods().stream()
+//                        .toList())
+//                .toList()
+//                .forEach(System.out::println);
         return ResponseEntity.ok(restaurants);
     }
 
@@ -80,7 +85,7 @@ public class RestaurantController {
             Restaurant currentRestaurant = this.restaurantRepository.findById(restaurantId).orElse(null);
 
             if (currentRestaurant != null) {
-                BeanUtils.copyProperties(restaurant, currentRestaurant, "id", "paymentMethods");
+                BeanUtils.copyProperties(restaurant, currentRestaurant, "id", "paymentMethods", "address");
                 currentRestaurant = this.restaurantRegisterService.save(currentRestaurant);
                 return ResponseEntity.ok(currentRestaurant);
             }
