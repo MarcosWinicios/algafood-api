@@ -145,10 +145,11 @@ INSERT INTO tb_city(id, name, state_id) VALUES (84, "Bayeux", 15);
 INSERT INTO tb_kitchen (id, name) VALUES (1, 'Tailandesa');
 INSERT INTO tb_kitchen (id, name) VALUES (2, 'Indiana');
 
-INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active, address_city_id, address_postal_code, address_public_place, address_number, address_neighborhood)
-VALUES (1, 'Thai Gourmet', 10.00, 1, false, true, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
-INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active) VALUES (2, 'Thai Delivery', 9.50, 1, true, true);
-INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active) VALUES (3, 'Tuk Tuk Comida Indiana', 15.00, 2, false, true);
+INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active, created_at, updated_at, address_city_id, address_postal_code, address_public_place, address_number, address_neighborhood) VALUES (1, 'Thai Gourmet', 10.00, 1, false, true, utc_timestamp, utc_timestamp, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
+
+INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active, created_at, updated_at) VALUES (2, 'Thai Delivery', 9.50, 1, true, true, utc_timestamp, utc_timestamp);
+
+INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active, created_at, updated_at) VALUES (3, 'Tuk Tuk Comida Indiana', 15.00, 2, false, true, utc_timestamp, utc_timestamp);
 
 
 INSERT INTO tb_payment_method(id, description) VALUES (1, "Cartão de crédito");
