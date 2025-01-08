@@ -5,6 +5,10 @@
 **Este documento descreve os conceitos das anotações estudadas e utializadas ao decorrer deste projeto.**
 
 ## Sptring Data JPA / JPA / Hibernate
+### Hibernate
+``@CreationTimestamp``:
+
+``@UpdateTimestamp``:
 ### Mapeamento objeto relacional - ORM
 São anotações do **JPA** e do **Hibernate** utilizadas para controlar o mapeamento entre objetos Java e tabelas do banco de dados.
 
