@@ -148,15 +148,10 @@ INSERT INTO tb_kitchen (id, name) VALUES (3, 'Argentina');
 INSERT INTO tb_kitchen (id, name) VALUES (4, 'Brasileira');
 
 INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active, created_at, updated_at, address_city_id, address_postal_code, address_public_place, address_number, address_neighborhood) VALUES (1, 'Thai Gourmet', 10.00, 1, false, true, utc_timestamp, utc_timestamp, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
-
 INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active, created_at, updated_at) VALUES (2, 'Thai Delivery', 9.50, 1, true, true, utc_timestamp, utc_timestamp);
-
 INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active, created_at, updated_at) VALUES (3, 'Tuk Tuk Comida Indiana', 15.00, 2, false, true, utc_timestamp, utc_timestamp);
-
 INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active, created_at, updated_at) VALUES (4, 'Java Steakhouse', 12, 3, true, true, utc_timestamp, utc_timestamp);
-
 INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active, created_at, updated_at) VALUES (5, 'Lanchonete do Tio Sam', 11, 4, true, true, utc_timestamp, utc_timestamp);
-
 INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active, created_at, updated_at) VALUES (6, 'Bar da Maria', 6, 4, true, true, utc_timestamp, utc_timestamp);
 
 
@@ -164,12 +159,6 @@ INSERT INTO tb_payment_method(id, description) VALUES (1, "Cartão de crédito")
 INSERT INTO tb_payment_method(id, description) VALUES (2, "Cartão de débito");
 INSERT INTO tb_payment_method(id, description) VALUES (3, "Dinheiro");
 
-INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUE (1, 1);
-INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUE (1, 2);
-INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUE (1, 3);
-INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUE (2, 3);
-INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUE (3, 2);
-INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUE (3, 3);
 
 INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUES (1, 1);
 INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUES (1, 2);
@@ -184,15 +173,26 @@ INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALU
 INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUES (6, 3);
 
 
-INSERT INTO tb_permission (id, name, description) VALUES (1, 'GET_KITCHEN', 'Permite consultar cozinhas');
-INSERT INTO tb_permission (id, name, description) VALUES (2, 'UPDATE_KITCHEN', 'Permite editar cozinhas');
-
-
-INSERT INTO tb_product (name, description, price, is_active, restaurant_id) VALUES ('Porco com molho agridoce', 'Deliciosa carne suína ao molho especial', 78.90, 1, 1);
-INSERT INTO tb_product (name, description, price, is_active, restaurant_id) VALUES ('Camarão tailandês', '16 camarões grandes ao molho picante', 110, 1, 1);
-
+-- products -> restaurant 1
+INSERT INTO tb_product (name, description, price, is_active, restaurant_id) VALUES ('Porco com molho agridoce', 'Deliciosa carne suína ao molho especial', 78.90, true, 1);
+INSERT INTO tb_product (name, description, price, is_active, restaurant_id) VALUES ('Camarão tailandês', '16 camarões grandes ao molho picante', 110, true, 1);
+-- products -> restaurant 2
 INSERT INTO tb_product (name, description, price, is_active, restaurant_id) VALUES ('Salada picante com carne grelhada', 'Salada de folhas com cortes finos de carne bovina grelhada e nosso molho especial de pimenta vermelha', 87.20, 1, 2);
 
-INSERT INTO tb_product (name, description, price, is_active, restaurant_id) VALUES ('Garlic Naan', 'Pão tradicional indiano com cobertura de alho', 21, 1, 3);
-INSERT INTO tb_product (name, description, price, is_active, restaurant_id) VALUES ('Murg Curry', 'Cubos de frango preparados com molho curry e especiarias', 43, 1, 3);
+-- products -> restaurant 3
+INSERT INTO tb_product (name, description, price, is_active, restaurant_id) VALUES ('Garlic Naan', 'Pão tradicional indiano com cobertura de alho', 21, true, 3);
+INSERT INTO tb_product (name, description, price, is_active, restaurant_id) VALUES ('Murg Curry', 'Cubos de frango preparados com molho curry e especiarias', 43, true, 3);
 
+-- products -> restaurant 4
+INSERT INTO tb_product (name, description, price, is_active, restaurant_id) VALUES ('Bife Ancho', 'Corte macio e suculento, com dois dedos de espessura, retirado da parte dianteira do contrafilé', 79, true, 4);
+INSERT INTO tb_product (name, description, price, is_active, restaurant_id) VALUES ('T-Bone', 'Corte muito saboroso, com um osso em formato de T, sendo de um lado o contrafilé e do outro o filé mignon', 89, true, 4);
+
+-- products -> restaurant 5
+INSERT INTO tb_product (name, description, price, is_active, restaurant_id) VALUES ('Sanduíche X-Tudo', 'Sandubão com muito queijo, hamburger bovino, bacon, ovo, salada e maionese', 19, true, 5);
+
+-- products -> restaurant 6
+INSERT INTO tb_product (name, description, price, is_active, restaurant_id) VALUES ('Espetinho de Cupim', 'Acompanha farinha, mandioca e vinagrete', 8, true, 6);
+
+
+INSERT INTO tb_permission (id, name, description) VALUES (1, 'GET_KITCHEN', 'Permite consultar cozinhas');
+INSERT INTO tb_permission (id, name, description) VALUES (2, 'UPDATE_KITCHEN', 'Permite editar cozinhas');
