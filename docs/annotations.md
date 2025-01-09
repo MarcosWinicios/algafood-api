@@ -6,9 +6,11 @@
 
 ## Sptring Data JPA / JPA / Hibernate
 ### Hibernate
-``@CreationTimestamp``:
+``@CreationTimestamp``: Marca um campo para ser preenchido automaticamente com a data/hora no momento em que a entidade é **persistida pela primeira vez** (inserção no banco).
+    
+``@UpdateTimestamp``:Marca um campo para ser preenchido automaticamente com a data/hora sempre que a entidade é **atualizada**.
 
-``@UpdateTimestamp``:
+
 ### Mapeamento objeto relacional - ORM
 São anotações do **JPA** e do **Hibernate** utilizadas para controlar o mapeamento entre objetos Java e tabelas do banco de dados.
 
