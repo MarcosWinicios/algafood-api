@@ -171,6 +171,19 @@ INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALU
 INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUE (3, 2);
 INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUE (3, 3);
 
+INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUES (1, 1);
+INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUES (1, 2);
+INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUES (1, 3);
+INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUES (2, 3);
+INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUES (3, 2);
+INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUES (3, 3);
+INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUES (4, 1);
+INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUES (4, 2);
+INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUES (5, 1);
+INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUES (5, 2);
+INSERT INTO tb_restaurant_payment_method (restaurant_id, payment_method_id) VALUES (6, 3);
+
+
 INSERT INTO tb_permission (id, name, description) VALUES (1, 'GET_KITCHEN', 'Permite consultar cozinhas');
 INSERT INTO tb_permission (id, name, description) VALUES (2, 'UPDATE_KITCHEN', 'Permite editar cozinhas');
 
