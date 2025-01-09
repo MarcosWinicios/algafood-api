@@ -153,6 +153,12 @@ INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active
 
 INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active, created_at, updated_at) VALUES (3, 'Tuk Tuk Comida Indiana', 15.00, 2, false, true, utc_timestamp, utc_timestamp);
 
+INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active, created_at, updated_at) VALUES (4, 'Java Steakhouse', 12, 3, true, true, utc_timestamp, utc_timestamp);
+
+INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active, created_at, updated_at) VALUES (5, 'Lanchonete do Tio Sam', 11, 4, true, true, utc_timestamp, utc_timestamp);
+
+INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active, created_at, updated_at) VALUES (6, 'Bar da Maria', 6, 4, true, true, utc_timestamp, utc_timestamp);
+
 
 INSERT INTO tb_payment_method(id, description) VALUES (1, "Cartão de crédito");
 INSERT INTO tb_payment_method(id, description) VALUES (2, "Cartão de débito");
