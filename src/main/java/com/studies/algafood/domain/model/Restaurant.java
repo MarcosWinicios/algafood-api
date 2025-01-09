@@ -78,7 +78,7 @@ public class Restaurant {
     )
     private List<PaymentMethod> paymentMethods = new ArrayList<>();
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "restaurant")
     private List<Product> products = new ArrayList<>();
 
