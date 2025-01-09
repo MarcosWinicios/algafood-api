@@ -144,6 +144,8 @@ INSERT INTO tb_city(id, name, state_id) VALUES (84, "Bayeux", 15);
 
 INSERT INTO tb_kitchen (id, name) VALUES (1, 'Tailandesa');
 INSERT INTO tb_kitchen (id, name) VALUES (2, 'Indiana');
+INSERT INTO tb_kitchen (id, name) VALUES (3, 'Argentina');
+INSERT INTO tb_kitchen (id, name) VALUES (4, 'Brasileira');
 
 INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, is_open, is_active, created_at, updated_at, address_city_id, address_postal_code, address_public_place, address_number, address_neighborhood) VALUES (1, 'Thai Gourmet', 10.00, 1, false, true, utc_timestamp, utc_timestamp, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
 
@@ -174,3 +176,4 @@ INSERT INTO tb_product (name, description, price, is_active, restaurant_id) VALU
 
 INSERT INTO tb_product (name, description, price, is_active, restaurant_id) VALUES ('Garlic Naan', 'Pão tradicional indiano com cobertura de alho', 21, 1, 3);
 INSERT INTO tb_product (name, description, price, is_active, restaurant_id) VALUES ('Murg Curry', 'Cubos de frango preparados com molho curry e especiarias', 43, 1, 3);
+
