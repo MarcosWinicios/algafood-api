@@ -167,3 +167,10 @@ INSERT INTO tb_permission (id, name, description) VALUES (1, 'GET_KITCHEN', 'Per
 INSERT INTO tb_permission (id, name, description) VALUES (2, 'UPDATE_KITCHEN', 'Permite editar cozinhas');
 
 
+INSERT INTO tb_product (name, description, price, is_active, restaurant_id) VALUES ('Porco com molho agridoce', 'Deliciosa carne suína ao molho especial', 78.90, 1, 1);
+INSERT INTO tb_product (name, description, price, is_active, restaurant_id) VALUES ('Camarão tailandês', '16 camarões grandes ao molho picante', 110, 1, 1);
+
+INSERT INTO tb_product (name, description, price, is_active, restaurant_id) VALUES ('Salada picante com carne grelhada', 'Salada de folhas com cortes finos de carne bovina grelhada e nosso molho especial de pimenta vermelha', 87.20, 1, 2);
+
+INSERT INTO tb_product (name, description, price, is_active, restaurant_id) VALUES ('Garlic Naan', 'Pão tradicional indiano com cobertura de alho', 21, 1, 3);
+INSERT INTO tb_product (name, description, price, is_active, restaurant_id) VALUES ('Murg Curry', 'Cubos de frango preparados com molho curry e especiarias', 43, 1, 3);
