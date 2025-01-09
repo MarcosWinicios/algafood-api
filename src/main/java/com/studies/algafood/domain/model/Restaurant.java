@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -69,7 +70,6 @@ public class Restaurant {
     @Column(nullable = false, columnDefinition = "datetime")
     private LocalDateTime updatedAt;
 
-
     @JsonIgnore
     @ManyToMany
     @JoinTable(name = "tb_restaurant_payment_method",
@@ -77,6 +77,10 @@ public class Restaurant {
         inverseJoinColumns = @JoinColumn(name = "payment_method_id")
     )
     private List<PaymentMethod> paymentMethods = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<Product> products = new ArrayList<>();
 
     public Restaurant(String name, BigDecimal shippingFee, Kitchen kitchen) {
         this.name = name;
