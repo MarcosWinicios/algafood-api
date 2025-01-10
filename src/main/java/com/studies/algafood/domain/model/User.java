@@ -36,20 +36,20 @@ public class User {
     @Column(nullable = false)
     private String name;
 
-    @EqualsAndHashCode.Include
-    @Column(nullable = false, unique = true)
+//    @EqualsAndHashCode.Include
+    @Column(nullable = false /*, unique = true*/)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
     @CreationTimestamp
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "datetime")
     private LocalDateTime createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "restaurant_id", nullable = false)
-    private Restaurant restaurant;
+//    @ManyToOne
+//    @JoinColumn(name = "restaurant_id", nullable = false)
+//    private Restaurant restaurant;
 
     @ManyToMany
     @JoinTable(name = "tb_user_group",
