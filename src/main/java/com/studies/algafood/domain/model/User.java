@@ -8,7 +8,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,8 +35,7 @@ public class User {
     @Column(nullable = false)
     private String name;
 
-//    @EqualsAndHashCode.Include
-    @Column(nullable = false /*, unique = true*/)
+    @Column(nullable = false)
     private String email;
 
     @Column(nullable = false)
@@ -46,10 +44,6 @@ public class User {
     @CreationTimestamp
     @Column(nullable = false, columnDefinition = "datetime")
     private LocalDateTime createdAt;
-
-//    @ManyToOne
-//    @JoinColumn(name = "restaurant_id", nullable = false)
-//    private Restaurant restaurant;
 
     @ManyToMany
     @JoinTable(name = "tb_user_group",
