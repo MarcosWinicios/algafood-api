@@ -31,13 +31,21 @@ São anotações do **JPA** e do **Hibernate** utilizadas para controlar o mapea
 
 ``@Column``: Mapeia um atributo da classe a uma coluna da tabela no banco de dados, permitindo configurar detalhes como nome, tamanho, e se é nula.
 - ``name:`` Nome da coluna.
-- ``nullable:`` Define se a coluna pode conter valores nulos.
+- ``nullable:`` Define se a coluna pode conter valores nulos. Se não for definido assumo o valor padrão "true".
 - ``length:`` Define o tamanho máximo da coluna.
 
 ``@JoinColumn``: Especifica a coluna que será usada para o relacionamento entre entidades.
 - ``name``: Define o nome da coluna da junção
 - ``referenceColumnName``: Define o nome da coluna na tabela referenciada
 - ``foireignKey``: Define o nome de uma KF. Recebe o valor da anotação `@FoireignKey`
+- ``nullable:`` Define se a coluna pode conter valores nulos. Se não for definido assumo o valor padrão "true".
+  - ``false``:
+    - Faz o mapeamento da coluna **COM** a constraint ``not null`` no DDL.
+    - O Hibernate usa ``inner join`` em consultas pois entende que sempre haverá um valor sendo a FK de outra tabela.
+  - ``true``:
+    - Faz o mapeamento da coluna **SEM** a constraint ``not null`` no DDL.
+    - O Hibernate usa ``left outer join`` em consultas para previnir casos em que a coluna esteja nula, pois sabe que pode acontecer.
+- ``length:`` Define o tamanho máximo da coluna.
 
 ``@ForeignKey``: Definir o nome de uma FK a partir da propriedade `name`
 
