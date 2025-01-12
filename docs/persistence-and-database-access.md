@@ -232,5 +232,7 @@ Veja como fica no diagrama abaixo.
 - [**Tutorial definitivo: Tudo o que você precisa para começar bem com JPA**](https://blog.algaworks.com/tutorial-jpa/)
 - [**Documentação Spring Data JPA**](https://spring.io/projects/spring-data-jpa)
 - [**Documentação Query Methods**](https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html)
+- [**Qual é a diferença entre INNER JOIN e OUTER JOIN?**](https://pt.stackoverflow.com/questions/6441/qual-%C3%A9-a-diferen%C3%A7a-entre-inner-join-e-outer-join)
+
 
 [**<< Voltar ao README**](../README.md#documentação-de-conceitos)
