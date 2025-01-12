@@ -43,7 +43,7 @@ São anotações do **JPA** e do **Hibernate** utilizadas para controlar o mapea
 
 ``@Transient``: Indicar que um atributo de uma classe não deve ser mapeado para uma coluna no banco de dados. Será ignorado pelo provedor de persitência (Hibernate).
 
-``@ManyToOne``: Indica que muitos registros desta entidade estão relacionados a um único registro de outra entidade. Relacionamento muitos-para-um.
+``@ManyToOne``: Indica que muitos registros desta entidade estão relacionados a um único registro de outra entidade. Relacionamento muitos-para-um. Usa o carregamento ``EAGER LOADING`` por padrão.
 
 ``@OneToMany``: Indica que um registro desta entidade está relacionado a muitos registros de outra entidade. Relacionamento um-para-muitos.
 - ``mappedBy``: Indica o atributo na outra entidade que mapeia esse relacionamento.
