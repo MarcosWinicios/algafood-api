@@ -90,7 +90,7 @@ Basta adicionar um método na classe que representa a entidade a ser manipulada 
 ## Jackson
 Jackson é um framework e controla como os objetos Java são serializados em JSON e vice-versa.
 
-``@JsonIgnore``: Ignora a serialização de um atributo específico.
+``@JsonIgnore``: Ignora a serialização de um atributo específico. Ao utilizar em um método **getter**, o atributo será ignorado apenas na consulta.
 ``@JsonIgnoreProperties``:  Ignora múltiplos atributos ou propriedades durante a serialização.
 
 ## Spring Framework
