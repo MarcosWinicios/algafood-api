@@ -190,6 +190,12 @@ registro, atualização e remoção de entidades do banco do banco de dados. [Co
 - **Realizar commit ou rollback:** Usar a anotação ``@Transactional`` para realizar rollbacks em caso de erro na persistencia de dados. [Conferir anotação](annotations.md#spring-framework)
 - **Automatizar campos atributos de data:** Utilizar as anotações ``@CreationTimestamp`` e ``@UpdateTimestamp`` para preencher campos de data de criação e atualização de entidades. [Conferir anotações](annotations.md#hibernate).
 - **Configurações no arquivo application.properties:**
+- **Relacionamentos entre as entidades**: Usar anotações do JPA (``@ManyToOne``, ``@OneToMany``, ``@ManyToMany``, ``@Embedded``). [Conferir anotações](annotations.md#mapeamento-objeto-relacional---orm)
+- **Problema N + 1**:
+  - stratégia 1: Usar JQPL com fech nos joins
+  - Utilizar os carregamentos EAGER e LAZY para diminuir a quantidade de selects desnecessários.
+
+
 ```
   spring.datasource.url=jdbc:mysql://localhost:3306/algafood?createDatabaseIfNotExist=true
   spring.datasource.username=root
