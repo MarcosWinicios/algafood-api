@@ -2,6 +2,7 @@ package com.studies.algafood.domain.repository;
 
 import com.studies.algafood.domain.model.Restaurant;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +13,9 @@ import java.util.Optional;
 @Repository
 public interface RestaurantRepository
         extends CustomJpaRepository<Restaurant,Long>, RestaurantRepositoryQueries, JpaSpecificationExecutor<Restaurant> {
+
+    @Query("from Restaurant r join fetch r.kitchen left join fetch r.paymentMethods")
+    List<Restaurant> findAll();
 
     List<Restaurant> queryByShippingFeeBetween(BigDecimal initialFee, BigDecimal finalFee);
 
