@@ -234,6 +234,20 @@ Veja como fica no diagrama abaixo.
 
 <img src="images/entity-states-diagram.png" alt="Diagrama dos estados de uma entidade=980"/>
 
+
+## Pool de conexões
+
+Quando um software mantém uma quantidade configurável de conexões abertas e ociosas com o banco de dados e escala e derruba mais à medida que for necessário.
+
+- É posssível configurar as quantidades máxima e mínima de conexões abertas.
+- Também é possível configurar por quanto tempo as novas conexões abertas pelo pool se manterão disponíveis.
+- Para definir as quantidades a serem configuradas, é indicado o dobro da quantidade de núcleos do processador. Mas é apenas uma sugestão.
+- Para determinar de fato, é necessários realizar análises a partir de testes de carga em ambientes próximos ao de produção.
+- As requisições além da quantidade de conexões ativas, ficam em uma fila a espera da disponibilidade de uma conexão que esteja em uso.
+
+
+
+
 ### Links úteis
 - [**Tutorial definitivo: Tudo o que você precisa para começar bem com JPA**](https://blog.algaworks.com/tutorial-jpa/)
 - [**Documentação Spring Data JPA**](https://spring.io/projects/spring-data-jpa)
