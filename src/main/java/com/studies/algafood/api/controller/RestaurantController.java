@@ -37,24 +37,7 @@ public class RestaurantController {
 
     @GetMapping
     public ResponseEntity<List<Restaurant>> list() {
-        List<Restaurant> restaurants = this.restaurantRepository.findAll();
-
-        System.out.println("O nome da cozinha é: ");
-        System.out.println(restaurants.get(0).getKitchen().getName());
-        restaurants.get(0).getPaymentMethods().forEach(System.out::println);
-
-        System.out.println(restaurants.get(1).getName());
-        restaurants.get(1).getPaymentMethods().forEach(System.out::println);
-
-        System.out.println(restaurants.get(0).getName());
-        restaurants.get(0).getPaymentMethods().forEach(System.out::println);
-
-//        restaurants.stream()
-//                .map(x -> x.getPaymentMethods().stream()
-//                        .toList())
-//                .toList()
-//                .forEach(System.out::println);
-        return ResponseEntity.ok(restaurants);
+        return ResponseEntity.ok(this.restaurantRepository.findAll());
     }
 
     @GetMapping("/{restaurantId}")

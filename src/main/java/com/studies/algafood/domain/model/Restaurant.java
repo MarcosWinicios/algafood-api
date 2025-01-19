@@ -54,8 +54,7 @@ public class Restaurant {
     @Column(nullable = false)
     private Boolean isActive = true;
 
-//    @JsonIgnore
-//    @JsonIgnoreProperties("hibernateLazyInitializer") //Usar caso queria utilizar um metodo de uma entidade ignorada
+    @JsonIgnoreProperties("hibernateLazyInitializer")
     @ManyToOne(cascade = CascadeType.REMOVE , fetch = FetchType.LAZY)
     @JoinColumn(name = "kitchen_id", nullable = false)
     private Kitchen kitchen;
@@ -74,8 +73,8 @@ public class Restaurant {
     @Column(nullable = false, columnDefinition = "datetime")
     private LocalDateTime updatedAt;
 
-//    @JsonIgnore
-    @ManyToMany//(fetch = FetchType.EAGER) // Não recomendado em relacionamentos em que o padrão seja LAZY
+    @JsonIgnore
+    @ManyToMany
     @JoinTable(name = "tb_restaurant_payment_method",
         joinColumns = @JoinColumn(name = "restaurant_id"),
         inverseJoinColumns = @JoinColumn(name = "payment_method_id")
