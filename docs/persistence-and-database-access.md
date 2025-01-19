@@ -239,6 +239,9 @@ Veja como fica no diagrama abaixo.
 - [**Documentação Spring Data JPA**](https://spring.io/projects/spring-data-jpa)
 - [**Documentação Query Methods**](https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html)
 - [**Qual é a diferença entre INNER JOIN e OUTER JOIN?**](https://pt.stackoverflow.com/questions/6441/qual-%C3%A9-a-diferen%C3%A7a-entre-inner-join-e-outer-join)
+- [**Preventing MySQL Error 1040: Too Many Connections**](https://www.percona.com/blog/preventing-mysql-error-1040-too-many-connections/#:~:text=By%20default%20151%20is%20the,in%20use%20by%20other%20clients)
+- [**Propagação e isolamento de transações no Spring**](https://www.baeldung.com/spring-transactional-propagation-isolation)
+- [**Entendendo o Lock Otimista do JPA (Integridade)**](https://blog.algaworks.com/entendendo-o-lock-otimista-do-jpa/)
 
 
 [**<< Voltar ao README**](../README.md#documentação-de-conceitos)
