@@ -4,7 +4,7 @@
 
 **Este documento descreve os conceitos das propriedades utilizadas nas configurações no arquivo ``application.properties``.**
 
-## Spring JPA e Hibernate
+## Spring Data JPA e Hibernate
 
 ### Definir configurações do banco de dados
 ```
@@ -76,5 +76,30 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
 **Por que usar?:**
 - Cada banco de dados tem sintaxes e recursos próprios (como funções ou tipos de dados específicos). O dialeto é a classe que informa ao Hibernate como gerar consultas SQL otimizadas para o banco configurado.
 - O MySQLDialect ajusta as consultas para o MySQL.
+
+
+### Dinifir configurações do Pool de conexões padrão do Spring: HikariCP
+
+[**HikariCP**](https://github.com/brettwooldridge/HikariCP) é um pool de conexões ao banco de dados utilizado por padrão no Spring Boot.
+
+```
+spring.datasource.hikari.maximum-poll-size=5
+spring.datasource.hikari.minimum-idle=3
+spring.datasource.hikari.idle-timeout=10000
+```
+- ``spring.datasource.hikari.maximum-pool-size``: 
+  - Define o número máximo de conexões que o pool pode conter. 
+  - Quando esse limite é atingido, solicitações adicionais de conexão serão colocadas em espera até que uma conexão seja liberada ou ocorra um timeout.
+  - Útil para limitar o número de conexões simultâneas ao banco de dados, garantindo que ele não fique sobrecarregado.
+- ``spring.datasource.hikari.minimum-idle``: 
+  - Define o número mínimo de conexões ociosas (não utilizadas) que o pool deve manter. Se não for configurado, assumirá a mesma quantidade do máximo.
+  - Se o número de conexões ociosas cair abaixo desse valor, o pool criará novas conexões até atingir o mínimo configurado.
+  - Evita que o pool precise criar novas conexões com frequência, reduzindo a latência em situações de alta demanda.
+- ``spring.datasource.hikari.idle-timeout=10000``:
+  - Especifica o tempo (em milissegundos) que uma conexão ociosa pode permanecer no pool antes de ser fechada.
+  - Se o número de conexões ociosas no pool for maior que o configurado, as conexões adicionais serão fechadas após o período configurado.
+  - Ajuda a liberar conexões que não estão sendo usadas para reduzir o consumo de recursos.
+
+Essas configurações equilibram performance, uso eficiente de recursos e tempo de resposta para uma aplicação que utiliza conexões com o banco de dados.
 
 [**<< Voltar ao README**](../README.md#documentação-de-conceitos)
