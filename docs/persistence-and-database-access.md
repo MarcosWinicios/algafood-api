@@ -243,7 +243,7 @@ Quando um software mantém uma quantidade configurável de conexões abertas e o
 - Também é possível configurar por quanto tempo as novas conexões abertas pelo pool se manterão disponíveis, sendo apenas um tempo sugestivo pois o Hikari pode demorar um pouco mais.
 - Não existe uma quantidade ideal de conexões a serem configuradas, porém existem algumas sugestões
   - Alguns indicam o dobro da quantidade de núcleos do processador. Mas é apenas uma sugestão.
-  - A Oracle ([por meio desse artigo]([https://docs.oracle.com/en/database/oracle/oracle-database/19/jjucp/optimizing-real-world-performance.html#GUID-BC09F045-5D80-4AF5-93F5-FEF0531E0E1D)) recomenda de 1 a 10 conexões por core da CPU do servidor de banco de dados.
+  - A Oracle ([por meio desse artigo](https://docs.oracle.com/en/database/oracle/oracle-database/19/jjucp/optimizing-real-world-performance.html#GUID-BC09F045-5D80-4AF5-93F5-FEF0531E0E1D)) recomenda de 1 a 10 conexões por core da CPU do servidor de banco de dados.
   - Outros recomendam também que o número máximo de conexões seja igual ao número máximo do Thread Pool do seu servidor. Pois assim evita que threads fiquem presas esperando por conexões de outras.
 - Para determinar de fato, é necessários realizar análises a partir de testes de carga em ambientes próximos ao de produção.
 - As requisições além da quantidade de conexões ativas, ficam em uma fila a espera da disponibilidade de uma conexão que esteja em uso.
@@ -268,7 +268,7 @@ Quando um software mantém uma quantidade configurável de conexões abertas e o
 ##### Outros
 - [**Qual é a diferença entre INNER JOIN e OUTER JOIN?**](https://pt.stackoverflow.com/questions/6441/qual-%C3%A9-a-diferen%C3%A7a-entre-inner-join-e-outer-join)
 - [**Preventing MySQL Error 1040: Too Many Connections**](https://www.percona.com/blog/preventing-mysql-error-1040-too-many-connections/#:~:text=By%20default%20151%20is%20the,in%20use%20by%20other%20clients)
-
+- [**Otimização do desempenho no mundo real com pools de conexões estáticas**](https://docs.oracle.com/en/database/oracle/oracle-database/19/jjucp/optimizing-real-world-performance.html#GUID-BC09F045-5D80-4AF5-93F5-FEF0531E0E1D)
 
 
 
