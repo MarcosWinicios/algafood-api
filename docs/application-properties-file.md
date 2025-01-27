@@ -53,11 +53,24 @@ spring.jpa.hibernate.ddl-auto=create
 - ``create-drop:`` Igual ao ``create``, mas exclui o esquema ao encerrar a aplicação.
 
 
-**Por que usar?:**
+**Por que usar?**
 - O valor ``create`` é útil em desenvolvimento ou testes para garantir que o banco sempre reflita as entidades.
 
 **Atenção:**
 - Não deve ser usado em produção, pois apagará todos os dados existentes no banco a cada inicialização.
+
+### Gerar arquivo DDL com base no mapeamento ORM
+
+```
+spring.jpa.properties.javax.persistence.schema-generation.scripts.action=create
+spring.jpa.properties.javax.persistence.schema-generation.scripts.create-target=src/main/resources/ddl.sql
+```
+**Por que usar?**
+- Útil para obter o scrip SQL completo de criação das tabelas do banco de dados. O arquivo será salvo no diretório especificado na segunda linha de configuração.
+
+**Atenção:**
+- Este recurso deve ser utilizado temporariamente. Adicionando as configurações, executando o projeto e as removendo novamente.
+- É importante revisar o arquivo gerado antes de utiliza-lo.
 
 ### Habilitar o log das consultas SQL executadas pelo Hibernate no console da aplicação
 ```
