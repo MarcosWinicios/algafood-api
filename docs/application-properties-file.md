@@ -72,6 +72,9 @@ spring.jpa.properties.javax.persistence.schema-generation.scripts.create-target=
 - Este recurso deve ser utilizado temporariamente. Adicionando as configurações, executando o projeto e as removendo novamente.
 - É importante revisar o arquivo gerado antes de utiliza-lo.
 
+**Dica:**
+- Combinar com ``spring.jpa.properties.hibernate.format_sql=true`` para gerar o sql já formatado.
+
 ### Habilitar o log das consultas SQL executadas pelo Hibernate no console da aplicação
 ```
 spring.jpa.show-sql=true
