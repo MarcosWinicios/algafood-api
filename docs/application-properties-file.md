@@ -74,6 +74,9 @@ spring.jpa.properties.javax.persistence.schema-generation.scripts.create-target=
 
 **Dica:**
 - Combinar com ``spring.jpa.properties.hibernate.format_sql=true`` para gerar o sql já formatado.
+- Usar o a valor ``update`` na propriedade ``action``, faz com que a geração do arquivo seja incremental. Iá gerar apenas as novas entidades.
+
+
 
 ### Habilitar o log das consultas SQL executadas pelo Hibernate no console da aplicação
 ```
