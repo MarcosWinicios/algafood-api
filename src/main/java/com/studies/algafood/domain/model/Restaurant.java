@@ -48,12 +48,6 @@ public class Restaurant {
     @Column(nullable = false)
     private BigDecimal shippingFee;
 
-    @Column(nullable = false)
-    private Boolean isOpen = true;
-
-    @Column(nullable = false)
-    private Boolean isActive = true;
-
     @JsonIgnoreProperties("hibernateLazyInitializer")
     @ManyToOne(cascade = CascadeType.REMOVE , fetch = FetchType.LAZY)
     @JoinColumn(name = "kitchen_id", nullable = false)
@@ -89,7 +83,5 @@ public class Restaurant {
         this.name = name;
         this.shippingFee = shippingFee;
         this.kitchen = kitchen;
-        this.isActive = true;
-        this.isOpen = true;
     }
 }
