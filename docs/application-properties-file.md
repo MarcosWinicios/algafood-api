@@ -96,6 +96,12 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
 - Cada banco de dados tem sintaxes e recursos próprios (como funções ou tipos de dados específicos). O dialeto é a classe que informa ao Hibernate como gerar consultas SQL otimizadas para o banco configurado.
 - O MySQLDialect ajusta as consultas para o MySQL.
 
+### Definir localizações dos arquivos das migrações do flyway.
+
+```properties
+ spring.flyway.locations=classpath:db/migration,classpath:db/testData
+```
+Mais detalhes [**Aqui**](flyway.md#localização-dos-arquivos-de-migrations).
 
 ### Dinifir configurações do Pool de conexões padrão do Spring: HikariCP
 
@@ -120,5 +126,7 @@ spring.datasource.hikari.idle-timeout=10000
   - Ajuda a liberar conexões que não estão sendo usadas para reduzir o consumo de recursos.
 
 Essas configurações equilibram performance, uso eficiente de recursos e tempo de resposta para uma aplicação que utiliza conexões com o banco de dados.
+
+
 
 [**<< Voltar ao README**](../README.md#documentação-de-conceitos)
