@@ -7,7 +7,7 @@
 ## Spring Data JPA e Hibernate
 
 ### Definir configurações do banco de dados
-```
+```properties
   spring.datasource.url=jdbc:mysql://localhost:3306/algafood?createDatabaseIfNotExist=true
   spring.datasource.username=root
   spring.datasource.password=123456
@@ -22,7 +22,7 @@
 - ``spring.datasource.password``: Define a senha associada ao usuário definido em ``spring.datasource.username``.
 
 ### Definir o fuso horário padrão para conexões JDBC
-```
+```properties
 spring.jpa.properties.hibernate.jdbc.time_zone=UTC
 ```
 Garante que os dados temporais (como ``Timestamp`` e ``Date``) sejam armazenados e recuperados corretamente, independentemente do fuso horário do sistema operacional ou da aplicação
@@ -32,7 +32,7 @@ Garante que os dados temporais (como ``Timestamp`` e ``Date``) sejam armazenados
 - O UTC é frequentemente usado como referência universal.
 
 ### Gerar o esquema do banco de dados (DDL) com base nas entidades mapeadas
-```
+```properties
 spring.jpa.generate-ddl=true
 ```
 **Por que usar?:**
@@ -42,7 +42,7 @@ spring.jpa.generate-ddl=true
 - Não é recomendado para produção, pois pode sobrescrever tabelas existentes inadvertidamente.
 
 ### Controlar como o Hibernate gerencia o esquema do banco de dados ao iniciar a aplicação
-```
+```properties
 spring.jpa.hibernate.ddl-auto=create
 ```
 **Os valores possíveis incluem:**
@@ -61,7 +61,7 @@ spring.jpa.hibernate.ddl-auto=create
 
 ### Gerar arquivo DDL com base no mapeamento ORM
 
-```
+```properties
 spring.jpa.properties.javax.persistence.schema-generation.scripts.action=create
 spring.jpa.properties.javax.persistence.schema-generation.scripts.create-target=src/main/resources/ddl.sql
 ```
@@ -79,7 +79,7 @@ spring.jpa.properties.javax.persistence.schema-generation.scripts.create-target=
 
 
 ### Habilitar o log das consultas SQL executadas pelo Hibernate no console da aplicação
-```
+```properties
 spring.jpa.show-sql=true
 ```
 **Por que usar?:**
@@ -89,7 +89,7 @@ spring.jpa.show-sql=true
 - Combine com ``spring.jpa.properties.hibernate.format_sql=true`` para formatar as consultas no log.
 
 ### Especifica o dialeto a ser usado pelo Hibernate para interagir com o banco de dados.
-```
+```properties
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
 ```
 **Por que usar?:**
@@ -101,7 +101,7 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
 
 [**HikariCP**](https://github.com/brettwooldridge/HikariCP) é um pool de conexões ao banco de dados utilizado por padrão no Spring Boot.
 
-```
+```properties
 spring.datasource.hikari.maximum-poll-size=5
 spring.datasource.hikari.minimum-idle=3
 spring.datasource.hikari.idle-timeout=10000
