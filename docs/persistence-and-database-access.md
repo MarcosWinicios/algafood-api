@@ -62,7 +62,7 @@ pelo Spring Data JPA quanto métodos criados manualmente, sejam acessíveis a pa
 Uso de anotações do JPA para mapear entidades e seus atributos podendo definir até mesmo os relacionamentos entre as tabelas do banco de dados.
 
 Exemplo:
-```
+```Java
   @Entity
   @Table(name = "tb_restaurant")
   public class Restaurant {
@@ -95,9 +95,9 @@ Exemplo:
 #### Query Methods 
 Métodos de consulta derivados automaticamente com base nos nomes dos métodos em repositórios.
 
-```
+```Java
   List<Restaurant> findByName(String name);
-  
+
   List<Restaurant> findByNameContainingAndKitchenId(String name, Long kitchen);
 ```
 
@@ -106,7 +106,7 @@ Métodos de consulta derivados automaticamente com base nos nomes dos métodos e
 Consultas escritas diretamente em SQL, permitindo uso total dos recursos específicos do banco de dados. O SDJPA faciltia o seu uso
 apenas declarando a instrução **SQL** dentro da anotação ``@Query`` com a propriedade ``nativeQuery=true``.
 
-```
+```Java
    @Query(value = "SELECT * FROM tb_restaurants WHERE name = :name", nativeQuery = true)
    List<Restaurant> findByName(String name);
 ```
@@ -116,7 +116,7 @@ apenas declarando a instrução **SQL** dentro da anotação ``@Query`` com a pr
 Linguagem de consulta baseada em objetos, similar ao SQL, mas operando sobre entidades JPA. O SDJPA facilita o seu uso apenas declarando
 a instrução **JPQL** dentro na anotação ``@Query``.
 
-```
+```Java
   public List<Restaurant> findByKitchenName(String kitchenName){
       if(!StringUtils.hasLength(kitchenName)){
           throw new IllegalArgumentException("kitchenName param can't null");
@@ -137,7 +137,7 @@ a instrução **JPQL** dentro na anotação ``@Query``.
 
 API programática para construir consultas dinâmicas em JPQL com segurança em tempo de compilação.
 
-```
+```Java
   public List<Restaurant> findByKitchenName(String kitchenName){
       if(!StringUtils.hasLength(kitchenName)){
           throw new IllegalArgumentException("kitchenName param can't null");
@@ -157,12 +157,12 @@ API programática para construir consultas dinâmicas em JPQL com segurança em 
 
 Abstração do Spring Data JPA para criar consultas reutilizáveis e dinâmicas com critérios combináveis.
   - Repositório principal
-    ```
+    ```Java
       @Repository
       public interface RestaurantRepository extends JpaSpecificationExecutor<Restaurant> {}
     ```
   - Classe fábrica de specifications
-    ```
+    ```Java
       public class RestaurantSpecs {
           //A lambada no return implementa o metodo toPredicate() da interface Specification
       
@@ -196,7 +196,7 @@ registro, atualização e remoção de entidades do banco do banco de dados. [Co
   - Utilizar os carregamentos EAGER e LAZY para diminuir a quantidade de selects desnecessários.
 
 
-```
+```properties
   spring.datasource.url=jdbc:mysql://localhost:3306/algafood?createDatabaseIfNotExist=true
   spring.datasource.username=root
   spring.datasource.password=123456
