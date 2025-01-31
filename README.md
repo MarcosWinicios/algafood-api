@@ -22,6 +22,7 @@ Este projeto inclui uma documentação detalhada sobre os conceitos e tecnologia
 - [Persistência e acesso aos dados](docs/persistence-and-database-access.md)
 - [Anotações](docs/annotations.md)
 - [Configurações no arquivo application.properties](docs/application-properties-file.md)
+- [Flyway](docs/flyway.md)
 
 
 ## Convenção de Mensagem de Confirmação
