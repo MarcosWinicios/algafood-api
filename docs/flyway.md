@@ -32,4 +32,11 @@ Flyway mantém um histórico das migrations aplicadas na tabela `flyway_schema_h
 - Nunca modificar uma migration já aplicada.
 - Aplicar migrations em ambientes de teste antes de produção.
 
+
+## Links Úteis
+
+[**Remover arquivos de carga de dados de teste do artefato empacotado**](https://maven.apache.org/plugins/maven-resources-plugin/examples/include-exclude.html#:~:text=Thus%2C%20we%20may%20have%20to,add%20an%20element.&text=And%20to%20exclude%20a%20resource,add%20an%20element)
+
+
+
 [**<< Voltar ao README**](../README.md#documentação-de-conceitos)
