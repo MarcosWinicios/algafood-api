@@ -17,12 +17,30 @@ Os arquivos de migrations seguem um padrão:
 - `{versão}` define a ordem de execução.
 - `{descrição}` indica a mudança aplicada.
 
+
 ## Principais Comandos
 - `migrate`: Executa as migrations pendentes.
 - `info`: Exibe o status das migrations.
 - `validate`: Valida se as migrations aplicadas estão corretas.
 - `baseline`: Marca um estado inicial para o banco.
 - `repair`: Corrige metadados do histórico de migrations.
+
+### Configuração Necessária para Usar os Comandos
+Para que o Flyway possa se conectar ao banco de dados e executar comandos como `migrate`, `repair` e `info`, é necessário configurar um arquivo `flyway.properties` com as credenciais de acesso.
+
+### Exemplo de `flyway.properties`
+```properties
+flyway.url=jdbc:mysql://localhost:3306/meubanco
+flyway.user=root
+flyway.password=senha
+flyway.schemas=public
+```
+### Exemplo de uso de comandos
+
+```
+mvn flyway:repair -Dflyway.configFiles=src/main/resources/flyway.properties
+```
+
 
 ## Histórico de Migrations
 Flyway mantém um histórico das migrations aplicadas na tabela `flyway_schema_history`, garantindo rastreabilidade.
