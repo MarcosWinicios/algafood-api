@@ -17,6 +17,16 @@ Os arquivos de migrations seguem um padrão:
 - `{versão}` define a ordem de execução.
 - `{descrição}` indica a mudança aplicada.
 
+## Localização dos arquivos de migrations
+
+Por padrão, o Flyway busca migrations em ``resources/db/migration``. Para adicionar outras localizações, configure o application.properties:
+
+```properties
+ spring.flyway.locations=classpath:db/migration,classpath:db/testData
+```
+Isso permite organizar arquivos de migrations e dados de teste em diretórios separados, como no exemplo acima, facilitando a manutenção do projeto.
+
+Um exemplo de uso seria adicionar novo diretório de teste com um arquivo com carga de dados de teste utilizando o arquivo de callback ``afterMigrate.sql``.
 
 ## Principais Comandos
 - `migrate`: Executa as migrations pendentes.
@@ -40,7 +50,6 @@ flyway.schemas=public
 ```
 mvn flyway:repair -Dflyway.configFiles=src/main/resources/flyway.properties
 ```
-
 
 ## Histórico de Migrations
 Flyway mantém um histórico das migrations aplicadas na tabela `flyway_schema_history`, garantindo rastreabilidade.
