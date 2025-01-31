@@ -178,7 +178,7 @@ Abstração do Spring Data JPA para criar consultas reutilizáveis e dinâmicas 
       }
     ```
   - Uso dos métodos de specifications
-    ```
+    ```Java
       public List<Restaurant> findWithFreeShipping(String name) {
           return restaurantRepository.findAll(withFreeShipping().and(withSimilarName(name)));
       }
@@ -194,6 +194,7 @@ registro, atualização e remoção de entidades do banco do banco de dados. [Co
 - **Problema N + 1**:
   - stratégia 1: Usar JQPL com fech nos joins
   - Utilizar os carregamentos EAGER e LAZY para diminuir a quantidade de selects desnecessários.
+- **Versionar o banco de dados utilizando migrations**: Ver detalhes [**Aqui**](flyway.md).
 
 
 ```properties
