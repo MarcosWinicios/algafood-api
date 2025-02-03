@@ -1,6 +1,7 @@
 package com.studies.algafood.domain.model;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -49,4 +50,7 @@ public class Order {
 
     @Column(nullable = false)
     private OrderStatus orderStatus;
+
+    @Embedded
+    private Address deliveryAddress;
 }
