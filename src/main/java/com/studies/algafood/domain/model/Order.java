@@ -46,4 +46,7 @@ public class Order {
     private LocalDateTime deliveryDate;
 
     private LocalDateTime cancellationDate;
+
+    @Column(nullable = false)
+    private OrderStatus orderStatus;
 }
