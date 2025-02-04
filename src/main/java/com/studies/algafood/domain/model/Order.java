@@ -59,13 +59,9 @@ public class Order {
     @Embedded
     private Address deliveryAddress;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "payment_id", nullable = false)
     private PaymentMethod paymentMethod;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User client;
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id", nullable = false)
@@ -73,4 +69,9 @@ public class Order {
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> items = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User client;
+
 }
