@@ -79,6 +79,10 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant")
     private List<Product> products = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurant")
+    private List<Order> orders = new ArrayList<>();
+
     public Restaurant(String name, BigDecimal shippingFee, Kitchen kitchen) {
         this.name = name;
         this.shippingFee = shippingFee;

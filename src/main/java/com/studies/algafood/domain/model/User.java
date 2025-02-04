@@ -1,5 +1,6 @@
 package com.studies.algafood.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -54,7 +55,7 @@ public class User {
     )
     private List<Group> groups = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
-    @JoinColumn
     private List<Order> orders;
 }
