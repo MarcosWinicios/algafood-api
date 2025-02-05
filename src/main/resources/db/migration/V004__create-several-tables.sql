@@ -4,19 +4,19 @@
         name VARCHAR(60) NOT NULL,
 
         PRIMARY KEY (id)
-    ) engine=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     CREATE TABLE tb_group_permission (
         group_id BIGINT NOT NULL,
         permission_id BIGINT NOT NULL
-    ) engine=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     CREATE TABLE tb_payment_method (
         id BIGINT NOT NULL AUTO_INCREMENT,
         description VARCHAR(60) NOT NULL,
 
         PRIMARY KEY (id)
-    ) engine=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     CREATE TABLE tb_permission (
         id BIGINT NOT NULL AUTO_INCREMENT,
@@ -24,7 +24,7 @@
         description VARCHAR(255) NOT NULL,
 
         PRIMARY KEY (id)
-    ) engine=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     CREATE TABLE tb_product (
         id BIGINT NOT NULL AUTO_INCREMENT,
@@ -35,7 +35,7 @@
         restaurant_id BIGINT NOT NULL,
 
         PRIMARY KEY (id)
-    ) engine=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     CREATE TABLE tb_restaurant (
         id BIGINT NOT NULL AUTO_INCREMENT,
@@ -52,12 +52,12 @@
         kitchen_id BIGINT NOT NULL,
 
         PRIMARY KEY (id)
-    ) engine=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     CREATE TABLE tb_restaurant_payment_method (
         payment_method_id BIGINT NOT NULL,
         restaurant_id BIGINT NOT NULL
-    ) engine=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     CREATE TABLE tb_user (
         id BIGINT NOT NULL AUTO_INCREMENT,
@@ -67,12 +67,12 @@
         created_at DATETIME NOT NULL,
 
         PRIMARY KEY (id)
-    ) engine=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     CREATE TABLE tb_user_group (
         group_id BIGINT NOT NULL,
         user_id BIGINT NOT NULL
-    ) engine=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     ALTER TABLE tb_group_permission
        ADD CONSTRAINT fk_group_permission_permission
