@@ -12,6 +12,8 @@ DELETE FROM tb_restaurant_payment_method;
 DELETE FROM tb_state;
 DELETE FROM tb_user;
 DELETE FROM tb_user_group;
+DELETE FROM tb_order_item;
+DELETE FROM tb_order;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
@@ -24,6 +26,8 @@ ALTER TABLE tb_product AUTO_INCREMENT = 1;
 ALTER TABLE tb_restaurant AUTO_INCREMENT = 1;
 ALTER TABLE tb_state AUTO_INCREMENT = 1;
 ALTER TABLE tb_user AUTO_INCREMENT = 1;
+ALTER TABLE tb_order_item AUTO_INCREMENT = 1;
+ALTER TABLE tb_order AUTO_INCREMENT = 1;
 
 
 INSERT INTO tb_state(id, name) VALUES (1, "Acre");
