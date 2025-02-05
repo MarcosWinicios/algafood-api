@@ -43,35 +43,32 @@ public class Order {
     @Column(nullable = false)
     private BigDecimal totalValue;
 
+    @Embedded
+    private Address deliveryAddress;
+
     @CreationTimestamp
     @Column(nullable = false)
     private LocalDateTime createdAt;
-
     private LocalDateTime confirmationDate;
-
     private LocalDateTime deliveryDate;
-
     private LocalDateTime cancellationDate;
 
     @Column(nullable = false)
     private OrderStatus orderStatus;
 
-    @Embedded
-    private Address deliveryAddress;
-
     @ManyToOne
-    @JoinColumn(name = "payment_id", nullable = false)
+    @JoinColumn(name = "payment_method_id", nullable = false)
     private PaymentMethod paymentMethod;
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
+    @ManyToOne
+    @JoinColumn(name = "user_client_id", nullable = false)
+    private User client;
+
     @OneToMany(mappedBy = "order")
     private List<OrderItem> items = new ArrayList<>();
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User client;
 
 }
