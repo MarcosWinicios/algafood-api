@@ -70,7 +70,9 @@ Essa classe é decorada com a anotação ``@Embeddable``.
 
 ``@Embeddable``: Usada para marcar uma classe como incorporável em uma entidade. É usada em conjunto com a anotação ``@Embedded``.
 
-
+``@Enumerated``: Usada no JPA para mapear um atributo do tipo enum em uma entidade para uma coluna no banco de dados.
+- ``EnumType.ORDINAL``:  (Padrão) -> Armazena a posição do enum como um número (0, 1, 2...).
+- ``EnumType.STRING``: Armazena o nome do enum como texto no banco.
 
 ### Anotações de ciclo de vida do JPA
 São anotações usadas para adicionar lógica personalizada durante eventos do ciclo de vida de uma entidade.
