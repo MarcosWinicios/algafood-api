@@ -15,7 +15,7 @@ CREATE TABLE tb_order(
     address_complement VARCHAR(255),
     address_neighborhood VARCHAR(255),
 
-    order_status VARCHAR(10) NOT NULL,
+    order_status enum ('CREATED','CANCELED','CONFIRMED','DELIVERED') NOT NULL,
     created_at DATETIME NOT NULL,
     confirmation_date DATETIME,
     cancellation_date DATETIME,
