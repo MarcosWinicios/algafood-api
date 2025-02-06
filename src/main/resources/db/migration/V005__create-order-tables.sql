@@ -53,7 +53,8 @@ CREATE TABLE tb_order_item (
     order_id BIGINT NOT NULL,
     product_id BIGINT NOT NULL,
 
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_order_item_product (order_id, product_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE tb_order_item 
