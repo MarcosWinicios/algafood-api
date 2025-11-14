@@ -5,6 +5,7 @@ import com.studies.algafood.domain.model.Restaurant;
 import com.studies.algafood.domain.repository.KitchenRepository;
 import com.studies.algafood.domain.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +24,11 @@ public class TestController {
 
     @Autowired
     private RestaurantRepository restaurantRepository;
+
+    @GetMapping("/health")
+    public ResponseEntity<String> healthCheck() {
+        return ResponseEntity.ok("API is running");
+    }
 
     @GetMapping("/kitchens/by-name")
     public List<Kitchen> kitchensFindByName(@RequestParam("name") String name){
