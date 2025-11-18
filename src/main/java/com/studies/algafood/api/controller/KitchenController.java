@@ -72,16 +72,22 @@ public class KitchenController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{kitchenId}")
-    public ResponseEntity<?> delete(@PathVariable Long kitchenId) {
-        try {
-            this.kitchenRegisterService.remove(kitchenId);
-            return ResponseEntity.noContent().build();
-        }catch (EntityNotFoundException e){
-            return ResponseEntity.notFound().build();
+//    @DeleteMapping("/{kitchenId}")
+//    public ResponseEntity<?> delete(@PathVariable Long kitchenId) {
+//        try {
+//            this.kitchenRegisterService.remove(kitchenId);
+//            return ResponseEntity.noContent().build();
+//        }catch (EntityNotFoundException e){
+//            return ResponseEntity.notFound().build();
+//
+//        } catch (EntityInUseException e) {
+//            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+//        }
+//    }
 
-        } catch (EntityInUseException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        }
+    @DeleteMapping("/{kitchenId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long kitchenId) {
+        this.kitchenRegisterService.remove(kitchenId);
     }
 }
