@@ -122,5 +122,16 @@ partes dinâmicas de URL. É usada em conjunto com as anotações de mapeamento 
 
 ``@Service``: É usada no Spring Framework para marcar uma classe como um componente de serviço. Ela indica que a classe contém a lógica de negócios da aplicação.
 
+``@ResponseStatus``: Define o código de status HTTP que deve ser retornado quando o método ou a exceção anotada for executado.  
+É usada para:
+
+- Especificar diretamente o status HTTP de sucesso ou erro (ex.: `HttpStatus.NO_CONTENT`).
+- Associar automaticamente um status a uma exceção customizada, evitando o uso explícito de `try/catch` nos controladores.
+- Tornar os retornos da API mais expressivos e alinhados ao comportamento esperado.
+
+Pode ser aplicada em:
+- Métodos de controladores.
+- Classes de exceção personalizadas para mapear erros a um status HTTP específico.
+
 
 [**<< Voltar ao README**](../README.md#documentação-de-conceitos)
