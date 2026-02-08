@@ -6,6 +6,8 @@ import com.studies.algafood.domain.model.Kitchen;
 import com.studies.algafood.domain.repository.KitchenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +24,7 @@ public class KitchenRegisterService {
         try {
             if(!this.kitchenRepository.existsById(kitchenId)){
                 throw new EntityNotFoundException(
+                        HttpStatus.NOT_FOUND,
                         String.format("There is no kitchen record with code %d", kitchenId)
                 );
             }
