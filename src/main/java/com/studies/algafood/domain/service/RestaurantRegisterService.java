@@ -14,17 +14,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class RestaurantRegisterService {
 
+    public static final String MSG_KITCHEN_NOT_FOUND = "There are no records of any kitchen with code %d";
+    public static final String MSG_RESTAURANT_NOT_FOUND = "There are no records of any restaurant with code %d";
+    public static final String MSG_RESTAURANT_IN_USE = "The restaurant at code %d cannot be removed because it is in use";
+
     @Autowired
     private RestaurantRepository restaurantRepository;
 
     @Autowired
     private KitchenRepository kitchenRepository;
 
-    public Restaurant save(Restaurant restaurant){
+    public Restaurant save(Restaurant restaurant) {
         Long kitchenId = restaurant.getKitchen().getId();
         Kitchen kitchen = this.kitchenRepository.findById(kitchenId)
                 .orElseThrow(() -> new EntityNotFoundException(
-                        String.format("There is no kitchen record with code %d", kitchenId)
+                        String.format(MSG_KITCHEN_NOT_FOUND, kitchenId)
                 ));
 
         restaurant.setKitchen(kitchen);
@@ -33,16 +37,23 @@ public class RestaurantRegisterService {
 
     public void remove(Long restaurantId) {
         try {
-            if(!this.restaurantRepository.existsById(restaurantId)){
+            if (!this.restaurantRepository.existsById(restaurantId)) {
                 throw new EntityNotFoundException(
-                        String.format("There is no restaurant record with code %d", restaurantId)
+                        String.format(MSG_RESTAURANT_NOT_FOUND, restaurantId)
                 );
             }
             this.restaurantRepository.deleteById(restaurantId);
-        }catch (DataIntegrityViolationException e){
+        } catch (DataIntegrityViolationException e) {
             throw new EntityInUseException(
-                    String.format("The restaurant at code %d cannot be removed because it is in use", restaurantId)
+                    String.format(MSG_RESTAURANT_IN_USE, restaurantId)
             );
         }
+    }
+
+    public Restaurant findOrFail(Long restaurantId) {
+        return this.restaurantRepository.findById(restaurantId)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format(MSG_RESTAURANT_NOT_FOUND, restaurantId)
+                ));
     }
 }
