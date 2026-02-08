@@ -38,13 +38,8 @@ public class StateController {
     }
 
     @GetMapping("/{stateId}")
-    public ResponseEntity<State> find(@PathVariable Long stateId) {
-        State state = this.stateRepository.findById(stateId).orElse(null);
-
-        if (state != null) {
-            return ResponseEntity.ok(state);
-        }
-        return ResponseEntity.notFound().build();
+    public State find(@PathVariable Long stateId) {
+        return this.stateRegisterService.findOrFail(stateId);
     }
 
     @PostMapping
@@ -56,27 +51,16 @@ public class StateController {
     }
 
     @PutMapping("/{stateId}")
-    public ResponseEntity<?> update(@PathVariable Long stateId, @RequestBody State state) {
-        State currentState = this.stateRepository.findById(stateId).orElse(null);
-
-        if (currentState != null) {
-            BeanUtils.copyProperties(state, currentState, "id");
-            currentState = this.stateRegisterService.save(currentState);
-            return ResponseEntity.ok(currentState);
-        }
-        return ResponseEntity.notFound().build();
+    public State update(@PathVariable Long stateId, @RequestBody State state) {
+        State currentState = this.stateRegisterService.findOrFail(stateId);
+        BeanUtils.copyProperties(state, currentState, "id");
+        return this.stateRegisterService.save(currentState);
     }
 
 
     @DeleteMapping("/{stateId}")
-    public ResponseEntity<?> delete(@PathVariable Long stateId) {
-        try {
-            this.stateRegisterService.remove(stateId);
-            return ResponseEntity.noContent().build();
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        } catch (EntityInUseException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        }
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long stateId) {
+        this.stateRegisterService.remove(stateId);
     }
 }

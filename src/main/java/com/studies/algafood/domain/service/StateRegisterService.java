@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class StateRegisterService {
 
+    public static final String MSG_STATE_NOT_FOUND = "There are no states registered with code %d";
+    public static final String MSG_STATE_IN_USE = "The state at code %d cannot be removed because it is in use";
+
     @Autowired
     private StateRepository stateRepository;
 
@@ -22,14 +25,21 @@ public class StateRegisterService {
         try {
             if (!this.stateRepository.existsById(id)) {
                 throw new EntityNotFoundException(
-                        String.format("There is no state record with code %d", id)
+                        String.format(MSG_STATE_NOT_FOUND, id)
                 );
             }
             this.stateRepository.deleteById(id);
         } catch (DataIntegrityViolationException e) {
             throw new EntityInUseException(
-                    String.format("The state at code %d cannot be removed because it is in use", id)
+                    String.format(MSG_STATE_IN_USE, id)
             );
         }
+    }
+
+    public State findOrFail(Long stateId) {
+        return this.stateRepository.findById(stateId)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format(MSG_STATE_NOT_FOUND, stateId)
+                ));
     }
 }
