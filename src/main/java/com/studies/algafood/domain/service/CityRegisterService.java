@@ -13,6 +13,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class CityRegisterService {
 
+    public static final String MSG_ESTATE_NOT_FOUND = "There is no state record with code %d";
+    public static final String MSG_CITY_NOT_FOUND = "There is no state record with code %d";
+    public static final String MSG_CITY_IN_USE = "The city at code %d cannot be removed because it is in use";
+
     @Autowired
     private CityRepository cityRepository;
 
@@ -22,7 +26,7 @@ public class CityRegisterService {
     public City save(City city) {
         State state = this.stateRepository.findById(city.getState().getId())
                 .orElseThrow(() -> new EntityNotFoundException(
-                        String.format("There is no state record with code %d", city.getState().getId())
+                        String.format(MSG_ESTATE_NOT_FOUND, city.getState().getId())
                 ));
 
         city.setState(state);
@@ -33,14 +37,21 @@ public class CityRegisterService {
         try {
             if(!this.cityRepository.existsById(cityId)){
                 throw new EntityNotFoundException(
-                        String.format("There is no state record with code %d", cityId)
+                        String.format(MSG_CITY_NOT_FOUND, cityId)
                 );
             }
             this.cityRepository.deleteById(cityId);
         } catch (DataIntegrityViolationException e) {
             throw new EntityInUseException(
-                    String.format("The kitchen at code %d cannot be removed because it is in use", cityId)
+                    String.format(MSG_CITY_IN_USE, cityId)
             );
         }
+    }
+
+    public City findOrFail(Long cityId){
+        return this.cityRepository.findById(cityId)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format(MSG_CITY_NOT_FOUND, cityId)
+                ));
     }
 }
