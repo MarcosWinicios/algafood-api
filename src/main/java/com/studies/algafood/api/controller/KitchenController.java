@@ -89,10 +89,6 @@ public class KitchenController {
     @DeleteMapping("/{kitchenId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long kitchenId) {
-        try {
-            this.kitchenRegisterService.remove(kitchenId);
-        }catch (EntityNotFoundException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
+        this.kitchenRegisterService.remove(kitchenId);
     }
 }
