@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
 import java.util.List;
@@ -88,6 +89,10 @@ public class KitchenController {
     @DeleteMapping("/{kitchenId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long kitchenId) {
-        this.kitchenRegisterService.remove(kitchenId);
+        try {
+            this.kitchenRegisterService.remove(kitchenId);
+        }catch (EntityNotFoundException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
     }
 }
