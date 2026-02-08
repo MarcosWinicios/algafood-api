@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class KitchenRegisterService {
 
-    public static final String MSG_KITCHEN_NOT_FOUND = "There is no kitchen record with code %d";
+    public static final String MSG_KITCHEN_NOT_FOUND = "There are no records of any kitchen with code %d";
     public static final String MSG_KITCHEN_IN_USE = "The kitchen at code %d cannot be removed because it is in use";
 
     @Autowired
