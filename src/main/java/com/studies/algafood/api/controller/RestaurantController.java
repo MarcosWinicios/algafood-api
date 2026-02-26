@@ -1,7 +1,6 @@
 package com.studies.algafood.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.studies.algafood.domain.exception.EntityNotFoundException;
 import com.studies.algafood.domain.model.Restaurant;
 import com.studies.algafood.domain.repository.RestaurantRepository;
 import com.studies.algafood.domain.service.RestaurantRegisterService;
@@ -46,13 +45,9 @@ public class RestaurantController {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody Restaurant restaurant) {
-        try {
-            restaurant = this.restaurantRegisterService.save(restaurant);
-            return ResponseEntity.status(HttpStatus.CREATED).body(restaurant);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    @ResponseStatus(HttpStatus.CREATED)
+    public Restaurant save(@RequestBody Restaurant restaurant) {
+        return this.restaurantRegisterService.save(restaurant);
     }
 
     @DeleteMapping("/{restaurantId}")
