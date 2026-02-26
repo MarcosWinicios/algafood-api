@@ -1,6 +1,5 @@
 package com.studies.algafood.api.controller;
 
-import com.studies.algafood.domain.exception.EntityNotFoundException;
 import com.studies.algafood.domain.model.City;
 import com.studies.algafood.domain.repository.CityRepository;
 import com.studies.algafood.domain.service.CityRegisterService;
@@ -43,13 +42,9 @@ public class CityController {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody City city) {
-        try {
-            city = this.cityRegisterService.save(city);
-            return ResponseEntity.status(HttpStatus.CREATED).body(city);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    @ResponseStatus(HttpStatus.CREATED)
+    public City save(@RequestBody City city) {
+        return this.cityRegisterService.save(city);
     }
 
     @PutMapping("/{cityId}")

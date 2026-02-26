@@ -5,30 +5,23 @@ import com.studies.algafood.domain.exception.EntityNotFoundException;
 import com.studies.algafood.domain.model.City;
 import com.studies.algafood.domain.model.State;
 import com.studies.algafood.domain.repository.CityRepository;
-import com.studies.algafood.domain.repository.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CityRegisterService {
-
-    public static final String MSG_ESTATE_NOT_FOUND = "There is no state record with code %d";
-    public static final String MSG_CITY_NOT_FOUND = "There is no state record with code %d";
+    public static final String MSG_CITY_NOT_FOUND = "There is no city record with code %d";
     public static final String MSG_CITY_IN_USE = "The city at code %d cannot be removed because it is in use";
 
     @Autowired
     private CityRepository cityRepository;
 
     @Autowired
-    private StateRepository stateRepository;
+    private StateRegisterService stateService;
 
     public City save(City city) {
-        State state = this.stateRepository.findById(city.getState().getId())
-                .orElseThrow(() -> new EntityNotFoundException(
-                        String.format(MSG_ESTATE_NOT_FOUND, city.getState().getId())
-                ));
-
+        State state  = this.stateService.findOrFail(city.getState().getId());
         city.setState(state);
         return this.cityRepository.save(city);
     }
