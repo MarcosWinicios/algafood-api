@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class StateRegisterService {
 
-    public static final String MSG_STATE_NOT_FOUND = "There are no states registered with code %d";
+    public static final String MSG_STATE_NOT_FOUND = "There are no state registered with code %d";
     public static final String MSG_STATE_IN_USE = "The state at code %d cannot be removed because it is in use";
 
     @Autowired

@@ -1,7 +1,5 @@
 package com.studies.algafood.api.controller;
 
-import com.studies.algafood.domain.exception.EntityInUseException;
-import com.studies.algafood.domain.exception.EntityNotFoundException;
 import com.studies.algafood.domain.model.State;
 import com.studies.algafood.domain.repository.StateRepository;
 import com.studies.algafood.domain.service.StateRegisterService;
