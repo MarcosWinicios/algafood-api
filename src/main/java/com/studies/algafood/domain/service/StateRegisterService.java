@@ -1,7 +1,7 @@
 package com.studies.algafood.domain.service;
 
 import com.studies.algafood.domain.exception.EntityInUseException;
-import com.studies.algafood.domain.exception.EntityNotFoundException;
+import com.studies.algafood.domain.exception.StateNotFoundException;
 import com.studies.algafood.domain.model.State;
 import com.studies.algafood.domain.repository.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class StateRegisterService {
 
-    public static final String MSG_STATE_NOT_FOUND = "There are no state registered with code %d";
     public static final String MSG_STATE_IN_USE = "The state at code %d cannot be removed because it is in use";
 
     @Autowired
@@ -24,9 +23,7 @@ public class StateRegisterService {
     public void remove(Long id) {
         try {
             if (!this.stateRepository.existsById(id)) {
-                throw new EntityNotFoundException(
-                        String.format(MSG_STATE_NOT_FOUND, id)
-                );
+                throw new StateNotFoundException(id);
             }
             this.stateRepository.deleteById(id);
         } catch (DataIntegrityViolationException e) {
@@ -38,8 +35,6 @@ public class StateRegisterService {
 
     public State findOrFail(Long stateId) {
         return this.stateRepository.findById(stateId)
-                .orElseThrow(() -> new EntityNotFoundException(
-                        String.format(MSG_STATE_NOT_FOUND, stateId)
-                ));
+                .orElseThrow(() -> new StateNotFoundException(stateId));
     }
 }
