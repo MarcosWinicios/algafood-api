@@ -8,8 +8,8 @@ public class CityNotFoundException extends EntityNotFoundException {
         super(message);
     }
 
-    public CityNotFoundException(Long stateId) {
-        this(String.format("There is no city record with code %d", stateId));
+    public CityNotFoundException(Long cityId) {
+        this(String.format("There is no city record with code %d", cityId));
     }
 
 }
