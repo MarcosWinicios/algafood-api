@@ -133,5 +133,29 @@ Pode ser aplicada em:
 - Métodos de controladores.
 - Classes de exceção personalizadas para mapear erros a um status HTTP específico.
 
+## Lombok
+``@getter``: Implementa o método `get` de todos os atributos da classe.
+
+``@setter``: Implementa o método `set` de todos os atributos da classe.
+
+``@builder``: Implementa o Design Pattern [Builder](https://refactoring.guru/design-patterns/builder) para classe.
+
+``@toString``: Implementa o método `toString` da classe.
+
+``@EqualsAndHashCode``: Implementa os métodos `equals` e `hashCode` da classe.
+
+``@NoArgsConstructor``: Implementa um construtor sem argumentos para a classe.
+
+``@AllArgsConstructor``: Implementa um construtor com argumentos para todos os atributos da classe.
+
+``@RequiredArgsConstructor``: Implementa um construtor com argumentos para os atributos da classe que são `final` ou anotados com `@NonNull`.
+
+``@Data``: Combina as anotações `@Getter`, `@Setter`, `@ToString`, `@EqualsAndHashCode` e `@RequiredArgsConstructor` em uma única anotação para simplificar a criação de classes de dados.
+
+
+## Links úteis
+
+- [Documentação do lombok](https://projectlombok.org/features)
+- [Design Pattern: Builder](https://refactoring.guru/design-patterns/builder)
 
 [**<< Voltar ao README**](../README.md#documentação-de-conceitos)
