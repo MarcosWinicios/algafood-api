@@ -3,6 +3,7 @@ package com.studies.algafood.api.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.studies.algafood.domain.exception.BusinessException;
 import com.studies.algafood.domain.exception.EntityNotFoundException;
+import com.studies.algafood.domain.exception.KitchenNotFoundException;
 import com.studies.algafood.domain.model.Restaurant;
 import com.studies.algafood.domain.repository.RestaurantRepository;
 import com.studies.algafood.domain.service.RestaurantRegisterService;
@@ -52,8 +53,8 @@ public class RestaurantController {
 
         try {
             return this.restaurantRegisterService.save(restaurant);
-        } catch (EntityNotFoundException e) {
-            throw new BusinessException(e.getMessage());
+        } catch (KitchenNotFoundException e) {
+            throw new BusinessException(e.getMessage(), e);
         }
     }
 
@@ -70,8 +71,8 @@ public class RestaurantController {
 
         try {
             return this.restaurantRegisterService.save(currentRestaurant);
-        } catch (EntityNotFoundException e){
-            throw new BusinessException(e.getMessage());
+        } catch (KitchenNotFoundException e){
+            throw new BusinessException(e.getMessage(), e);
         }
     }
 
