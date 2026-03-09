@@ -1,7 +1,7 @@
 package com.studies.algafood.api.controller;
 
 import com.studies.algafood.domain.exception.BusinessException;
-import com.studies.algafood.domain.exception.EntityNotFoundException;
+import com.studies.algafood.domain.exception.StateNotFoundException;
 import com.studies.algafood.domain.model.City;
 import com.studies.algafood.domain.repository.CityRepository;
 import com.studies.algafood.domain.service.CityRegisterService;
@@ -48,20 +48,21 @@ public class CityController {
     public City save(@RequestBody City city) {
         try{
             return this.cityRegisterService.save(city);
-        } catch (EntityNotFoundException e) {
-            throw new BusinessException(e.getMessage());
+        } catch (StateNotFoundException e) {
+            throw new BusinessException(e.getMessage(), e);
         }
     }
 
     @PutMapping("/{cityId}")
     public City update(@PathVariable Long cityId, @RequestBody City city) {
-        City currentCity = this.cityRegisterService.findOrFail(cityId);
-        BeanUtils.copyProperties(city, currentCity, "id");
 
         try{
+            City currentCity = this.cityRegisterService.findOrFail(cityId);
+            BeanUtils.copyProperties(city, currentCity, "id");
+
             return this.cityRegisterService.save(currentCity);
-        } catch (EntityNotFoundException e) {
-            throw new BusinessException(e.getMessage());
+        } catch (StateNotFoundException e) {
+            throw new BusinessException(e.getMessage(), e);
         }
     }
 

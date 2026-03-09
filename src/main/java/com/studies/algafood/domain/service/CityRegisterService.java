@@ -1,7 +1,7 @@
 package com.studies.algafood.domain.service;
 
+import com.studies.algafood.domain.exception.CityNotFoundException;
 import com.studies.algafood.domain.exception.EntityInUseException;
-import com.studies.algafood.domain.exception.EntityNotFoundException;
 import com.studies.algafood.domain.model.City;
 import com.studies.algafood.domain.model.State;
 import com.studies.algafood.domain.repository.CityRepository;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CityRegisterService {
-    public static final String MSG_CITY_NOT_FOUND = "There is no city record with code %d";
+
     public static final String MSG_CITY_IN_USE = "The city at code %d cannot be removed because it is in use";
 
     @Autowired
@@ -29,9 +29,7 @@ public class CityRegisterService {
     public void remove(Long cityId) {
         try {
             if(!this.cityRepository.existsById(cityId)){
-                throw new EntityNotFoundException(
-                        String.format(MSG_CITY_NOT_FOUND, cityId)
-                );
+                throw new CityNotFoundException(cityId);
             }
             this.cityRepository.deleteById(cityId);
         } catch (DataIntegrityViolationException e) {
@@ -43,8 +41,6 @@ public class CityRegisterService {
 
     public City findOrFail(Long cityId){
         return this.cityRepository.findById(cityId)
-                .orElseThrow(() -> new EntityNotFoundException(
-                        String.format(MSG_CITY_NOT_FOUND, cityId)
-                ));
+                .orElseThrow(() -> new CityNotFoundException(cityId));
     }
 }
