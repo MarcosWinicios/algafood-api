@@ -1,6 +1,8 @@
 package com.studies.algafood.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.studies.algafood.domain.exception.BusinessException;
+import com.studies.algafood.domain.exception.EntityNotFoundException;
 import com.studies.algafood.domain.model.Restaurant;
 import com.studies.algafood.domain.repository.RestaurantRepository;
 import com.studies.algafood.domain.service.RestaurantRegisterService;
@@ -47,7 +49,12 @@ public class RestaurantController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Restaurant save(@RequestBody Restaurant restaurant) {
-        return this.restaurantRegisterService.save(restaurant);
+
+        try {
+            return this.restaurantRegisterService.save(restaurant);
+        } catch (EntityNotFoundException e) {
+            throw new BusinessException(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{restaurantId}")
@@ -60,7 +67,12 @@ public class RestaurantController {
     public Restaurant update(@PathVariable Long restaurantId, @RequestBody Restaurant restaurant) {
         Restaurant currentRestaurant = this.restaurantRegisterService.findOrFail(restaurantId);
         BeanUtils.copyProperties(restaurant, currentRestaurant, "id", "paymentMethods", "address", "createdAt");
-        return this.restaurantRegisterService.save(currentRestaurant);
+
+        try {
+            return this.restaurantRegisterService.save(currentRestaurant);
+        } catch (EntityNotFoundException e){
+            throw new BusinessException(e.getMessage());
+        }
     }
 
     @PatchMapping("/{restaurantId}")
