@@ -19,24 +19,32 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<?> handleEntityNotFoundException(EntityNotFoundException ex, WebRequest request) {
-
         HttpStatus status = HttpStatus.NOT_FOUND;
         ProblemType problemType = ProblemType.ENTITY_NOT_FOUND;
         String detail = ex.getMessage();
-
         Problem problem = createProblemBuilder(status, problemType, detail).build();
 
         return this.handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
 
     @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<?> handleEntityNotFoundException(BusinessException ex, WebRequest request) {
-        return this.handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    public ResponseEntity<?> handleBusinessException(BusinessException ex, WebRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ProblemType problemType = ProblemType.BUSINESS_EXCEPTION;
+        String detail = ex.getMessage();
+        Problem problem = createProblemBuilder(status, problemType, detail).build();
+
+        return this.handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
 
     @ExceptionHandler(EntityInUseException.class)
     public ResponseEntity<?> handleEntityInUseException(EntityInUseException ex, WebRequest request) {
-        return this.handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.CONFLICT, request);
+        HttpStatus status = HttpStatus.CONFLICT;
+        ProblemType problemType = ProblemType.ENTITY_IN_USE;
+        String detail = ex.getMessage();
+        Problem problem = createProblemBuilder(status, problemType, detail).build();
+
+        return this.handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
 
     @Override
@@ -66,6 +74,4 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 .title(type.getTitle())
                 .detail(detail);
     }
-
-
 }

@@ -5,10 +5,13 @@ import lombok.Getter;
 @Getter
 public enum ProblemType {
 
-    ENTITY_NOT_FOUND("/entity-not-found", "Entity not found"),;
+    ENTITY_NOT_FOUND("/entity-not-found", "Entity not found"),
+    ENTITY_IN_USE("/entity-in-use", "Entity in use"),
+    BUSINESS_EXCEPTION("/business-error", "Business error");
 
-    private String title;
-    private String uri;
+
+    private final String title;
+    private final String uri;
 
     ProblemType(String path, String title) {
         this.uri = "https://algafood.com.br" + path;
