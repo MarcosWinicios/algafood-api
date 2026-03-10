@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.time.LocalDateTime;
 
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
@@ -20,7 +19,14 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<?> handleEntityNotFoundException(EntityNotFoundException ex, WebRequest request) {
-        return this.handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        ProblemType problemType = ProblemType.ENTITY_NOT_FOUND;
+        String detail = ex.getMessage();
+
+        Problem problem = createProblemBuilder(status, problemType, detail).build();
+
+        return this.handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
 
     @ExceptionHandler(BusinessException.class)
@@ -40,17 +46,26 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         if(body == null) {
             HttpStatus httpStatus = HttpStatus.valueOf(statusCode.value());
             body = Problem.builder()
-                    .dateTime(LocalDateTime.now())
-                    .message(httpStatus.getReasonPhrase())
+                    .title(httpStatus.getReasonPhrase())
+                    .status(statusCode.value())
                     .build();
         } else if(body instanceof String) {
             body = Problem.builder()
-                    .dateTime(LocalDateTime.now())
-                    .message(body.toString())
+                    .title(body.toString())
+                    .status(statusCode.value())
                     .build();
         }
 
         return super.handleExceptionInternal(ex, body, headers, statusCode, webRequest);
     }
+
+    private Problem.ProblemBuilder createProblemBuilder(HttpStatus status, ProblemType type, String detail) {
+        return Problem.builder()
+                .status(status.value())
+                .type(type.getUri())
+                .title(type.getTitle())
+                .detail(detail);
+    }
+
 
 }
