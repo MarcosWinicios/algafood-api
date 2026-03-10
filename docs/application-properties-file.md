@@ -128,5 +128,38 @@ spring.datasource.hikari.idle-timeout=10000
 Essas configurações equilibram performance, uso eficiente de recursos e tempo de resposta para uma aplicação que utiliza conexões com o banco de dados.
 
 
+## Controle de Logs
+
+- `spring.mvc.log-resolved-exception`:
+  - Habilita o log de exceções resolvidas pelo Spring MVC, como erros de validação ou exceções lançadas por controladores.
+  - Útil para depuração, pois permite ver detalhes das exceções que ocorrem durante o processamento de requisições HTTP.
+  - Valores possíveis: `true` ou `false` (padrão é `false`).
+- `logging.level.org.springframework.web=DEBUG`:
+  - Define o nível de log para a categoria `org.springframework.web`, que inclui componentes relacionados ao processamento de requisições web.
+  - Configurar para `DEBUG` permite ver mensagens detalhadas sobre o fluxo de requisições, incluindo informações sobre controladores, interceptadores e resolvers.
+  - Útil para identificar problemas específicos relacionados ao processamento de requisições HTTP.
+  - Valores possíveis: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`, `FATAL`, `OFF` (sendo `DEBUG` um nível detalhado, mas menos verboso que `TRACE`).
+- `logging.level.org.hibernate.SQL=DEBUG`:
+  - Define o nível de log para a categoria `org.hibernate.SQL`, que é responsável por registrar as consultas SQL geradas pelo Hibernate.
+  - Configurar para `DEBUG` permite ver as consultas SQL completas que estão sendo executadas, o que é útil para depuração e otimização de desempenho.
+  - Valores possíveis: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`, `FATAL`, `OFF` (sendo `DEBUG` um nível detalhado, mas menos verboso que `TRACE`).
+- `logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE`:
+  - Define o nível de log para a categoria `org.hibernate.type.descriptor.sql.BasicBinder`, que é responsável por registrar os valores dos parâmetros vinculados nas consultas SQL.
+  - Configurar para `TRACE` permite ver os valores exatos que estão sendo passados para as consultas SQL, o que é extremamente útil para depuração, especialmente quando se suspeita de problemas relacionados a parâmetros ou tipos de dados.
+  - Valores possíveis: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`, `FATAL`, `OFF` (sendo `TRACE` o nível mais detalhado, mostrando informações completas sobre os parâmetros).
+- `logging.level.org.hibernate.type.descriptor.sql.BasicExtractor=TRACE`:
+  - Define o nível de log para a categoria `org.hibernate.type.descriptor.sql.BasicExtractor`, que é responsável por registrar os valores extraídos das consultas SQL.
+  - Configurar para `TRACE` permite ver os valores exatos que estão sendo retornados pelas consultas SQL, o que é útil para depuração, especialmente quando se suspeita de problemas relacionados a resultados ou tipos de dados.
+  - Valores possíveis: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`, `FATAL`, `OFF` (sendo `TRACE` o nível mais detalhado, mostrando informações completas sobre os resultados).
+- `logging.level.org.hibernate.type=TRACE`:
+  - Define o nível de log para a categoria `org.hibernate.type`, que é responsável por registrar informações sobre os tipos de dados usados nas consultas SQL.
+  - Configurar para `TRACE` permite ver detalhes sobre os tipos de dados envolvidos nas consultas, o que pode ser útil para depuração, especialmente quando se suspeita de problemas relacionados a tipos ou conversões.
+  - Valores possíveis: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`, `FATAL`, `OFF` (sendo `TRACE` o nível mais detalhado, mostrando informações completas sobre os tipos de dados).
+- `logging.level.root`: 
+  - Define o nível de log para a categoria raiz (root), que é a categoria base para todos os logs na aplicação.
+  - Configurar para `INFO` significa que mensagens de log com nível `INFO` ou superior (como `WARN`, `ERROR`, `FATAL`) serão registradas, enquanto mensagens de nível `DEBUG` ou `TRACE` serão ignoradas.
+  - Útil para controlar o volume geral de logs na aplicação, garantindo que apenas mensagens relevantes sejam registradas em ambientes de produção.
+  - Valores possíveis: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`, `FATAL`, `OFF` (sendo `INFO` um nível equilibrado para produção, mostrando informações importantes sem ser excessivamente detalhado).
+
 
 [**<< Voltar ao README**](../README.md#documentação-de-conceitos)
