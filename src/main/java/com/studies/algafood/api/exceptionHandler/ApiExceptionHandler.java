@@ -1,8 +1,11 @@
 package com.studies.algafood.api.exceptionHandler;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.studies.algafood.domain.exception.BusinessException;
 import com.studies.algafood.domain.exception.EntityInUseException;
 import com.studies.algafood.domain.exception.EntityNotFoundException;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -13,12 +16,25 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.util.stream.Collectors;
+
 
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
+    /**
+     * Handle exceptions related to unreadable HTTP messages, such as JSON parsing errors.<br>
+     * Possibles causes include syntax errors in the request body or type mismatches.
+     */
     @Override
-    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers,
+                                                                  HttpStatusCode status, WebRequest request) {
+
+        Throwable rootCause = ExceptionUtils.getRootCause(ex);
+
+        if (rootCause instanceof InvalidFormatException) {
+            return this.handleInvalidFormatException((InvalidFormatException) rootCause, headers, status, request);
+        }
 
         ProblemType problemType = ProblemType.INCOMPREHENSIBLE_MESSAGE;
         String detail = "The request body is invalid. Please check for syntax errors.";
@@ -29,6 +45,34 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         ).build();
 
         return this.handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+    }
+
+
+    /**
+     * InvalidFormatException is a child of MismatchedInputException and is thrown when a JSON property receives a
+     * value of an incompatible type.
+     * <p>
+     * <b>Hierarchy of exceptions:</b> HttpMessageNotReadableException -> MismatchedInputException -> InvalidFormatException
+     */
+    private ResponseEntity<Object> handleInvalidFormatException(InvalidFormatException ex, HttpHeaders headers,
+                                                                HttpStatusCode status, WebRequest request) {
+
+        String path = ex.getPath().stream()
+                .map(JsonMappingException.Reference::getFieldName)
+                .collect(Collectors.joining("."));
+
+        ProblemType problemType = ProblemType.INCOMPREHENSIBLE_MESSAGE;
+
+        String detail = String.format("The property '%s' received the value '%s', which is an invalid type. Correct this " +
+                "and provide a valid value with the type '%s'.", path, ex.getValue(), ex.getTargetType().getSimpleName());
+
+        Problem problem = createProblemBuilder(
+                HttpStatus.valueOf(status.value()),
+                problemType,
+                detail
+        ).build();
+
+        return this.handleExceptionInternal(ex, problem, headers, status, request);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
@@ -65,13 +109,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers,
                                                              HttpStatusCode statusCode, WebRequest webRequest) {
 
-        if(body == null) {
+        if (body == null) {
             HttpStatus httpStatus = HttpStatus.valueOf(statusCode.value());
             body = Problem.builder()
                     .title(httpStatus.getReasonPhrase())
                     .status(statusCode.value())
                     .build();
-        } else if(body instanceof String) {
+        } else if (body instanceof String) {
             body = Problem.builder()
                     .title(body.toString())
                     .status(statusCode.value())
