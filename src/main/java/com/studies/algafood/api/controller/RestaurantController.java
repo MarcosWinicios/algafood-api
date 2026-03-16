@@ -1,16 +1,20 @@
 package com.studies.algafood.api.controller;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.studies.algafood.domain.exception.BusinessException;
-import com.studies.algafood.domain.exception.EntityNotFoundException;
 import com.studies.algafood.domain.exception.KitchenNotFoundException;
 import com.studies.algafood.domain.model.Restaurant;
 import com.studies.algafood.domain.repository.RestaurantRepository;
 import com.studies.algafood.domain.service.RestaurantRegisterService;
+import jakarta.servlet.http.HttpServletRequest;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -71,32 +75,46 @@ public class RestaurantController {
 
         try {
             return this.restaurantRegisterService.save(currentRestaurant);
-        } catch (KitchenNotFoundException e){
+        } catch (KitchenNotFoundException e) {
             throw new BusinessException(e.getMessage(), e);
         }
     }
 
     @PatchMapping("/{restaurantId}")
-    public Restaurant partialUpdate(@PathVariable Long restaurantId, @RequestBody Map<String, Object> fields) {
+    public Restaurant partialUpdate(@PathVariable Long restaurantId, @RequestBody Map<String, Object> fields,
+                                    HttpServletRequest request) {
         Restaurant currentRestaurant = this.restaurantRegisterService.findOrFail(restaurantId);
-        merge(fields, currentRestaurant);
+        merge(fields, currentRestaurant, request);
         return update(restaurantId, currentRestaurant);
     }
 
-    private void merge(Map<String, Object> dataSource, Restaurant restaurantTarget) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        Restaurant restaurantSource = objectMapper.convertValue(dataSource, Restaurant.class); //Usando o objectMapper para converter valores de tipos desconhecidos
+    private void merge(Map<String, Object> dataSource, Restaurant restaurantTarget, HttpServletRequest request) {
 
-        dataSource.forEach((fieldName, fieldValue) -> {
-            Field field = ReflectionUtils.findField(Restaurant.class, fieldName); //findField() Retorna uma instância de uma propriedade
-            field.setAccessible(true);
+        ServletServerHttpRequest serverHttpRequest = new ServletServerHttpRequest(request);
 
-            Object newValue = ReflectionUtils.getField(field, restaurantSource); //getFiedl() Obtem o valor de uma propriedade
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
+            objectMapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, true);
+
+            //Usando o objectMapper para converter valores de tipos desconhecidos
+            Restaurant restaurantSource = objectMapper.convertValue(dataSource, Restaurant.class);
+
+            dataSource.forEach((fieldName, fieldValue) -> {
+                Field field = ReflectionUtils.findField(Restaurant.class, fieldName); //findField() Retorna uma instância de uma propriedade
+                field.setAccessible(true);
+
+                Object newValue = ReflectionUtils.getField(field, restaurantSource); //getFiedl() Obtem o valor de uma propriedade
 
 //            System.out.println(fieldName + " = " + fieldValue + " = " + newValue);
 
-            ReflectionUtils.setField(field, restaurantTarget, newValue);
-        });
+                ReflectionUtils.setField(field, restaurantTarget, newValue);
+            });
+        } catch (IllegalArgumentException e) {
+            Throwable rootCause = ExceptionUtils.getRootCause(e);
+            throw new HttpMessageNotReadableException(e.getMessage(), rootCause, serverHttpRequest);
+        }
     }
 
 }
