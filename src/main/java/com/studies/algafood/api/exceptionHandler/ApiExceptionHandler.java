@@ -32,7 +32,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
             TypeMismatchException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 
         if(ex instanceof MethodArgumentTypeMismatchException){
-            return this.handleMethodArgumentTypeMismatchException(
+            return this.handleMethodArgumentTypeMismatch(
                     (MethodArgumentTypeMismatchException) ex, headers, status, request
             );
         }
@@ -40,7 +40,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return super.handleTypeMismatch(ex, headers, status, request);
     }
 
-    private ResponseEntity<Object> handleMethodArgumentTypeMismatchException(
+    private ResponseEntity<Object> handleMethodArgumentTypeMismatch(
             MethodArgumentTypeMismatchException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 
         ProblemType problemType = ProblemType.INVALID_PARAMETER;
@@ -63,17 +63,17 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
      * Possibles causes include syntax errors in the request body or type mismatches.
      */
     @Override
-    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers,
-                                                                  HttpStatusCode status, WebRequest request) {
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(
+            HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 
         Throwable rootCause = ExceptionUtils.getRootCause(ex);
 
         if (rootCause instanceof InvalidFormatException) {
-            return this.handleInvalidFormatException((InvalidFormatException) rootCause, headers, status, request);
+            return this.handleInvalidFormat((InvalidFormatException) rootCause, headers, status, request);
         }
 
         if (rootCause instanceof PropertyBindingException) {
-            return this.handlePropertyBindingException((PropertyBindingException) rootCause, headers, status, request);
+            return this.handlePropertyBinding((PropertyBindingException) rootCause, headers, status, request);
         }
 
         ProblemType problemType = ProblemType.INCOMPREHENSIBLE_MESSAGE;
@@ -87,8 +87,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return this.handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
 
-    private ResponseEntity<Object> handlePropertyBindingException(PropertyBindingException ex, HttpHeaders headers,
-                                                                  HttpStatusCode status, WebRequest request) {
+    /**
+     * <b>PropertyBindingException</b> is the parent of the UnrecognizedPropertyException and IgnoredPropertyException
+     * exceptions.
+     * <br>
+     * - <b>UnrecognizedPropertyException:</b> When the Jackson attempts to serialize a non-existent field in the target
+     * class
+     * <br>
+     * - <b>IgnoredPropertyException:</b> When Jackson attempts to serialize a field annotated with the @JsonIgnore
+     * annotation in the target class.
+     */
+    private ResponseEntity<Object> handlePropertyBinding(
+            PropertyBindingException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 
         String path = this.joinPath(ex.getPath());
 
@@ -114,15 +124,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
      * <p>
      * <b>Hierarchy of exceptions:</b> HttpMessageNotReadableException -> MismatchedInputException -> InvalidFormatException
      */
-    private ResponseEntity<Object> handleInvalidFormatException(InvalidFormatException ex, HttpHeaders headers,
-                                                                HttpStatusCode status, WebRequest request) {
+    private ResponseEntity<Object> handleInvalidFormat(
+            InvalidFormatException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 
         String path = this.joinPath(ex.getPath());
 
         ProblemType problemType = ProblemType.INCOMPREHENSIBLE_MESSAGE;
 
-        String detail = String.format("The property '%s' received the value '%s', which is an invalid type. Correct this " +
-                "and provide a valid value with the type '%s'.", path, ex.getValue(), ex.getTargetType().getSimpleName());
+        String detail = String.format(
+                "The property '%s' received the value '%s', which is an invalid type. Correct this and provide a " +
+                "valid value with the type '%s'.",
+                path, ex.getValue(), ex.getTargetType().getSimpleName()
+        );
 
         Problem problem = createProblemBuilder(
                 HttpStatus.valueOf(status.value()),
@@ -134,7 +147,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<?> handleEntityNotFoundException(EntityNotFoundException ex, WebRequest request) {
+    public ResponseEntity<?> handleEntityNotFound(EntityNotFoundException ex, WebRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
         ProblemType problemType = ProblemType.ENTITY_NOT_FOUND;
         String detail = ex.getMessage();
@@ -144,7 +157,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<?> handleBusinessException(BusinessException ex, WebRequest request) {
+    public ResponseEntity<?> handleBusiness(BusinessException ex, WebRequest request) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ProblemType problemType = ProblemType.BUSINESS_EXCEPTION;
         String detail = ex.getMessage();
@@ -154,7 +167,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(EntityInUseException.class)
-    public ResponseEntity<?> handleEntityInUseException(EntityInUseException ex, WebRequest request) {
+    public ResponseEntity<?> handleEntityInUse(EntityInUseException ex, WebRequest request) {
         HttpStatus status = HttpStatus.CONFLICT;
         ProblemType problemType = ProblemType.ENTITY_IN_USE;
         String detail = ex.getMessage();
@@ -164,8 +177,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @Override
-    protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers,
-                                                             HttpStatusCode statusCode, WebRequest webRequest) {
+    protected ResponseEntity<Object> handleExceptionInternal(
+            Exception ex, Object body, HttpHeaders headers, HttpStatusCode statusCode, WebRequest webRequest) {
 
         if (body == null) {
             HttpStatus httpStatus = HttpStatus.valueOf(statusCode.value());
