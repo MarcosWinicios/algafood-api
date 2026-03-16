@@ -3,7 +3,7 @@ package com.studies.algafood.api.exceptionHandler;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
-import static com.fasterxml.jackson.databind.JsonMappingException.Reference;
+import com.fasterxml.jackson.databind.JsonMappingException.Reference;
 import com.studies.algafood.domain.exception.BusinessException;
 import com.studies.algafood.domain.exception.EntityInUseException;
 import com.studies.algafood.domain.exception.EntityNotFoundException;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,6 +27,23 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @Override
+    protected ResponseEntity<Object> handleNoResourceFoundException(
+            NoResourceFoundException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+
+        ProblemType problemType = ProblemType.RESOURCE_NOT_FOUND;
+
+        String detail =  String.format("The resource '%s' that you tried to access does not exist.", ex.getResourcePath());
+
+        Problem problem = this.createProblemBuilder(
+                HttpStatus.valueOf(status.value()),
+                problemType,
+                detail
+        ).build();
+
+        return this.handleExceptionInternal(ex, problem, headers, status, request);
+    }
 
     @Override
     protected ResponseEntity<Object> handleTypeMismatch(
@@ -149,7 +167,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<?> handleEntityNotFound(EntityNotFoundException ex, WebRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
-        ProblemType problemType = ProblemType.ENTITY_NOT_FOUND;
+        ProblemType problemType = ProblemType.RESOURCE_NOT_FOUND;
         String detail = ex.getMessage();
         Problem problem = createProblemBuilder(status, problemType, detail).build();
 
