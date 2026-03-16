@@ -28,6 +28,26 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
+
+        ProblemType problemType = ProblemType.SYSTEM_ERROR;
+        String detail =
+                "An unexpected error occurred in the system. Please try again, and if the problem persists, " +
+                "contact your system administrator.";
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+
+        ex.printStackTrace();
+
+        Problem problem = this.createProblemBuilder(
+                status,
+                problemType,
+                detail
+        ).build();
+
+        return this.handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+    }
+
     @Override
     protected ResponseEntity<Object> handleNoResourceFoundException(
             NoResourceFoundException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
