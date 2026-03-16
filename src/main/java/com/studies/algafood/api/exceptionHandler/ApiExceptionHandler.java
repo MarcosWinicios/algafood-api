@@ -8,6 +8,7 @@ import com.studies.algafood.domain.exception.BusinessException;
 import com.studies.algafood.domain.exception.EntityInUseException;
 import com.studies.algafood.domain.exception.EntityNotFoundException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -16,6 +17,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.List;
@@ -24,6 +26,37 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @Override
+    protected ResponseEntity<Object> handleTypeMismatch(
+            TypeMismatchException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+
+        if(ex instanceof MethodArgumentTypeMismatchException){
+            return this.handleMethodArgumentTypeMismatchException(
+                    (MethodArgumentTypeMismatchException) ex, headers, status, request
+            );
+        }
+
+        return super.handleTypeMismatch(ex, headers, status, request);
+    }
+
+    private ResponseEntity<Object> handleMethodArgumentTypeMismatchException(
+            MethodArgumentTypeMismatchException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+
+        ProblemType problemType = ProblemType.INVALID_PARAMETER;
+        String detail = String.format(
+                "The URL parameter '%s' received the value '%s', which is an invalid type. Correct this and provide " +
+                "a value corresponding to the type '%s'.", ex.getName(), ex.getValue(), ex.getRequiredType().getSimpleName()
+        );
+
+        Problem problem = this.createProblemBuilder(
+                HttpStatus.valueOf(status.value()),
+                problemType,
+                detail
+        ).build();
+
+        return this.handleExceptionInternal(ex, problem, headers, status, request);
+    }
 
     /**
      * Handle exceptions related to unreadable HTTP messages, such as JSON parsing errors.<br>
