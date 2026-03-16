@@ -161,5 +161,13 @@ Essas configurações equilibram performance, uso eficiente de recursos e tempo 
   - Útil para controlar o volume geral de logs na aplicação, garantindo que apenas mensagens relevantes sejam registradas em ambientes de produção.
   - Valores possíveis: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`, `FATAL`, `OFF` (sendo `INFO` um nível equilibrado para produção, mostrando informações importantes sem ser excessivamente detalhado).
 
+## Others
+- `spring.jackson.deserialization.fail-on-unknown-properties=true`:
+  - Configura o comportamento do Jackson durante a desserialização de JSON para objetos Java.
+  - Quando definido como `true`, o Jackson lançará uma exceção (`UnrecognizedPropertyException`) se o JSON contiver propriedades que não correspondam a campos na classe Java de destino.
+  - Útil para garantir que o JSON recebido esteja estritamente de acordo com a estrutura esperada, evitando que dados inesperados sejam ignorados silenciosamente. Uso principalmente recomendado em APIs para garantir a integridade dos dados recebidos.
+- `spring.jackson.deserialization.fail-on-ignored-properties=true`:
+  - Configura o comportamento do Jackson durante a desserialização de JSON para objetos Java, especificamente em relação a propriedades que foram explicitamente ignoradas usando anotações como `@JsonIgnore`.
 
+  
 [**<< Voltar ao README**](../README.md#documentação-de-conceitos)
