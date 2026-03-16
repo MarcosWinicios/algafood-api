@@ -11,11 +11,11 @@ import lombok.Data;
 @Data
 public class Address {
 
-    @Column(name = "address_postal_code")
-    private String postal_code;
+    @Column(name = "address_zip_code")
+    private String zipCode;
 
     @Column(name = "address_public_place")
-    private String public_place;
+    private String publicPlace;
 
     @Column(name = "address_number")
     private String number;

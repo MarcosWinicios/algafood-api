@@ -179,7 +179,7 @@ INSERT INTO tb_kitchen (id, name) VALUES (2, 'Indiana');
 INSERT INTO tb_kitchen (id, name) VALUES (3, 'Argentina');
 INSERT INTO tb_kitchen (id, name) VALUES (4, 'Brasileira');
 
-INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, created_at, updated_at, address_city_id, address_postal_code, address_public_place, address_number, address_neighborhood) VALUES (1, 'Thai Gourmet', 10.00, 1, utc_timestamp, utc_timestamp, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
+INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, created_at, updated_at, address_city_id, address_zip_code, address_public_place, address_number, address_neighborhood) VALUES (1, 'Thai Gourmet', 10.00, 1, utc_timestamp, utc_timestamp, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
 INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, created_at, updated_at) VALUES (2, 'Thai Delivery', 9.50, 1, utc_timestamp, utc_timestamp);
 INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, created_at, updated_at) VALUES (3, 'Tuk Tuk Comida Indiana', 15.00, 2, utc_timestamp, utc_timestamp);
 INSERT INTO tb_restaurant(id, name, shipping_fee, kitchen_id, created_at, updated_at) VALUES (4, 'Java Steakhouse', 12, 3, utc_timestamp, utc_timestamp);

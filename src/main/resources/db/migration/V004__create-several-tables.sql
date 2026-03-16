@@ -44,7 +44,7 @@
         updated_at DATETIME NOT NULL,
         created_at DATETIME NOT NULL,
         address_city_id BIGINT,
-        address_postal_code VARCHAR(9),
+        address_zip_code VARCHAR(9),
         address_public_place VARCHAR(255),
         address_number VARCHAR(255),
         address_complement VARCHAR(255),
