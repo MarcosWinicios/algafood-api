@@ -2,6 +2,8 @@ package com.studies.algafood.api.exceptionHandler;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.fasterxml.jackson.databind.exc.PropertyBindingException;
+import static com.fasterxml.jackson.databind.JsonMappingException.Reference;
 import com.studies.algafood.domain.exception.BusinessException;
 import com.studies.algafood.domain.exception.EntityInUseException;
 import com.studies.algafood.domain.exception.EntityNotFoundException;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -36,6 +39,10 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
             return this.handleInvalidFormatException((InvalidFormatException) rootCause, headers, status, request);
         }
 
+        if (rootCause instanceof PropertyBindingException) {
+            return this.handlePropertyBindingException((PropertyBindingException) rootCause, headers, status, request);
+        }
+
         ProblemType problemType = ProblemType.INCOMPREHENSIBLE_MESSAGE;
         String detail = "The request body is invalid. Please check for syntax errors.";
         Problem problem = createProblemBuilder(
@@ -45,6 +52,26 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         ).build();
 
         return this.handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+    }
+
+    private ResponseEntity<Object> handlePropertyBindingException(PropertyBindingException ex, HttpHeaders headers,
+                                                                  HttpStatusCode status, WebRequest request) {
+
+        String path = this.joinPath(ex.getPath());
+
+        ProblemType problemType = ProblemType.INCOMPREHENSIBLE_MESSAGE;
+
+        String detail = String.format(
+                "The field '%s' was not recognized. Correct or remove this field and try again.", path
+        );
+
+        Problem problem = createProblemBuilder(
+                HttpStatus.valueOf(status.value()),
+                problemType,
+                detail
+        ).build();
+
+        return this.handleExceptionInternal(ex, problem, headers, status, request);
     }
 
 
@@ -57,9 +84,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<Object> handleInvalidFormatException(InvalidFormatException ex, HttpHeaders headers,
                                                                 HttpStatusCode status, WebRequest request) {
 
-        String path = ex.getPath().stream()
-                .map(JsonMappingException.Reference::getFieldName)
-                .collect(Collectors.joining("."));
+        String path = this.joinPath(ex.getPath());
 
         ProblemType problemType = ProblemType.INCOMPREHENSIBLE_MESSAGE;
 
@@ -131,5 +156,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 .type(type.getUri())
                 .title(type.getTitle())
                 .detail(detail);
+    }
+
+    private String joinPath(List<Reference> references) {
+        return references.stream()
+                .map(JsonMappingException.Reference::getFieldName)
+                .collect(Collectors.joining("."));
     }
 }
