@@ -218,11 +218,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                     .title(httpStatus.getReasonPhrase())
                     .status(statusCode.value())
                     .userMessage(MSG_GENERIC_ERROR_FINAL_USER)
+                    .timestamp(LocalDateTime.now())
                     .build();
         } else if (body instanceof String) {
             body = Problem.builder()
                     .title(body.toString())
                     .status(statusCode.value())
+                    .timestamp(LocalDateTime.now())
                     .userMessage(MSG_GENERIC_ERROR_FINAL_USER)
                     .build();
         }
