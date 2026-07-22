@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -79,8 +81,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         ProblemType problemType =ProblemType.INVALID_DATA;
         String detail = "One or more fields are invalid. Please fill them out correctly and try again.";
 
+        BindingResult bindingResult = ex.getBindingResult();
+
+        List<Problem.Field> problemFields = bindingResult.getFieldErrors().stream()
+                .map(fieldError -> Problem.Field.builder()
+                        .name(fieldError.getField())
+                        .userMessage(fieldError.getDefaultMessage())
+                        .build()
+                ).collect(Collectors.toList());
+
         Problem problem = this.createProblemBuilder(this.status(status), problemType, detail)
                 .userMessage(MSG_GENERIC_ERROR_FINAL_USER)
+                .fields(problemFields)
                 .build();
 
         return this.handleExceptionInternal(ex, problem, headers, status, request);
