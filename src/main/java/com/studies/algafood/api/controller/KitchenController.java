@@ -3,6 +3,7 @@ package com.studies.algafood.api.controller;
 import com.studies.algafood.domain.model.Kitchen;
 import com.studies.algafood.domain.repository.KitchenRepository;
 import com.studies.algafood.domain.service.KitchenRegisterService;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,7 +45,7 @@ public class KitchenController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Kitchen> add(@RequestBody Kitchen kitchen) {
+    public ResponseEntity<Kitchen> add(@RequestBody @Valid Kitchen kitchen) {
         kitchen = this.kitchenRegisterService.save(kitchen);
 
         return ResponseEntity.created(URI.create("localhost:8080/kitchens/" + kitchen.getId())).body(kitchen);

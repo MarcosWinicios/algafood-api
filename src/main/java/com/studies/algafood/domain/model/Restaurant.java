@@ -2,6 +2,7 @@ package com.studies.algafood.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.studies.algafood.Groups;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
@@ -16,6 +17,10 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -42,12 +47,17 @@ public class Restaurant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(groups = Groups.RestaurantRegister.class)
     @Column(nullable = false)
     private String name;
 
+    @NotNull(groups = Groups.RestaurantRegister.class)
+    @PositiveOrZero(groups = Groups.RestaurantRegister.class)
     @Column(nullable = false)
     private BigDecimal shippingFee;
 
+    @Valid
+    @NotNull(groups = Groups.RestaurantRegister.class)
     @JsonIgnoreProperties("hibernateLazyInitializer")
     @ManyToOne(cascade = CascadeType.REMOVE , fetch = FetchType.LAZY)
     @JoinColumn(name = "kitchen_id", nullable = false)
