@@ -21,6 +21,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.groups.ConvertGroup;
+import jakarta.validation.groups.Default;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -47,17 +49,18 @@ public class Restaurant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(groups = Groups.RestaurantRegister.class)
+    @NotBlank
     @Column(nullable = false)
     private String name;
 
-    @NotNull(groups = Groups.RestaurantRegister.class)
-    @PositiveOrZero(groups = Groups.RestaurantRegister.class)
+    @NotNull
+    @PositiveOrZero
     @Column(nullable = false)
     private BigDecimal shippingFee;
 
     @Valid
-    @NotNull(groups = Groups.RestaurantRegister.class)
+    @NotNull
+    @ConvertGroup(from = Default.class, to = Groups.KitchenId.class)
     @JsonIgnoreProperties("hibernateLazyInitializer")
     @ManyToOne(cascade = CascadeType.REMOVE , fetch = FetchType.LAZY)
     @JoinColumn(name = "kitchen_id", nullable = false)

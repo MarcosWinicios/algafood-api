@@ -2,7 +2,6 @@ package com.studies.algafood.api.controller;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.studies.algafood.Groups;
 import com.studies.algafood.domain.exception.BusinessException;
 import com.studies.algafood.domain.exception.KitchenNotFoundException;
 import com.studies.algafood.domain.model.Restaurant;
@@ -18,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.util.ReflectionUtils;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -56,7 +54,7 @@ public class RestaurantController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Restaurant save(@RequestBody  @Validated(Groups.RestaurantRegister.class) Restaurant restaurant) {
+    public Restaurant save(@RequestBody @Valid Restaurant restaurant) {
 
         try {
             return this.restaurantRegisterService.save(restaurant);
