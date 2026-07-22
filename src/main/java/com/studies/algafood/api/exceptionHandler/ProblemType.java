@@ -10,7 +10,8 @@ public enum ProblemType {
     ENTITY_IN_USE("/entity-in-use", "Entity in use"),
     BUSINESS_EXCEPTION("/business-error", "Business error"),
     INVALID_PARAMETER("/invalid-parameter", "Invalid parameter"),
-    SYSTEM_ERROR("/system-error", "System error")
+    SYSTEM_ERROR("/system-error", "System error"),
+    INVALID_DATA("/invalid-data", "Invalid data"),
     ;
 
 
