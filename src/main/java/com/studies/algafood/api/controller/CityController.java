@@ -5,6 +5,7 @@ import com.studies.algafood.domain.exception.StateNotFoundException;
 import com.studies.algafood.domain.model.City;
 import com.studies.algafood.domain.repository.CityRepository;
 import com.studies.algafood.domain.service.CityRegisterService;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,7 +46,7 @@ public class CityController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public City save(@RequestBody City city) {
+    public City save(@Valid @RequestBody City city) {
         try{
             return this.cityRegisterService.save(city);
         } catch (StateNotFoundException e) {
@@ -54,7 +55,7 @@ public class CityController {
     }
 
     @PutMapping("/{cityId}")
-    public City update(@PathVariable Long cityId, @RequestBody City city) {
+    public City update(@PathVariable Long cityId, @Valid @RequestBody City city) {
 
         try{
             City currentCity = this.cityRegisterService.findOrFail(cityId);

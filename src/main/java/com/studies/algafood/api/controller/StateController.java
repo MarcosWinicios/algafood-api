@@ -3,6 +3,7 @@ package com.studies.algafood.api.controller;
 import com.studies.algafood.domain.model.State;
 import com.studies.algafood.domain.repository.StateRepository;
 import com.studies.algafood.domain.service.StateRegisterService;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,14 +43,14 @@ public class StateController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<State> save(@RequestBody State state) {
+    public ResponseEntity<State> save(@Valid @RequestBody State state) {
         state = this.stateRegisterService.save(state);
 
         return ResponseEntity.ok(state);
     }
 
     @PutMapping("/{stateId}")
-    public State update(@PathVariable Long stateId, @RequestBody State state) {
+    public State update(@PathVariable Long stateId, @Valid @RequestBody State state) {
         State currentState = this.stateRegisterService.findOrFail(stateId);
         BeanUtils.copyProperties(state, currentState, "id");
         return this.stateRegisterService.save(currentState);

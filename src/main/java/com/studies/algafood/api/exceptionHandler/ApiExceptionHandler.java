@@ -76,6 +76,10 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return super.handleTypeMismatch(ex, headers, status, request);
     }
 
+    /**
+     * Handle exceptions related to invalid arguments received from API inputs. This pattern is widely used with Bean Validation.
+     * @return
+     */
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         ProblemType problemType =ProblemType.INVALID_DATA;

@@ -52,7 +52,7 @@ public class KitchenController {
     }
 
     @PutMapping("/{kitchenId}")
-    public Kitchen update(@PathVariable Long kitchenId, @RequestBody Kitchen kitchen) {
+    public Kitchen update(@PathVariable Long kitchenId, @Valid @RequestBody Kitchen kitchen) {
         Kitchen currentKitchen = this.kitchenRegisterService.findOrFail(kitchenId);
         BeanUtils.copyProperties(kitchen, currentKitchen, "id");
         return this.kitchenRegisterService.save(currentKitchen);
